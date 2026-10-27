@@ -1,0 +1,42 @@
+WillowBoxArt Free Halloween Asset Pack - Technical Information
+===============================================================
+Version 1.0
+
+UNITS
+Centimeters, Y-up.
+
+FORMATS
+- Models: FBX (binary, FBX 2020)
+- Source scenes: Blender 4.5 (.blend) and Maya (.mb)
+- Texture: PNG, 1254 x 1254
+
+ASSET COUNT
+- 27 individual assets (28 mesh components - the MonsterPlant FBX
+  includes its base mushrooms)
+
+MATERIAL SYSTEM
+- 1 shared material: WBA_MAT_Halloween_Atlas
+- Texture: WBA_GradientAtlas_Halloween_v1.png (shared gradient atlas)
+
+UVs
+- Assets use gradient-atlas UV mapping and keep their original UV sets.
+
+FBX DETAILS
+- Individual FBX files import at the world origin (X = 0, Z = 0) with
+  the base at Y = 0. Pivots are preserved from the source assets.
+- Materials and UVs preserved. The texture is provided as an external
+  PNG file (not embedded).
+- Smoothing groups, tangents and binormals included.
+- No cameras, lights, constraints or animation included.
+
+USAGE NOTES
+- Import a model, then assign Textures/WBA_GradientAtlas_Halloween_v1.png
+  as the Base Color texture.
+- If an import reports a missing texture, assign the provided atlas file
+  manually.
+- The Blender and Maya source scenes reference the texture from the
+  package Textures folder. If the link does not resolve automatically,
+  re-link it from Textures/WBA_GradientAtlas_Halloween_v1.png.
+
+NOTES
+- Engine and software compatibility has not been individually tested.

@@ -1,0 +1,28 @@
+Asset_Name,Category,FBX_File,Width_cm,Height_cm,Depth_cm,Material,Texture,Notes
+WBA_Character_WitchCat_01,Characters,WBA_Character_WitchCat_01.fbx,108.81,103.97,106.38,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Black cat with purple witch hat
+WBA_Character_Witch_01,Characters,WBA_Character_Witch_01.fbx,150.81,157.09,170.56,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Chibi witch with hat and broom (single mesh asset)
+WBA_Character_Mummy_01,Characters,WBA_Character_Mummy_01.fbx,88.39,143.93,121.16,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Mummy with yellow eyes
+WBA_Character_Skeleton_01,Characters,WBA_Character_Skeleton_01.fbx,110.14,143.93,113.87,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Crawling skeleton
+WBA_Character_zombie_01,Characters,WBA_Character_zombie_01.fbx,104.65,143.93,102.46,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Chibi zombie; uses custom UV set (map1)
+WBA_Creature_MonsterPlant_01,Creatures,WBA_Creature_MonsterPlant_01.fbx,446.81,396.53,307.82,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Tree monster; includes base mushrooms (merged into this FBX)
+WBA_Ghost_Cute_01,Ghosts,WBA_Ghost_Cute_01.fbx,59.21,59.21,46.06,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Cute ghost with tongue out
+WBA_Ghost_Cute_02,Ghosts,WBA_Ghost_Cute_02.fbx,46.86,59.97,52.31,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Cute ghost
+WBA_Pumpkin_JackOLantern_01,Pumpkins,WBA_Pumpkin_JackOLantern_01.fbx,38.88,39.8,36.77,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Carved jack-o-lantern with stem
+WBA_Witch_Broom_Set_01,Witch_Props,WBA_Witch_Broom_Set_01.fbx,39.87,74.46,34.57,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Broom with collar bands
+WBA_Witch_Broom_Set_02,Witch_Props,WBA_Witch_Broom_Set_02.fbx,42.49,90.07,38.75,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Broom with collar bands and strap
+WBA_Witch_Broom_Set_03,Witch_Props,WBA_Witch_Broom_Set_03.fbx,41.54,92.42,37.93,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Broom with collar bands
+WBA_Witch_Cauldron_Large_01,Witch_Props,WBA_Witch_Cauldron_Large_01.fbx,46.74,53.79,45.72,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Large cauldron with green potion and ladle
+WBA_Witch_Cauldron_Medium_01,Witch_Props,WBA_Witch_Cauldron_Medium_01.fbx,36.91,43.07,33.06,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Medium cauldron with contents
+WBA_Witch_Cauldron_Small_01,Witch_Props,WBA_Witch_Cauldron_Small_01.fbx,28.39,36.11,24.64,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Small cauldron with bubbling contents
+WBA_Witch_Cauldron_Candle_01,Witch_Props,WBA_Witch_Cauldron_Candle_01.fbx,9.79,13.7,9.79,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Candle prop
+WBA_Witch_Cauldron_Candle_02,Witch_Props,WBA_Witch_Cauldron_Candle_02.fbx,9.79,11.06,9.79,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Candle prop
+WBA_Witch_Cauldron_Candle_03,Witch_Props,WBA_Witch_Cauldron_Candle_03.fbx,5.31,5.67,5.28,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Small candle prop
+WBA_Gravestone_Set_01,Gravestones,WBA_Gravestone_Set_01.fbx,46.88,86.06,29.62,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Gothic arch gravestone with crescent moon relief
+WBA_Gravestone_Set_02,Gravestones,WBA_Gravestone_Set_02.fbx,47.37,60.42,36.81,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Rounded gravestone with skull relief
+WBA_Gravestone_Set_03,Gravestones,WBA_Gravestone_Set_03.fbx,47.16,57.86,40.77,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Plain cracked gravestone
+WBA_CandyBucket_Set_01,Candy_Props,WBA_CandyBucket_Set_01.fbx,31.13,28.27,32.1,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Jack-o-lantern candy bucket full of candy
+WBA_CandyBucket_Set_02,Candy_Props,WBA_CandyBucket_Set_02.fbx,29.38,29.14,26.93,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Candy bucket with candies
+WBA_CandyBucket_Set_03,Candy_Props,WBA_CandyBucket_Set_03.fbx,27.18,29.02,27.38,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Candy bucket with candies
+WBA_Decoration_Bat_01,Decorations,WBA_Decoration_Bat_01.fbx,39.97,19.43,11.15,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Purple bat with pink wings
+WBA_Decoration_Candle_01,Decorations,WBA_Decoration_Candle_01.fbx,20.89,23.63,15.39,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,Decorative candle
+WBA_Sign_Halloween_01,Decorations,WBA_Sign_Halloween_01.fbx,54.63,99.95,39.31,WBA_MAT_Halloween_Atlas,WBA_GradientAtlas_Halloween_v1.png,TRICK OR TREAT wooden sign on rocks

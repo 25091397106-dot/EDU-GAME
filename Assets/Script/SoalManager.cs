@@ -30,6 +30,8 @@ public class SoalManager : MonoBehaviour
     [Header("Pop Up Hasil Jawaban")]
     public GameObject panelPopUpHasil;
     public TMP_Text teksHasilJawaban;
+    public CardDisplayManager cardDisplayManager;
+
     [Header("Database Soal")]
     public TextAsset fileSoal;
 
@@ -46,9 +48,36 @@ public class SoalManager : MonoBehaviour
     private Button[] tombolJawaban;
     private DataSoal soalAktif;
     private bool sudahMenjawab;
+    [Header("Timer Soal")]
+    public float batasWaktuSoal = 30f;
+
+    private Coroutine timerSoal;
+
+    private System.Collections.IEnumerator HitungWaktuSoal()
+    {
+        yield return new WaitForSeconds(batasWaktuSoal);
+
+        timerSoal = null;
+
+        if (!sudahMenjawab)
+        {
+            Debug.Log("Waktu menjawab soal habis! Jawaban dianggap salah.");
+            PeriksaJawaban(false);
+        }
+    }
 
     // Nantinya dipakai sistem pembelian properti
     public event Action<bool> OnJawabanSelesai;
+    public void BatalkanSoal()
+    {
+        if (timerSoal != null)
+        {
+            StopCoroutine(timerSoal);
+            timerSoal = null;
+        }
+
+        sudahMenjawab = true;
+    }
 
     void Awake()
     {
@@ -212,6 +241,12 @@ public class SoalManager : MonoBehaviour
 
             tombolAktif.interactable = true;
         }
+        if (timerSoal != null)
+        {
+            StopCoroutine(timerSoal);
+        }
+
+        timerSoal = StartCoroutine(HitungWaktuSoal());
     }
     private System.Collections.IEnumerator TampilkanPopUpHasil(bool benar)
     {
@@ -231,6 +266,11 @@ public class SoalManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         panelPopUpHasil.SetActive(false);
+
+        if (cardDisplayManager != null)
+        {
+            cardDisplayManager.SembunyikanKartu();
+        }
     }
     private void PeriksaJawaban(bool benar)
     {
@@ -238,6 +278,12 @@ public class SoalManager : MonoBehaviour
             return;
 
         sudahMenjawab = true;
+
+        if (timerSoal != null)
+        {
+            StopCoroutine(timerSoal);
+            timerSoal = null;
+        }
         StartCoroutine(TampilkanPopUpHasil(benar));
 
         foreach (Button tombol in tombolJawaban)

@@ -442,7 +442,7 @@
     },
     {
       "komplek": "PPKn",
-      "petak": "UUD 1945",
+      "petak": "jejak konstitusi",
       "nomor": 1,
       "pertanyaan": "UUD merupakan singkatan dari ...",
       "A": "Undang-Undang Dasar",
@@ -453,7 +453,7 @@
     },
     {
       "komplek": "PPKn",
-      "petak": "UUD 1945",
+      "petak": "jejak konstitusi",
       "nomor": 2,
       "pertanyaan": "UUD yang berlaku di Indonesia adalah ...",
       "A": "UUD 1927",
@@ -464,7 +464,7 @@
     },
     {
       "komplek": "PPKn",
-      "petak": "UUD 1945",
+      "petak": "jejak konstitusi",
       "nomor": 3,
       "pertanyaan": "Pembukaan UUD 1945 terdiri atas ... alinea.",
       "A": "1",
@@ -475,7 +475,7 @@
     },
     {
       "komplek": "PPKn",
-      "petak": "UUD 1945",
+      "petak": "jejak konstitusi",
       "nomor": 4,
       "pertanyaan": "Proklamasi Kemerdekaan Indonesia dibacakan pada ...",
       "A": "28 Oktober 1945",
@@ -486,7 +486,7 @@
     },
     {
       "komplek": "PPKn",
-      "petak": "UUD 1945",
+      "petak": "jejak konstitusi",
       "nomor": 5,
       "pertanyaan": "UUD 1945 merupakan hukum ... tertulis Indonesia.",
       "A": "Tambahan",
@@ -497,7 +497,7 @@
     },
     {
       "komplek": "PPKn",
-      "petak": "UUD 1945",
+      "petak": "jejak konstitusi",
       "nomor": 6,
       "pertanyaan": "Indonesia menurut UUD 1945 adalah negara ...",
       "A": "Kesatuan berbentuk republik",
@@ -508,7 +508,7 @@
     },
     {
       "komplek": "PPKn",
-      "petak": "UUD 1945",
+      "petak": "jejak konstitusi",
       "nomor": 7,
       "pertanyaan": "Kedaulatan berada di tangan ...",
       "A": "Rakyat",
@@ -519,7 +519,7 @@
     },
     {
       "komplek": "PPKn",
-      "petak": "UUD 1945",
+      "petak": "jejak konstitusi",
       "nomor": 8,
       "pertanyaan": "UUD 1945 mengatur dasar kehidupan ...",
       "A": "Bernegara",
@@ -530,7 +530,7 @@
     },
     {
       "komplek": "PPKn",
-      "petak": "UUD 1945",
+      "petak": "jejak konstitusi",
       "nomor": 9,
       "pertanyaan": "Lembaga yang berwenang mengubah dan menetapkan UUD adalah ...",
       "A": "DPR",
@@ -541,7 +541,7 @@
     },
     {
       "komplek": "PPKn",
-      "petak": "UUD 1945",
+      "petak": "jejak konstitusi",
       "nomor": 10,
       "pertanyaan": "Hak dan kewajiban warga negara salah satunya diatur dalam ...",
       "A": "UUD 1945",
@@ -1357,11 +1357,11 @@
       "komplek": "Ekonomi",
       "petak": "Pasar",
       "nomor": 4,
-      "pertanyaan": "Pasar yang transaksi utamanya dilakukan melalui internet disebut pasar ...",
-      "A": "Online",
-      "B": "Tradisional",
-      "C": "Lokal",
-      "D": "Desa",
+      "pertanyaan": "Pasar yang transaksi utamanya dilakukan melalui internet disebut ...",
+      "A": "Pasar Online",
+      "B": "Pasar Tradisional",
+      "C": "Pasar Lokal",
+      "D": "Pasar Desa",
       "jawaban": "A"
     },
     {

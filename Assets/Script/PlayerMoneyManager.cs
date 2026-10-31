@@ -181,4 +181,20 @@ public class PlayerMoneyManager : MonoBehaviour
             }
         }
     }
+    public bool BeliLahan(DataLahan lahan, int idPemain,
+                      PlayerMoneyManager uang)
+    {
+        if (lahan == null || uang == null || lahan.pemilik != -1)
+            return false;
+
+        if (!uang.KurangiSaldo(idPemain, lahan.harga))
+            return false;
+
+        lahan.pemilik = idPemain;
+
+        Debug.Log("Pemain " + (idPemain + 1) +
+                  " berhasil membeli " + lahan.namaLahan);
+
+        return true;
+    }
 }

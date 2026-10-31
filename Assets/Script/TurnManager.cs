@@ -1,9 +1,8 @@
-
+using System.Collections;
+using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Collections;
-using Unity.Netcode;
 
 public class TurnManager : MonoBehaviour
 {
@@ -116,6 +115,19 @@ public class TurnManager : MonoBehaviour
 
     void MulaiTimerManusia()
     {
+        if (!ModeMultiplayer &&
+            daftarPion != null &&
+            daftarPion.Length > 0 &&
+            daftarPion[0] != null &&
+            daftarPion[0].sedangDipenjara)
+        {
+            if (!BayarDendaPenjara(0))
+            {
+                HentikanTimer();
+                StartCoroutine(LewatiGiliranPenjara());
+                return;
+            }
+        }
         waktuTersisa = Mathf.Max(
             1f, batasWaktuLempar
         );
@@ -288,9 +300,18 @@ public class TurnManager : MonoBehaviour
             () => !pion.SedangBergerak
         );
 
+        // Bayar pajak jika berhenti di petak pajak
+        ProsesPajak(pion);
+        ProsesReward(pion);
+
         // TAMBAHAN: Cek penawaran pembelian lahan
         yield return StartCoroutine(TungguPilihanPembelian(pion));
 
+        // Pembelian otomatis khusus bot
+        if (!ModeMultiplayer && giliranSekarang != 0)
+        {
+            yield return StartCoroutine(ProsesPembelianBot(pion));
+        }
         yield return new WaitForSeconds(1f);
 
         giliranSedangDiproses = false;
@@ -371,6 +392,23 @@ public class TurnManager : MonoBehaviour
             );
             yield break;
         }
+        // Periksa penjara sebelum bot melempar dadu
+        if (daftarPion != null &&
+            giliranSekarang < daftarPion.Length &&
+            daftarPion[giliranSekarang] != null &&
+            daftarPion[giliranSekarang].sedangDipenjara)
+        {
+            if (!BayarDendaPenjara(giliranSekarang))
+            {
+                Debug.Log(
+                    "Bot Player " + (giliranSekarang + 1) +
+                    " tetap dipenjara dan melewati giliran."
+                );
+
+                GiliranBerikutnya();
+                yield break;
+            }
+        }
 
         giliranSedangDiproses = true;
 
@@ -437,8 +475,12 @@ public class TurnManager : MonoBehaviour
 
         PropertyPurchaseUI purchaseUI =
             FindAnyObjectByType<PropertyPurchaseUI>();
+        SoalManager soalManager =
+            FindAnyObjectByType<SoalManager>();
+        PlayerMoneyManager uang =
+            FindAnyObjectByType<PlayerMoneyManager>();
 
-        if (dataManager == null || purchaseUI == null)
+        if (dataManager == null || purchaseUI == null || soalManager == null || uang == null)
             yield break;
 
         // Ambil data sesuai petak tempat pion berhenti
@@ -464,34 +506,66 @@ public class TurnManager : MonoBehaviour
         }
 
         bool sudahMemilih = false;
+        bool sedangMenjawab = false;
+        bool sudahSelesaiMenjawab = false;
 
         System.Action aksiBeli = () =>
         {
-            Debug.Log(
-                "Pemain ingin membeli " +
-                lahan.namaLahan +
-                ". Selanjutnya perlu menjawab soal."
-            );
+            if (sudahMemilih)
+                return;
 
-            if (cardDisplayManager != null)
+            Debug.Log("Tombol Beli diklik: " + lahan.namaLahan);
+
+            if (cardDisplayManager == null)
             {
-                cardDisplayManager.TampilkanKartuSesuaiPetak(
-                    lahan.namaLahan
-                );
+                Debug.LogError("CardDisplayManager belum terhubung!");
+                return;
             }
 
+            bool berhasilTampil =
+                cardDisplayManager.TampilkanKartuSesuaiPetak(lahan.namaLahan);
+
+            Debug.Log("Kartu berhasil tampil: " + berhasilTampil);
+
+            if (!berhasilTampil)
+                return;
+
+            sedangMenjawab = true;
             sudahMemilih = true;
         };
-
         System.Action aksiLewati = () =>
         {
-            Debug.Log(
-                "Pemain melewati " +
-                lahan.namaLahan
-            );
+            if (sudahMemilih)
+                return;
 
+            Debug.Log("Pemain melewati " + lahan.namaLahan);
             sudahMemilih = true;
         };
+
+        System.Action<bool> hasilJawaban = (benar) =>
+        {
+            if (!sedangMenjawab || sudahSelesaiMenjawab)
+                return;
+
+            sudahSelesaiMenjawab = true;
+
+            if (benar)
+            {
+                bool berhasil = dataManager.BeliLahan(
+                    lahan, giliranSekarang, uang
+                );
+
+                Debug.Log(berhasil
+                    ? "Pembelian berhasil!"
+                    : "Pembelian gagal, saldo tidak cukup.");
+            }
+            else
+            {
+                Debug.Log("Jawaban salah, pembelian batal.");
+            }
+        };
+
+        soalManager.OnJawabanSelesai += hasilJawaban;
 
         // Hubungkan keputusan pemain
         purchaseUI.saatKlikBeli += aksiBeli;
@@ -504,13 +578,184 @@ public class TurnManager : MonoBehaviour
             lahan.warnaKomplek
         );
 
-        // Giliran menunggu pemain memilih
-        yield return new WaitUntil(
-            () => sudahMemilih
-        );
+        // Tunggu pemain memilih Beli atau Lewati
+        yield return new WaitUntil(() => sudahMemilih);
 
-        // Lepaskan event agar tidak menumpuk
+        // Jika memilih Beli, tunggu sampai soal dijawab
+        if (sedangMenjawab)
+        {
+            yield return new WaitUntil(() => sudahSelesaiMenjawab);
+
+            // Tunggu pop-up hasil jawaban selesai
+            yield return new WaitForSeconds(2f);
+        }
+
+        // Lepaskan event setelah proses selesai
         purchaseUI.saatKlikBeli -= aksiBeli;
         purchaseUI.saatKlikLewati -= aksiLewati;
+        soalManager.OnJawabanSelesai -= hasilJawaban;
+    }
+    IEnumerator ProsesPembelianBot(PionMovement pion)
+    {
+        if (pion == null || !pion.BolehBeliLahan)
+            yield break;
+
+        PropertyDataManager dataManager =
+            FindAnyObjectByType<PropertyDataManager>();
+
+        PlayerMoneyManager uang =
+            FindAnyObjectByType<PlayerMoneyManager>();
+
+        if (dataManager == null || uang == null)
+            yield break;
+
+        DataLahan lahan = dataManager.CariLahan(pion.posisiSekarang);
+
+        if (lahan == null || lahan.pemilik != -1 || lahan.harga <= 0)
+            yield break;
+
+        int idBot = giliranSekarang;
+
+        if (uang.saldoPemain == null ||
+            idBot < 0 ||
+            idBot >= uang.saldoPemain.Length)
+            yield break;
+
+        // Bot hanya mencoba membeli jika saldo mencukupi
+        if (uang.saldoPemain[idBot] < lahan.harga)
+        {
+            Debug.Log("Bot tidak cukup uang membeli " + lahan.namaLahan);
+            yield break;
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        // Simulasi bot menjawab soal: peluang benar 70%
+        bool jawabanBenar = Random.value < 0.75f;
+
+        if (jawabanBenar)
+        {
+            bool berhasil = dataManager.BeliLahan(lahan, idBot, uang);
+
+            Debug.Log(berhasil
+                ? "Bot berhasil membeli " + lahan.namaLahan
+                : "Bot gagal membeli " + lahan.namaLahan);
+        }
+        else
+        {
+            Debug.Log("Bot salah menjawab soal. Pembelian batal.");
+        }
+    }
+    void ProsesPajak(PionMovement pion)
+    {
+        if (pion == null || ModeMultiplayer)
+            return;
+
+        int biayaPajak = 0;
+
+        if (pion.posisiSekarang == 5)
+            biayaPajak = 100000;
+        else if (pion.posisiSekarang == 33)
+            biayaPajak = 150000;
+
+        if (biayaPajak == 0)
+            return;
+
+        PlayerMoneyManager uang =
+            FindAnyObjectByType<PlayerMoneyManager>();
+
+        if (uang == null)
+            return;
+
+        bool berhasil = uang.KurangiSaldo(
+            giliranSekarang,
+            biayaPajak
+        );
+
+        if (berhasil)
+            Debug.Log("Player " + (giliranSekarang + 1) +
+                      " membayar pajak Rp" + biayaPajak);
+        else
+            Debug.Log("Saldo tidak cukup untuk membayar pajak!");
+    }
+    bool BayarDendaPenjara(int idPemain)
+    {
+        if (ModeMultiplayer)
+            return false;
+
+        if (daftarPion == null ||
+            idPemain < 0 ||
+            idPemain >= daftarPion.Length)
+            return false;
+
+        PionMovement pion = daftarPion[idPemain];
+
+        if (pion == null)
+            return false;
+
+        // Pemain yang tidak dipenjara boleh bermain biasa
+        if (!pion.sedangDipenjara)
+            return true;
+
+        PlayerMoneyManager uang =
+            FindAnyObjectByType<PlayerMoneyManager>();
+
+        if (uang == null)
+            return false;
+
+        const int denda = 100000;
+
+        // Bayar denda hanya jika saldo mencukupi
+        bool berhasil = uang.KurangiSaldo(idPemain, denda);
+
+        if (!berhasil)
+        {
+            Debug.Log(
+                "Player " + (idPemain + 1) +
+                " belum bisa keluar penjara. Saldo tidak cukup!"
+            );
+
+            return false;
+        }
+
+        pion.sedangDipenjara = false;
+
+        Debug.Log(
+            "Player " + (idPemain + 1) +
+            " membayar denda Rp100.000 dan BEBAS dari penjara!"
+        );
+
+        return true;
+    }
+    IEnumerator LewatiGiliranPenjara()
+    {
+        yield return new WaitForSeconds(1f);
+
+        GiliranBerikutnya();
+    }
+    void ProsesReward(PionMovement pion)
+    {
+        if (pion == null || ModeMultiplayer)
+            return;
+
+        // Reward hanya pada WP 11 dan WP 20
+        if (pion.posisiSekarang != 11 &&
+            pion.posisiSekarang != 20)
+            return;
+
+        PlayerMoneyManager uang =
+            FindAnyObjectByType<PlayerMoneyManager>();
+
+        if (uang == null)
+            return;
+
+        int hadiah = 50000;
+
+        uang.TambahSaldo(giliranSekarang, hadiah);
+
+        Debug.Log(
+            "Player " + (giliranSekarang + 1) +
+            " mendapat REWARD Rp50.000!"
+        );
     }
 }

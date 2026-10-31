@@ -1,0 +1,758 @@
+{
+  "Dana Umum": [
+    {
+      "No": 1,
+      "Kartu": "KAMU MENDAPAT HADIAH!",
+      "Aksi": "Dapatkan Rp50.000."
+    },
+    {
+      "No": 2,
+      "Kartu": "KAMU MEMENANGKAN LOMBA SEKOLAH.",
+      "Aksi": "Dapatkan Rp100.000."
+    },
+    {
+      "No": 3,
+      "Kartu": "KAMU RAJIN BELAJAR HARI INI.",
+      "Aksi": "Maju 2 petak."
+    },
+    {
+      "No": 4,
+      "Kartu": "PRESTASIMU MENDAPAT PENGHARGAAN.",
+      "Aksi": "Dapatkan Rp75.000."
+    },
+    {
+      "No": 5,
+      "Kartu": "TEMANMU MEMBANTUMU.",
+      "Aksi": "Maju 1 petak."
+    },
+    {
+      "No": 6,
+      "Kartu": "KAMU MENDAPAT PERLENGKAPAN SEKOLAH BARU.",
+      "Aksi": "Dapatkan Rp20.000."
+    },
+    {
+      "No": 7,
+      "Kartu": "KAMU MENDAPAT UANG TAMBAHAN.",
+      "Aksi": "Dapatkan Rp50.000."
+    },
+    {
+      "No": 8,
+      "Kartu": "KAMU MENJADI JUARA KELAS.",
+      "Aksi": "Dapatkan Rp100.000."
+    },
+    {
+      "No": 9,
+      "Kartu": "HARI INI ADALAH HARI KEBERUNTUNGANMU!",
+      "Aksi": "Maju 3 petak."
+    },
+    {
+      "No": 10,
+      "Kartu": "KAMU MENDAPAT PENGHARGAAN ATAS KERJA KERASMU.",
+      "Aksi": "Dapatkan Rp50.000."
+    },
+    {
+      "No": 11,
+      "Kartu": "KAMU MENEMUKAN BUKU YANG KAMU CARI.",
+      "Aksi": "Maju 2 petak."
+    },
+    {
+      "No": 12,
+      "Kartu": "KAMU MENDAPAT PUJIAN DARI GURU.",
+      "Aksi": "Dapatkan Rp10.000."
+    },
+    {
+      "No": 13,
+      "Kartu": "KAMU IKUT KERJA BAKTI.",
+      "Aksi": "Dapatkan Rp20.000."
+    },
+    {
+      "No": 14,
+      "Kartu": "IDE KAMU BERHASIL MEMBANTU KELOMPOK.",
+      "Aksi": "Dapatkan Rp25.000."
+    },
+    {
+      "No": 15,
+      "Kartu": "TARGETMU BERHASIL TERCAPAI.",
+      "Aksi": "Maju 2 petak."
+    },
+    {
+      "No": 16,
+      "Kartu": "KAMU AKTIF MENGIKUTI KEGIATAN SEKOLAH.",
+      "Aksi": "Dapatkan Rp25.000."
+    },
+    {
+      "No": 17,
+      "Kartu": "KARYAMU MENDAPAT APRESIASI.",
+      "Aksi": "Dapatkan Rp50.000."
+    },
+    {
+      "No": 18,
+      "Kartu": "KAMU MEMBANTU TEMAN YANG KESULITAN.",
+      "Aksi": "Maju 1 petak."
+    },
+    {
+      "No": 19,
+      "Kartu": "KAMU IKUT MENJAGA LINGKUNGAN.",
+      "Aksi": "Dapatkan Rp20.000."
+    },
+    {
+      "No": 20,
+      "Kartu": "KAMU BERANI TAMPIL DI DEPAN KELAS.",
+      "Aksi": "Maju 2 petak."
+    },
+    {
+      "No": 21,
+      "Kartu": "KAMU MENDAPAT KABAR BAIK!",
+      "Aksi": "Dapatkan Rp50.000."
+    },
+    {
+      "No": 22,
+      "Kartu": "USAHAMU AKHIRNYA MEMBUAHKAN HASIL.",
+      "Aksi": "Maju 3 petak."
+    },
+    {
+      "No": 23,
+      "Kartu": "KAMU BERHASIL MENYELESAIKAN TUGAS DENGAN BAIK.",
+      "Aksi": "Dapatkan Rp25.000."
+    },
+    {
+      "No": 24,
+      "Kartu": "HARI INI KAMU SANGAT BERUNTUNG!",
+      "Aksi": "Lempar dadu sekali lagi."
+    },
+    {
+      "No": 25,
+      "Kartu": "HADIAH KEJUTAN!",
+      "Aksi": "Dapatkan Rp500.000."
+    }
+  ],
+  "Kesempatan": [
+    {
+      "No": 26,
+      "Kartu": "KAMU SEDANG BERUNTUNG!",
+      "Aksi": "Maju 3 petak."
+    },
+    {
+      "No": 27,
+      "Kartu": "COBA KEBERUNTUNGANMU!",
+      "Aksi": "Lempar dadu sekali lagi."
+    },
+    {
+      "No": 28,
+      "Kartu": "KAMU MENEMUKAN JALAN PINTAS!",
+      "Aksi": "Maju 4 petak."
+    },
+    {
+      "No": 29,
+      "Kartu": "BONUS KEJUTAN!",
+      "Aksi": "Dapatkan Rp100.000."
+    },
+    {
+      "No": 30,
+      "Kartu": "HADIAH TAK TERDUGA!",
+      "Aksi": "Dapatkan Rp50.000."
+    },
+    {
+      "No": 31,
+      "Kartu": "TUKAR POSISI!",
+      "Aksi": "Tukar posisi dengan pemain pilihanmu."
+    },
+    {
+      "No": 32,
+      "Kartu": "KESEMPATAN EMAS!",
+      "Aksi": "Maju 5 petak."
+    },
+    {
+      "No": 33,
+      "Kartu": "KAMU MENDAPAT PERLINDUNGAN.",
+      "Aksi": "Gunakan kartu ini untuk membatalkan 1 hukuman."
+    },
+    {
+      "No": 34,
+      "Kartu": "KAMU BERGERAK LEBIH CEPAT!",
+      "Aksi": "Maju 2 petak."
+    },
+    {
+      "No": 35,
+      "Kartu": "PILIHANMU!",
+      "Aksi": "Pilih: maju 3 petak atau dapatkan Rp50.000."
+    },
+    {
+      "No": 36,
+      "Kartu": "HARI KEBERUNTUNGAN!",
+      "Aksi": "Dapatkan Rp500.000."
+    },
+    {
+      "No": 37,
+      "Kartu": "KESEMPATAN KEDUA!",
+      "Aksi": "Jika kamu kehilangan giliran, abaikan hukuman tersebut."
+    },
+    {
+      "No": 38,
+      "Kartu": "JALANMU TERHAMBAT.",
+      "Aksi": "Mundur 2 petak."
+    },
+    {
+      "No": 39,
+      "Kartu": "KAMU KELELAHAN.",
+      "Aksi": "Kehilangan 1 giliran."
+    },
+    {
+      "No": 40,
+      "Kartu": "ADA PENGELUARAN MENDADAK.",
+      "Aksi": "Bayar Rp20.000."
+    },
+    {
+      "No": 41,
+      "Kartu": "KAMU LUPA MENGERJAKAN TUGAS.",
+      "Aksi": "Mundur 1 petak."
+    },
+    {
+      "No": 42,
+      "Kartu": "KAMU DATANG TERLAMBAT.",
+      "Aksi": "Kehilangan 1 giliran."
+    },
+    {
+      "No": 43,
+      "Kartu": "KAMU KURANG FOKUS.",
+      "Aksi": "Mundur 2 petak."
+    },
+    {
+      "No": 44,
+      "Kartu": "HUJAN MENGHAMBAT PERJALANANMU.",
+      "Aksi": "Bayar Rp10.000."
+    },
+    {
+      "No": 45,
+      "Kartu": "KAMU MELAKUKAN KESALAHAN.",
+      "Aksi": "Bayar Rp50.000."
+    },
+    {
+      "No": 46,
+      "Kartu": "BUKUMU TERTINGGAL DI RUMAH.",
+      "Aksi": "Bayar Rp5.000."
+    },
+    {
+      "No": 47,
+      "Kartu": "SITUASI BERUBAH!",
+      "Aksi": "Kembali ke petak sebelumnya."
+    },
+    {
+      "No": 48,
+      "Kartu": "NASIB ADA DI TANGANMU!",
+      "Aksi": "Lempar dadu: 1-3 = bayar Rp20.000; 4-6 = dapatkan Rp20.000."
+    },
+    {
+      "No": 49,
+      "Kartu": "PILIH HADIAHMU!",
+      "Aksi": "Pilih: dapatkan Rp50.000 atau maju 3 petak."
+    },
+    {
+      "No": 50,
+      "Kartu": "KESEMPATAN BESAR!",
+      "Aksi": "Dapatkan Rp100.000."
+    }
+  ],
+  "Wawasan Umum": [
+    {
+      "No": 1,
+      "Level": "Mudah",
+      "Pertanyaan": "Negara apa yang terkenal dengan julukan \"Negeri Matahari Terbit\"?",
+      "A": "Korea Selatan",
+      "B": "Jepang",
+      "C": "Tiongkok",
+      "D": "Thailand",
+      "Jawaban": "B. Jepang"
+    },
+    {
+      "No": 2,
+      "Level": "Mudah",
+      "Pertanyaan": "Negara mana yang terkenal dengan Menara Eiffel?",
+      "A": "Italia",
+      "B": "Inggris",
+      "C": "Prancis",
+      "D": "Spanyol",
+      "Jawaban": "C. Prancis"
+    },
+    {
+      "No": 3,
+      "Level": "Mudah",
+      "Pertanyaan": "Negara mana yang terkenal dengan Tembok Besar?",
+      "A": "Jepang",
+      "B": "India",
+      "C": "Tiongkok",
+      "D": "Korea Selatan",
+      "Jawaban": "C. Tiongkok"
+    },
+    {
+      "No": 4,
+      "Level": "Mudah",
+      "Pertanyaan": "Negara mana yang terkenal dengan kincir angin dan bunga tulip?",
+      "A": "Belanda",
+      "B": "Jerman",
+      "C": "Swiss",
+      "D": "Belgia",
+      "Jawaban": "A. Belanda"
+    },
+    {
+      "No": 5,
+      "Level": "Mudah",
+      "Pertanyaan": "Kota apa yang dikenal sebagai \"Kota Pahlawan\"?",
+      "A": "Bandung",
+      "B": "Surabaya",
+      "C": "Semarang",
+      "D": "Medan",
+      "Jawaban": "B. Surabaya"
+    },
+    {
+      "No": 6,
+      "Level": "Mudah",
+      "Pertanyaan": "Tari Kecak berasal dari daerah mana?",
+      "A": "Bali",
+      "B": "Aceh",
+      "C": "Jawa Tengah",
+      "D": "Sumatera Barat",
+      "Jawaban": "A. Bali"
+    },
+    {
+      "No": 7,
+      "Level": "Mudah",
+      "Pertanyaan": "Tari Saman berasal dari provinsi mana?",
+      "A": "Sumatera Utara",
+      "B": "Aceh",
+      "C": "Riau",
+      "D": "Sumatera Barat",
+      "Jawaban": "B. Aceh"
+    },
+    {
+      "No": 8,
+      "Level": "Mudah",
+      "Pertanyaan": "Makanan rendang berasal dari daerah mana?",
+      "A": "Jawa Barat",
+      "B": "Sumatera Barat",
+      "C": "Sulawesi Selatan",
+      "D": "Bali",
+      "Jawaban": "B. Sumatera Barat"
+    },
+    {
+      "No": 9,
+      "Level": "Mudah",
+      "Pertanyaan": "Pempek merupakan makanan khas dari kota mana?",
+      "A": "Padang",
+      "B": "Palembang",
+      "C": "Medan",
+      "D": "Pekanbaru",
+      "Jawaban": "B. Palembang"
+    },
+    {
+      "No": 10,
+      "Level": "Mudah",
+      "Pertanyaan": "Alat musik tradisional yang terbuat dari bambu dan dimainkan dengan cara digoyangkan adalah...",
+      "A": "Sasando",
+      "B": "Angklung",
+      "C": "Kolintang",
+      "D": "Gamelan",
+      "Jawaban": "B. Angklung"
+    },
+    {
+      "No": 11,
+      "Level": "Mudah",
+      "Pertanyaan": "Apa nama kain tradisional Indonesia yang terkenal hingga ke mancanegara?",
+      "A": "Songket",
+      "B": "Batik",
+      "C": "Ulos",
+      "D": "Tenun",
+      "Jawaban": "B. Batik"
+    },
+    {
+      "No": 12,
+      "Level": "Mudah",
+      "Pertanyaan": "Rumah adat yang identik dengan Sumatera Barat adalah...",
+      "A": "Rumah Gadang",
+      "B": "Honai",
+      "C": "Joglo",
+      "D": "Tongkonan",
+      "Jawaban": "A. Rumah Gadang"
+    },
+    {
+      "No": 13,
+      "Level": "Mudah",
+      "Pertanyaan": "Hewan apa yang menjadi ikon Pulau Komodo?",
+      "A": "Buaya",
+      "B": "Iguana",
+      "C": "Komodo",
+      "D": "Biawak",
+      "Jawaban": "C. Komodo"
+    },
+    {
+      "No": 14,
+      "Level": "Mudah",
+      "Pertanyaan": "Hewan apa yang dikenal memiliki leher sangat panjang?",
+      "A": "Zebra",
+      "B": "Jerapah",
+      "C": "Unta",
+      "D": "Rusa",
+      "Jawaban": "B. Jerapah"
+    },
+    {
+      "No": 15,
+      "Level": "Mudah",
+      "Pertanyaan": "Hewan apa yang menghasilkan madu?",
+      "A": "Lebah",
+      "B": "Kupu-kupu",
+      "C": "Semut",
+      "D": "Lalat",
+      "Jawaban": "A. Lebah"
+    },
+    {
+      "No": 16,
+      "Level": "Mudah",
+      "Pertanyaan": "Olahraga apa yang menggunakan raket dan kok?",
+      "A": "Tenis",
+      "B": "Bulu tangkis",
+      "C": "Squash",
+      "D": "Pingpong",
+      "Jawaban": "B. Bulu tangkis"
+    },
+    {
+      "No": 17,
+      "Level": "Mudah",
+      "Pertanyaan": "Olahraga apa yang menggunakan istilah \"slam dunk\"?",
+      "A": "Bola basket",
+      "B": "Sepak bola",
+      "C": "Bola voli",
+      "D": "Tenis",
+      "Jawaban": "A. Bola basket"
+    },
+    {
+      "No": 18,
+      "Level": "Mudah",
+      "Pertanyaan": "Apa nama aplikasi yang terkenal sebagai platform berbagi video?",
+      "A": "YouTube",
+      "B": "Google Maps",
+      "C": "Gmail",
+      "D": "Wikipedia",
+      "Jawaban": "A. YouTube"
+    },
+    {
+      "No": 19,
+      "Level": "Mudah",
+      "Pertanyaan": "Apa nama perusahaan yang membuat iPhone?",
+      "A": "Samsung",
+      "B": "Microsoft",
+      "C": "Apple",
+      "D": "Xiaomi",
+      "Jawaban": "C. Apple"
+    },
+    {
+      "No": 20,
+      "Level": "Mudah",
+      "Pertanyaan": "Apa nama satelit alami Bumi?",
+      "A": "Mars",
+      "B": "Bulan",
+      "C": "Venus",
+      "D": "Matahari",
+      "Jawaban": "B. Bulan"
+    },
+    {
+      "No": 21,
+      "Level": "Sedang",
+      "Pertanyaan": "Apa nama ibu kota Australia?",
+      "A": "Sydney",
+      "B": "Melbourne",
+      "C": "Canberra",
+      "D": "Perth",
+      "Jawaban": "C. Canberra"
+    },
+    {
+      "No": 22,
+      "Level": "Sedang",
+      "Pertanyaan": "Negara mana yang memiliki bentuk yang sering digambarkan seperti sepatu bot pada peta?",
+      "A": "Italia",
+      "B": "Yunani",
+      "C": "Portugal",
+      "D": "Spanyol",
+      "Jawaban": "A. Italia"
+    },
+    {
+      "No": 23,
+      "Level": "Sedang",
+      "Pertanyaan": "Apa nama sungai terkenal yang mengalir melewati Mesir?",
+      "A": "Sungai Amazon",
+      "B": "Sungai Nil",
+      "C": "Sungai Gangga",
+      "D": "Sungai Mekong",
+      "Jawaban": "B. Sungai Nil"
+    },
+    {
+      "No": 24,
+      "Level": "Sedang",
+      "Pertanyaan": "Apa nama gurun panas terbesar di dunia?",
+      "A": "Gobi",
+      "B": "Sahara",
+      "C": "Atacama",
+      "D": "Kalahari",
+      "Jawaban": "B. Sahara"
+    },
+    {
+      "No": 25,
+      "Level": "Sedang",
+      "Pertanyaan": "Selat apa yang memisahkan Pulau Jawa dan Pulau Sumatra?",
+      "A": "Selat Bali",
+      "B": "Selat Makassar",
+      "C": "Selat Sunda",
+      "D": "Selat Malaka",
+      "Jawaban": "C. Selat Sunda"
+    },
+    {
+      "No": 26,
+      "Level": "Sedang",
+      "Pertanyaan": "Kota mana yang dikenal dengan julukan \"Kota Hujan\"?",
+      "A": "Bogor",
+      "B": "Bandung",
+      "C": "Malang",
+      "D": "Depok",
+      "Jawaban": "A. Bogor"
+    },
+    {
+      "No": 27,
+      "Level": "Sedang",
+      "Pertanyaan": "Kota mana yang terkenal dengan julukan \"Kota Apel\"?",
+      "A": "Batu",
+      "B": "Malang",
+      "C": "Kediri",
+      "D": "Blitar",
+      "Jawaban": "B. Malang"
+    },
+    {
+      "No": 28,
+      "Level": "Sedang",
+      "Pertanyaan": "Rumah adat masyarakat Toraja disebut...",
+      "A": "Tongkonan",
+      "B": "Honai",
+      "C": "Gadang",
+      "D": "Lamin",
+      "Jawaban": "A. Tongkonan"
+    },
+    {
+      "No": 29,
+      "Level": "Sedang",
+      "Pertanyaan": "Rumah adat Papua yang berbentuk bulat dan biasanya beratap jerami disebut...",
+      "A": "Bale",
+      "B": "Honai",
+      "C": "Tongkonan",
+      "D": "Joglo",
+      "Jawaban": "B. Honai"
+    },
+    {
+      "No": 30,
+      "Level": "Sedang",
+      "Pertanyaan": "Senjata tradisional yang sangat identik dengan Aceh adalah...",
+      "A": "Keris",
+      "B": "Kujang",
+      "C": "Rencong",
+      "D": "Mandau",
+      "Jawaban": "C. Rencong"
+    },
+    {
+      "No": 31,
+      "Level": "Sedang",
+      "Pertanyaan": "Burung yang menjadi lambang negara Indonesia adalah...",
+      "A": "Elang Jawa",
+      "B": "Cenderawasih",
+      "C": "Garuda",
+      "D": "Jalak Bali",
+      "Jawaban": "C. Garuda"
+    },
+    {
+      "No": 32,
+      "Level": "Sedang",
+      "Pertanyaan": "Hewan apa yang dikenal sebagai satu- satunya mamalia yang dapat terbang secara aktif?",
+      "A": "Tupai terbang",
+      "B": "Kelelawar",
+      "C": "Elang",
+      "D": "Lemur",
+      "Jawaban": "B. Kelelawar"
+    },
+    {
+      "No": 33,
+      "Level": "Sedang",
+      "Pertanyaan": "Hewan apa yang diketahui memiliki tiga jantung?",
+      "A": "Hiu",
+      "B": "Lumba- lumba",
+      "C": "Gurita",
+      "D": "Ubur-ubur",
+      "Jawaban": "C. Gurita"
+    },
+    {
+      "No": 34,
+      "Level": "Sedang",
+      "Pertanyaan": "Olahraga apa yang menggunakan istilah \"strike\" dan \"spare\"?",
+      "A": "Bowling",
+      "B": "Baseball",
+      "C": "Tenis",
+      "D": "Golf",
+      "Jawaban": "A. Bowling"
+    },
+    {
+      "No": 35,
+      "Level": "Sedang",
+      "Pertanyaan": "Dalam sepak bola, apa istilah untuk pemain yang mencetak tiga gol dalam satu pertandingan?",
+      "A": "Hat-trick",
+      "B": "Triple kick",
+      "C": "Golden goal",
+      "D": "Three point",
+      "Jawaban": "A. Hat-trick"
+    },
+    {
+      "No": 36,
+      "Level": "Sedang",
+      "Pertanyaan": "Apa kepanjangan dari GPS?",
+      "A": "Global Positioning System",
+      "B": "General Positioning Signal",
+      "C": "Global Personal System",
+      "D": "Geographic Position Service",
+      "Jawaban": "A. Global Positioning System"
+    },
+    {
+      "No": 37,
+      "Level": "Sedang",
+      "Pertanyaan": "Teknologi yang memungkinkan perangkat bertukar data dalam jarak dekat tanpa kabel disebut...",
+      "A": "HDMI",
+      "B": "Bluetooth",
+      "C": "Ethernet",
+      "D": "VGA",
+      "Jawaban": "B. Bluetooth"
+    },
+    {
+      "No": 38,
+      "Level": "Sedang",
+      "Pertanyaan": "Siapa manusia pertama yang menginjakkan kaki di Bulan?",
+      "A": "Yuri Gagarin",
+      "B": "Neil Armstrong",
+      "C": "Buzz Aldrin",
+      "D": "Elon Musk",
+      "Jawaban": "B. Neil Armstrong"
+    },
+    {
+      "No": 39,
+      "Level": "Sedang",
+      "Pertanyaan": "Siapa pelukis terkenal yang membuat lukisan Mona Lisa?",
+      "A": "Vincent van Gogh",
+      "B": "Pablo Picasso",
+      "C": "Leonardo da Vinci",
+      "D": "Michelangelo",
+      "Jawaban": "C. Leonardo da Vinci"
+    },
+    {
+      "No": 40,
+      "Level": "Sedang",
+      "Pertanyaan": "Kapal terkenal yang tenggelam setelah menabrak gunung es pada tahun 1912 adalah...",
+      "A": "Titanic",
+      "B": "Britannic",
+      "C": "Mayflower",
+      "D": "Victoria",
+      "Jawaban": "A. Titanic"
+    },
+    {
+      "No": 41,
+      "Level": "Sulit",
+      "Pertanyaan": "Apa nama ibu kota Kanada?",
+      "A": "Toronto",
+      "B": "Vancouver",
+      "C": "Montreal",
+      "D": "Ottawa",
+      "Jawaban": "D. Ottawa"
+    },
+    {
+      "No": 42,
+      "Level": "Sulit",
+      "Pertanyaan": "Apa nama selat yang memisahkan Pulau Bali dan Pulau Jawa?",
+      "A": "Selat Sunda",
+      "B": "Selat Bali",
+      "C": "Selat Makassar",
+      "D": "Selat Lombok",
+      "Jawaban": "B. Selat Bali"
+    },
+    {
+      "No": 43,
+      "Level": "Sulit",
+      "Pertanyaan": "Negara mana yang memiliki Patung Christ the Redeemer?",
+      "A": "Argentina",
+      "B": "Brasil",
+      "C": "Meksiko",
+      "D": "Kolombia",
+      "Jawaban": "B. Brasil"
+    },
+    {
+      "No": 44,
+      "Level": "Sulit",
+      "Pertanyaan": "Apa nama kanal yang menghubungkan Laut Merah dengan Laut Mediterania?",
+      "A": "Terusan Panama",
+      "B": "Terusan Korintus",
+      "C": "Terusan Suez",
+      "D": "Terusan Kiel",
+      "Jawaban": "C. Terusan Suez"
+    },
+    {
+      "No": 45,
+      "Level": "Sulit",
+      "Pertanyaan": "Apa nama organisasi negara-negara di kawasan Asia Tenggara?",
+      "A": "APEC",
+      "B": "ASEAN",
+      "C": "NATO",
+      "D": "OPEC",
+      "Jawaban": "B. ASEAN"
+    },
+    {
+      "No": 46,
+      "Level": "Sulit",
+      "Pertanyaan": "Apa nama organisasi internasional yang memiliki markas utama di New York dan beranggotakan negara- negara dari seluruh dunia?",
+      "A": "ASEAN",
+      "B": "Uni Eropa",
+      "C": "PBB",
+      "D": "NATO",
+      "Jawaban": "C. PBB"
+    },
+    {
+      "No": 47,
+      "Level": "Sulit",
+      "Pertanyaan": "Fenomena cahaya berwarna-warni yang dapat terlihat di langit wilayah dekat kutub disebut...",
+      "A": "Halo",
+      "B": "Aurora",
+      "C": "Pelangi",
+      "D": "Fatamorgana",
+      "Jawaban": "B. Aurora"
+    },
+    {
+      "No": 48,
+      "Level": "Sulit",
+      "Pertanyaan": "Apa nama festival balap sepeda terkenal yang diselenggarakan di Prancis?",
+      "A": "Giro d'Italia",
+      "B": "Vuelta a España",
+      "C": "Tour de France",
+      "D": "Paris Marathon",
+      "Jawaban": "C. Tour de France"
+    },
+    {
+      "No": 49,
+      "Level": "Sulit",
+      "Pertanyaan": "Apa nama olahraga yang menggunakan istilah \"checkmate\"?",
+      "A": "Bridge",
+      "B": "Catur",
+      "C": "Bowling",
+      "D": "Biliar",
+      "Jawaban": "B. Catur"
+    },
+    {
+      "No": 50,
+      "Level": "Sulit",
+      "Pertanyaan": "Apa nama negara yang terkenal dengan kota Dubai?",
+      "A": "Qatar",
+      "B": "Arab Saudi",
+      "C": "Uni Emirat Arab",
+      "D": "Kuwait",
+      "Jawaban": "C. Uni Emirat Arab"
+    }
+  ]
+}

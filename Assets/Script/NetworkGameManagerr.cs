@@ -246,6 +246,10 @@ public class NetworkGameManager : NetworkBehaviour
     }
 
     private int jumlahKembarOnline = 0;
+    // Menandai proses pembelian lahan multiplayer
+    private bool sedangPembelianOnline = false;
+    private int pemainPembeliOnline = -1;
+    private int waypointPembelianOnline = -1;
 
     private IEnumerator ProsesLemparanOnline()
     {
@@ -322,7 +326,55 @@ public class NetworkGameManager : NetworkBehaviour
                 () => !pion.SedangBergerak
             );
         }
+        if (!masukPenjara)
+        {
+            PionMovement pion = turnManager.daftarPion[pemain];
 
+            PropertyDataManager dataManager =
+                FindAnyObjectByType<PropertyDataManager>();
+
+            if (dataManager != null && pion.BolehBeliLahan)
+            {
+                DataLahan lahan =
+                    dataManager.CariLahan(pion.posisiSekarang);
+
+                if (lahan != null &&
+                    lahan.pemilik == -1 &&
+                    lahan.harga > 0)
+                {
+                    sedangPembelianOnline = true;
+                    pemainPembeliOnline = pemain;
+                    waypointPembelianOnline = pion.posisiSekarang;
+
+                    TampilkanPembelianOnlineRpc(
+                        pemain,
+                        pion.posisiSekarang
+                    );
+
+                    float waktuTungguPembelian = 60f;
+
+                    yield return new WaitUntil(() =>
+                    {
+                        waktuTungguPembelian -= Time.deltaTime;
+
+                        return !sedangPembelianOnline ||
+                               waktuTungguPembelian <= 0f;
+                    });
+
+                    if (sedangPembelianOnline)
+                    {
+                        Debug.LogWarning(
+                            "Waktu pembelian multiplayer habis."
+                        );
+
+                        sedangPembelianOnline = false;
+                        pemainPembeliOnline = -1;
+                        waypointPembelianOnline = -1;
+                        TutupPembelianOnlineRpc();
+                    }
+                }
+            }
+        }
         yield return new WaitForSeconds(1f);
 
         if (kembar && !masukPenjara)
@@ -338,7 +390,308 @@ public class NetworkGameManager : NetworkBehaviour
             GiliranOnlineBerikutnya();
         }
     }
+    [Rpc(SendTo.Everyone)]
+    private void TutupPembelianOnlineRpc()
+    {
+        PropertyPurchaseUI purchaseUI =
+            FindAnyObjectByType<PropertyPurchaseUI>();
 
+        if (purchaseUI == null)
+            return;
+
+        // Hentikan timer soal ketika pembelian online selesai
+        SoalManager soalManager =
+            FindAnyObjectByType<SoalManager>();
+
+        if (soalManager != null)
+        {
+            soalManager.BatalkanSoal();
+        }
+
+        CardDisplayManager kartu =
+            FindAnyObjectByType<CardDisplayManager>();
+
+        if (kartu != null)
+        {
+            kartu.SembunyikanKartu();
+        }
+
+        purchaseUI.TutupPanel();
+        purchaseUI.saatKlikBeli = null;
+        purchaseUI.saatKlikLewati = null;
+    }
+    [Rpc(SendTo.Everyone)]
+    private void SinkronkanSaldoOnlineRpc(int pemain, int saldoBaru)
+    {
+        PlayerMoneyManager uang =
+            FindAnyObjectByType<PlayerMoneyManager>();
+
+        if (uang == null || uang.saldoPemain == null ||
+            pemain < 0 || pemain >= uang.saldoPemain.Length)
+        {
+            Debug.LogWarning("Data saldo multiplayer tidak ditemukan!");
+            return;
+        }
+
+        uang.saldoPemain[pemain] = saldoBaru;
+        uang.PerbaruiUIPemain();
+
+        Debug.Log(
+            "MULTIPLAYER: Saldo Player " + (pemain + 1) +
+            " disinkronkan menjadi Rp " + saldoBaru.ToString("N0")
+        );
+    }
+    [Rpc(SendTo.Everyone)]
+    private void SinkronkanPemilikLahanRpc(
+    int waypoint,
+    int pemilik)
+    {
+        PropertyDataManager dataManager =
+            FindAnyObjectByType<PropertyDataManager>();
+
+        if (dataManager == null)
+        {
+            Debug.LogError("PropertyDataManager tidak ditemukan!");
+            return;
+        }
+
+        DataLahan lahan = dataManager.CariLahan(waypoint);
+
+        if (lahan == null)
+        {
+            Debug.LogWarning("Lahan tidak ditemukan!");
+            return;
+        }
+
+        lahan.pemilik = pemilik;
+
+        Debug.Log(
+            "MULTIPLAYER: Lahan " + lahan.namaLahan +
+            " dimiliki Player " + (pemilik + 1)
+        );
+    }
+    [Rpc(SendTo.Everyone)]
+    private void TampilkanPembelianOnlineRpc(int pemain, int waypoint)
+    {
+        // Hanya pemain yang sedang giliran melihat panel
+        if (playerIndexLokal != pemain)
+            return;
+
+        PropertyDataManager dataManager =
+            FindAnyObjectByType<PropertyDataManager>();
+
+        PropertyPurchaseUI purchaseUI =
+            FindAnyObjectByType<PropertyPurchaseUI>();
+
+        if (dataManager == null || purchaseUI == null)
+            return;
+
+        DataLahan lahan = dataManager.CariLahan(waypoint);
+
+        if (lahan == null)
+            return;
+
+        // Bersihkan pilihan sebelumnya agar tidak terpanggil dua kali
+        purchaseUI.saatKlikBeli = null;
+        purchaseUI.saatKlikLewati = null;
+
+        // Simpan pilihan pemain
+        purchaseUI.saatKlikBeli = () =>
+        {
+            Debug.Log("MULTIPLAYER: Pemain memilih BELI " + lahan.namaLahan);
+        };
+        CardDisplayManager kartu =
+            FindAnyObjectByType<CardDisplayManager>();
+
+        if (kartu != null)
+        {
+            SoalManager soalManager =
+                FindAnyObjectByType<SoalManager>();
+
+            if (soalManager == null)
+            {
+                Debug.LogError("SoalManager tidak ditemukan!");
+                return;
+            }
+
+            System.Action<bool> hasilJawaban = null;
+
+            hasilJawaban = (benar) =>
+            {
+                soalManager.OnJawabanSelesai -= hasilJawaban;
+
+                // Jangan kirim hasil jika proses pembelian sudah berakhir
+                if (!sedangProsesOnline.Value)
+                    return;
+
+                KirimHasilSoalOnlineRpc(
+                    pemain,
+                    waypoint,
+                    benar
+                );
+            };
+
+            soalManager.OnJawabanSelesai += hasilJawaban;
+
+            bool berhasil =
+                kartu.TampilkanKartuSesuaiPetak(lahan.namaLahan);
+
+            if (!berhasil)
+            {
+                soalManager.OnJawabanSelesai -= hasilJawaban;
+                Debug.LogWarning("Kartu soal gagal ditampilkan!");
+            }
+        }
+        else
+        {
+            Debug.LogError("CardDisplayManager tidak ditemukan!");
+        }
+
+        purchaseUI.saatKlikLewati = () =>
+        {
+            Debug.Log("MULTIPLAYER: Pemain memilih LEWATI " + lahan.namaLahan);
+        };
+
+        KirimLewatiPembelianOnlineRpc(pemain, waypoint);
+
+        purchaseUI.TampilkanPembelian(
+            lahan.namaLahan,
+            lahan.harga,
+            lahan.warnaKomplek
+        );
+    }
+    [Rpc(SendTo.Server)]
+    private void KirimLewatiPembelianOnlineRpc(
+    int pemain,
+    int waypoint,
+    RpcParams rpcParams = default)
+    {
+        ulong pengirim = rpcParams.Receive.SenderClientId;
+
+        ulong pemilikSlot = pemain switch
+        {
+            0 => slot1.Value,
+            1 => slot2.Value,
+            2 => slot3.Value,
+            3 => slot4.Value,
+            _ => ulong.MaxValue
+        };
+
+        if (pengirim != pemilikSlot ||
+            pemain != giliranOnline.Value ||
+            !sedangPembelianOnline ||
+            pemain != pemainPembeliOnline)
+            return;
+
+        TurnManager turnManager =
+            FindAnyObjectByType<TurnManager>();
+
+        if (turnManager == null ||
+            pemain >= turnManager.daftarPion.Length ||
+            turnManager.daftarPion[pemain] == null ||
+            turnManager.daftarPion[pemain].posisiSekarang != waypoint)
+            return;
+
+        sedangPembelianOnline = false;
+        pemainPembeliOnline = -1;
+        waypointPembelianOnline = -1;
+        TutupPembelianOnlineRpc();
+
+        Debug.Log("HOST: Pemain melewati pembelian lahan.");
+    }
+
+    [Rpc(SendTo.Server)]
+    private void KirimHasilSoalOnlineRpc(
+    int pemain,
+    int waypoint,
+    bool benar,
+
+    RpcParams rpcParams = default)
+    {
+        ulong pengirim = rpcParams.Receive.SenderClientId;
+
+        ulong pemilikSlot = pemain switch
+        {
+            0 => slot1.Value,
+            1 => slot2.Value,
+            2 => slot3.Value,
+            3 => slot4.Value,
+            _ => ulong.MaxValue
+        };
+
+        if (pengirim != pemilikSlot ||
+            pemain != giliranOnline.Value ||
+            !sedangPembelianOnline ||
+            pemain != pemainPembeliOnline ||
+            waypoint != waypointPembelianOnline)
+        {
+            Debug.LogWarning("Hasil soal multiplayer ditolak.");
+            return;
+        }
+
+        Debug.Log(
+            "HOST menerima hasil soal pemain " +
+            (pemain + 1) +
+            " pada waypoint " + waypoint +
+            ": " + (benar ? "BENAR" : "SALAH")
+        );
+        TurnManager turnManager =
+            FindAnyObjectByType<TurnManager>();
+
+        PropertyDataManager dataManager =
+            FindAnyObjectByType<PropertyDataManager>();
+
+        PlayerMoneyManager uang =
+            FindAnyObjectByType<PlayerMoneyManager>();
+
+        if (turnManager == null ||
+            dataManager == null ||
+            turnManager.daftarPion == null ||
+            pemain < 0 ||
+            pemain >= turnManager.daftarPion.Length ||
+            turnManager.daftarPion[pemain] == null)
+        {
+            Debug.LogWarning("Data pembelian multiplayer tidak lengkap.");
+            sedangPembelianOnline = false;
+            pemainPembeliOnline = -1;
+            return;
+        }
+
+        if (turnManager.daftarPion[pemain].posisiSekarang != waypoint)
+        {
+            Debug.LogWarning("Waypoint pembelian tidak sesuai.");
+            return;
+        }
+
+        DataLahan lahan = dataManager.CariLahan(waypoint);
+
+        if (lahan != null && lahan.pemilik == -1 && lahan.harga > 0)
+        {
+            if (benar && uang != null)
+            {
+                dataManager.BeliLahan(lahan, pemain, uang);
+
+                if (lahan.pemilik == pemain)
+                {
+                    SinkronkanPemilikLahanRpc(waypoint, pemain);
+
+                    if (uang.saldoPemain != null &&
+                        pemain >= 0 &&
+                        pemain < uang.saldoPemain.Length)
+                    {
+                        SinkronkanSaldoOnlineRpc(
+                            pemain,
+                            uang.saldoPemain[pemain]
+                        );
+                    }
+                }
+            }
+        }
+        sedangPembelianOnline = false;
+        pemainPembeliOnline = -1;
+        waypointPembelianOnline = -1;
+        TutupPembelianOnlineRpc();
+    }
     [Rpc(SendTo.Everyone)]
     private void TampilkanLemparanRpc(
         int pemain,
@@ -413,5 +766,6 @@ public class NetworkGameManager : NetworkBehaviour
             ": " + angka1 + " + " + angka2 +
             " = " + (angka1 + angka2)
         );
+
     }
 }

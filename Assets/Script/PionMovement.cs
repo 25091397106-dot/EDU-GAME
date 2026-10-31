@@ -24,6 +24,9 @@ public class PionMovement : MonoBehaviour
     public int putaranSelesai = 0;
     public int bonusStart = 150000;
 
+    [Header("Status Penjara")]
+    public bool sedangDipenjara = false;
+
     public bool BolehBeliLahan => putaranSelesai >= 1;
 
     void Start()
@@ -254,6 +257,7 @@ public class PionMovement : MonoBehaviour
 
         // WP_09_PENJARA
         posisiSekarang = 9;
+        sedangDipenjara = true;
 
         if (turnManager != null)
         {

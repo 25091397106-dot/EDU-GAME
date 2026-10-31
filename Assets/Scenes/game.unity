@@ -500,7 +500,7 @@ Transform:
   m_GameObject: {fileID: 14238557}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.16, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 12, y: 12, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -532,6 +532,7 @@ MonoBehaviour:
   turnManager: {fileID: 1617838664}
   putaranSelesai: 0
   bonusStart: 150000
+  sedangDipenjara: 0
 --- !u!1 &27831003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1592,7 +1593,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12, y: 0.3, z: 12}
+  m_LocalScale: {x: 12, y: 0.6, z: 12}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1640704252}
@@ -3672,7 +3673,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 150}
-  m_SizeDelta: {x: 400, y: 50}
+  m_SizeDelta: {x: 650, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &243132133
 MonoBehaviour:
@@ -3694,7 +3695,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SENI RUPA
+  m_text: 'seni rupa
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3721,12 +3724,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 28
   m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 20
+  m_fontSizeMax: 28
   m_fontStyle: 17
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
@@ -9889,7 +9892,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 150}
-  m_SizeDelta: {x: 600, y: 60}
+  m_SizeDelta: {x: 650, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &548344675
 MonoBehaviour:
@@ -14002,6 +14005,7 @@ MonoBehaviour:
   turnManager: {fileID: 1617838664}
   putaranSelesai: 0
   bonusStart: 150000
+  sedangDipenjara: 0
 --- !u!4 &746772807 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6245561389692676138, guid: c21c6aa14b887f8429d2b7fe004eb2af, type: 3}
@@ -16716,6 +16720,7 @@ MonoBehaviour:
   turnManager: {fileID: 1617838664}
   putaranSelesai: 0
   bonusStart: 150000
+  sedangDipenjara: 0
 --- !u!1 &849619497
 GameObject:
   m_ObjectHideFlags: 0
@@ -26095,6 +26100,7 @@ MonoBehaviour:
   turnManager: {fileID: 1617838664}
   putaranSelesai: 0
   bonusStart: 150000
+  sedangDipenjara: 0
 --- !u!1 &1312063192
 GameObject:
   m_ObjectHideFlags: 0
@@ -35083,7 +35089,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1780331350
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37953,7 +37959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardDisplayManager
   kameraGame: {fileID: 2033101552}
-  kartu3D: {fileID: 50886496}
+  kartu3D: {fileID: 900691092}
   daftarKartu:
   - {fileID: 6399629498193939968}
   - {fileID: 1368455879}
@@ -37979,9 +37985,9 @@ MonoBehaviour:
   - {fileID: 2049945895}
   - {fileID: 488927401}
   - {fileID: 50886496}
-  jarakKamera: 4.5
+  jarakKamera: 5
   ukuranKartu: 1.5
-  offsetTampilan: {x: -3, y: 0, z: 0}
+  offsetTampilan: {x: 0, y: -0.22, z: 0}
 --- !u!4 &1986025428
 Transform:
   m_ObjectHideFlags: 0
@@ -38776,6 +38782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoalManager
   panelPopUpHasil: {fileID: 1780331349}
   teksHasilJawaban: {fileID: 533088416}
+  cardDisplayManager: {fileID: 1986025427}
   fileSoal: {fileID: 4900000, guid: e0cc829cd6b7e6b44bdd3c08e546072e, type: 3}
 --- !u!1 &2033101550
 GameObject:
@@ -41038,7 +41045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb34a18e5ccbbb84e92998ef1f517f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
-  namaPetak: Konstitusi
+  namaPetak: Jejak Konstitusi
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 595685879}
   jawabanA: {fileID: 1612392907}

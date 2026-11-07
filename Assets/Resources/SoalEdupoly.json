@@ -9,7 +9,8 @@
       "B": "Titik",
       "C": "Warna",
       "D": "Ruang",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -20,7 +21,8 @@
       "B": "Sekunder",
       "C": "Tersier",
       "D": "Netral",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -31,7 +33,8 @@
       "B": "Tiga dimensi",
       "C": "Empat dimensi",
       "D": "Ruang",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -42,7 +45,8 @@
       "B": "Patung",
       "C": "Poster",
       "D": "Foto",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -53,7 +57,8 @@
       "B": "Arsir",
       "C": "Blok",
       "D": "Pointilis",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -64,7 +69,8 @@
       "B": "Produksi",
       "C": "Apresiasi",
       "D": "Imitasi",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -75,7 +81,8 @@
       "B": "Kolase",
       "C": "Ukiran",
       "D": "Keramik",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -86,7 +93,8 @@
       "B": "Mozaik",
       "C": "Grafiti",
       "D": "Montase",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -97,7 +105,8 @@
       "B": "Penggaris",
       "C": "Gunting",
       "D": "Kuas",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -108,7 +117,8 @@
       "B": "Patung",
       "C": "Keramik",
       "D": "Vas",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -119,7 +129,8 @@
       "B": "Tempo",
       "C": "Harmoni",
       "D": "Timbre",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -130,7 +141,8 @@
       "B": "Tempo",
       "C": "Melodi",
       "D": "Ritme",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -141,7 +153,8 @@
       "B": "Seruling",
       "C": "Gitar",
       "D": "Gong",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -152,7 +165,8 @@
       "B": "Gitar",
       "C": "Biola",
       "D": "Kendang",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -163,7 +177,8 @@
       "B": "Solo",
       "C": "Trio",
       "D": "Kuartet",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -174,7 +189,8 @@
       "B": "Paduan Suara",
       "C": "Duet",
       "D": "Trio",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -185,7 +201,8 @@
       "B": "Bali",
       "C": "Papua",
       "D": "Jawa Barat",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -196,7 +213,8 @@
       "B": "Jawa dan Bali",
       "C": "Maluku",
       "D": "Sumatra Utara",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -207,7 +225,8 @@
       "B": "Keras",
       "C": "Lembut",
       "D": "Semakin cepat",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -218,7 +237,8 @@
       "B": "Dipetik",
       "C": "Ditiup",
       "D": "Ditekan",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -229,7 +249,8 @@
       "B": "Warna",
       "C": "Gerak Tubuh",
       "D": "Patung",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -240,7 +261,8 @@
       "B": "Bali",
       "C": "Jawa Barat",
       "D": "Papua",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -251,7 +273,8 @@
       "B": "Bali",
       "C": "Jawa Barat",
       "D": "Papua",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -262,7 +285,8 @@
       "B": "Pola suara",
       "C": "Pola warna",
       "D": "Pola musik",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -273,7 +297,8 @@
       "B": "Berpasangan",
       "C": "Tunggal",
       "D": "Massal",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 1
     },
     {
       "komplek": "Seni Budaya",
@@ -284,7 +309,8 @@
       "B": "Berpasangan",
       "C": "Kelompok",
       "D": "Massal",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -295,7 +321,8 @@
       "B": "Mengganti musik",
       "C": "Mengatur penonton",
       "D": "Menghitung waktu",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -306,7 +333,8 @@
       "B": "Bali",
       "C": "Kalimantan",
       "D": "Jawa Barat",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -317,7 +345,8 @@
       "B": "Warna panggung",
       "C": "Jumlah kursi",
       "D": "Ukuran penonton",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Seni Budaya",
@@ -328,117 +357,128 @@
       "B": "Alat ukur",
       "C": "Alat hitung",
       "D": "Hiburan",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 2
     },
     {
       "komplek": "PPKn",
-      "petak": "Pancasila",
+      "petak": "Taman Pancasila",
       "nomor": 1,
       "pertanyaan": "Jumlah sila dalam Pancasila adalah ...",
       "A": "3",
       "B": "5",
       "C": "4",
       "D": "6",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "PPKn",
-      "petak": "Pancasila",
+      "petak": "Taman Pancasila",
       "nomor": 2,
       "pertanyaan": "Lambang sila pertama Pancasila adalah ...",
       "A": "Bintang",
       "B": "Rantai",
       "C": "Pohon beringin",
       "D": "Kepala banteng",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "PPKn",
-      "petak": "Pancasila",
+      "petak": "Taman Pancasila",
       "nomor": 3,
       "pertanyaan": "Lambang sila kedua adalah ...",
       "A": "Bintang",
       "B": "Rantai",
       "C": "Padi dan kapas",
       "D": "Kepala banteng",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 1
     },
     {
       "komplek": "PPKn",
-      "petak": "Pancasila",
+      "petak": "Taman Pancasila",
       "nomor": 4,
       "pertanyaan": "Lambang sila ketiga adalah ...",
       "A": "Bintang",
       "B": "Rantai",
       "C": "Pohon beringin",
       "D": "Padi dan kapas",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 1
     },
     {
       "komplek": "PPKn",
-      "petak": "Pancasila",
+      "petak": "Taman Pancasila",
       "nomor": 5,
       "pertanyaan": "Lambang sila keempat adalah ...",
       "A": "Padi dan Kapas",
       "B": "Pohon beringin",
       "C": "Kepala Banteng",
       "D": "Rantai",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 1
     },
     {
       "komplek": "PPKn",
-      "petak": "Pancasila",
+      "petak": "Taman Pancasila",
       "nomor": 6,
       "pertanyaan": "Lambang sila kelima adalah ...",
       "A": "Padi dan kapas",
       "B": "Rantai",
       "C": "Bintang",
       "D": "Kepala banteng",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "PPKn",
-      "petak": "Pancasila",
+      "petak": "Taman Pancasila",
       "nomor": 7,
       "pertanyaan": "Bunyi sila pertama adalah ...",
       "A": "Ketuhanan Yang Maha Esa",
       "B": "Kemanusiaan yang Adil dan Beradab",
       "C": "Persatuan Indonesia",
       "D": "Keadilan Sosial",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "PPKn",
-      "petak": "Pancasila",
+      "petak": "Taman Pancasila",
       "nomor": 8,
       "pertanyaan": "Pancasila merupakan dasar ...",
       "A": "Persatuan",
       "B": "Sekolah",
       "C": "Negara Indonesia",
       "D": "Perusahaan",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 2
     },
     {
       "komplek": "PPKn",
-      "petak": "Pancasila",
+      "petak": "Taman Pancasila",
       "nomor": 9,
       "pertanyaan": "Menghargai perbedaan sesuai dengan nilai ...",
       "A": "Persatuan",
       "B": "Permusuhan",
       "C": "Egoisme",
       "D": "Ketidakadilan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "PPKn",
-      "petak": "Pancasila",
+      "petak": "Taman Pancasila",
       "nomor": 10,
       "pertanyaan": "Musyawarah untuk mufakat sesuai dengan sila ke ...",
       "A": "3",
       "B": "1",
       "C": "2",
       "D": "4",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 2
     },
     {
       "komplek": "PPKn",
@@ -449,7 +489,8 @@
       "B": "Undang-Undang Daerah",
       "C": "Urutan Undang-Undang Dasar",
       "D": "Undang-Undang Desa",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "PPKn",
@@ -460,7 +501,8 @@
       "B": "UUD 1949",
       "C": "UUD 1945",
       "D": "UUD 1965",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 1
     },
     {
       "komplek": "PPKn",
@@ -471,7 +513,8 @@
       "B": "2",
       "C": "3",
       "D": "4",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 1
     },
     {
       "komplek": "PPKn",
@@ -482,7 +525,8 @@
       "B": "1 Juni 1945",
       "C": "13 Oktober 2006",
       "D": "17 Agustus 1945",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 1
     },
     {
       "komplek": "PPKn",
@@ -493,7 +537,8 @@
       "B": "Dasar",
       "C": "Tidak resmi",
       "D": "Sementara",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 1
     },
     {
       "komplek": "PPKn",
@@ -504,7 +549,8 @@
       "B": "Federal",
       "C": "Kerajaan",
       "D": "Konfederasi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "PPKn",
@@ -515,7 +561,8 @@
       "B": "Presiden saja",
       "C": "Menteri",
       "D": "Hakim",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "PPKn",
@@ -526,7 +573,8 @@
       "B": "Olahraga",
       "C": "Perdagangan saja",
       "D": "Permainan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "PPKn",
@@ -537,7 +585,8 @@
       "B": "DPRD",
       "C": "MPR",
       "D": "KPU",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 2
     },
     {
       "komplek": "PPKn",
@@ -548,7 +597,8 @@
       "B": "Kamus",
       "C": "Jadwal sekolah",
       "D": "Peraturan permainan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "PPKn",
@@ -559,7 +609,8 @@
       "B": "Alat musik",
       "C": "Jenis makanan",
       "D": "Nama organisasi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "PPKn",
@@ -570,7 +621,8 @@
       "B": "Kebiasaan masyarakat",
       "C": "Aturan Tuhan",
       "D": "Pergaulan",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 1
     },
     {
       "komplek": "PPKn",
@@ -581,7 +633,8 @@
       "B": "Kitab undang-undang",
       "C": "Tuhan saja",
       "D": "Hakim",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "PPKn",
@@ -592,7 +645,8 @@
       "B": "Netizen",
       "C": "Lembaga yang Berwenang",
       "D": "Tetangga",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 1
     },
     {
       "komplek": "PPKn",
@@ -603,7 +657,8 @@
       "B": "Mencuri",
       "C": "Merusak fasilitas",
       "D": "Menghormati Orang Lain",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 1
     },
     {
       "komplek": "PPKn",
@@ -614,7 +669,8 @@
       "B": "Tidak ada",
       "C": "Selalu nasihat",
       "D": "Tegas dan Memaksa",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 2
     },
     {
       "komplek": "PPKn",
@@ -625,7 +681,8 @@
       "B": "Kesopanan",
       "C": "Kesusilaan",
       "D": "Agama",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "PPKn",
@@ -636,7 +693,8 @@
       "B": "Kesusilaan",
       "C": "Ekonomi",
       "D": "Teknologi",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 2
     },
     {
       "komplek": "PPKn",
@@ -647,7 +705,8 @@
       "B": "Membuat kekacauan",
       "C": "Menghilangkan aturan",
       "D": "Membatasi semua kegiatan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "PPKn",
@@ -658,7 +717,8 @@
       "B": "Tertib",
       "C": "Berbahaya",
       "D": "Tidak teratur",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -669,7 +729,8 @@
       "B": "Bait",
       "C": "Paragraf",
       "D": "Judul",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -680,7 +741,8 @@
       "B": "Tema",
       "C": "Asonansi",
       "D": "Alur",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -691,7 +753,8 @@
       "B": "Latar",
       "C": "Dialog",
       "D": "Amanat",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -702,7 +765,8 @@
       "B": "Tokoh",
       "C": "Alur",
       "D": "Latar",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -713,7 +777,8 @@
       "B": "Dialog",
       "C": "Narasi",
       "D": "Diksi",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -724,7 +789,8 @@
       "B": "Novelis",
       "C": "Editor",
       "D": "Sutradara",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -735,7 +801,8 @@
       "B": "Deklamasi",
       "C": "Debat",
       "D": "Wawancara",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -746,7 +813,8 @@
       "B": "Ekonomi",
       "C": "Alam",
       "D": "Teknologi",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -757,7 +825,8 @@
       "B": "Selalu resmi",
       "C": "Selalu ilmiah",
       "D": "Tanpa makna",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -768,7 +837,8 @@
       "B": "Data komputer",
       "C": "Harga barang",
       "D": "Perasaan atau gagasan",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -779,7 +849,8 @@
       "B": "Cerita Pendek",
       "C": "Cerita pengalaman",
       "D": "Cerita pengetahuan",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -790,7 +861,8 @@
       "B": "Tambahan",
       "C": "Figuran",
       "D": "Pembantu",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -801,7 +873,8 @@
       "B": "Tema",
       "C": "Latar",
       "D": "Amanat",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -812,7 +885,8 @@
       "B": "Tema",
       "C": "Tokoh",
       "D": "Sudut pandang",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -823,7 +897,8 @@
       "B": "Latar",
       "C": "Konflik",
       "D": "Tokoh",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -834,7 +909,8 @@
       "B": "Protagonis",
       "C": "Figuran",
       "D": "Narator",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -845,7 +921,8 @@
       "B": "Antagonis",
       "C": "Figuran",
       "D": "Lawan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -856,7 +933,8 @@
       "B": "Dia",
       "C": "Mereka",
       "D": "Ia",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -867,7 +945,8 @@
       "B": "Latar",
       "C": "Tema",
       "D": "Diksi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -878,7 +957,8 @@
       "B": "Sangat panjang",
       "C": "Tanpa tokoh",
       "D": "Tanpa alur",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -889,7 +969,8 @@
       "B": "Kecil",
       "C": "Miring",
       "D": "Tebal",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -900,7 +981,8 @@
       "B": "Koma",
       "C": "Tanda tanya",
       "D": "Tanda seru",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -911,7 +993,8 @@
       "B": "Titik",
       "C": "Koma",
       "D": "Tanda hubung",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -922,7 +1005,8 @@
       "B": "Ijinlah",
       "C": "Izinn",
       "D": "Izhi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -933,7 +1017,8 @@
       "B": "Resikko",
       "C": "Resikho",
       "D": "Resikoo",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -944,7 +1029,8 @@
       "B": "Mengakhiri semua kalimat",
       "C": "Menunjukkan pertanyaan",
       "D": "Mengapit semua judul",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -955,7 +1041,8 @@
       "B": "dirumah",
       "C": "diRumah",
       "D": "di-rumah",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -966,7 +1053,8 @@
       "B": "Selalu digabung",
       "C": "Dengan tanda hubung",
       "D": "Dengan huruf kapital",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -977,7 +1065,8 @@
       "B": "Semua kata",
       "C": "Angka",
       "D": "Nama kota",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Indonesia",
@@ -988,7 +1077,8 @@
       "B": "Kecil",
       "C": "Miring",
       "D": "Angka",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -999,7 +1089,8 @@
       "B": "Meja",
       "C": "Kursi",
       "D": "Pintu",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1010,7 +1101,8 @@
       "B": "Rumah",
       "C": "Pasar",
       "D": "Kantor",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1021,7 +1113,8 @@
       "B": "Fire",
       "C": "Wind",
       "D": "Earth",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1032,18 +1125,20 @@
       "B": "Drink",
       "C": "Sleep",
       "D": "Run",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
-      "petak": "Vocabulary",
+      "petak": "word gallery",
       "nomor": 5,
       "pertanyaan": "Bahasa Inggris dari 'guru' adalah ...",
       "A": "Teacher",
       "B": "Student",
       "C": "Doctor",
       "D": "Driver",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1054,7 +1149,8 @@
       "B": "Blue",
       "C": "Green",
       "D": "Yellow",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1065,7 +1161,8 @@
       "B": "Besar",
       "C": "Cepat",
       "D": "Kecil",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1076,7 +1173,8 @@
       "B": "Keluarga",
       "C": "Guru",
       "D": "Tetangga",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1087,7 +1185,8 @@
       "B": "Night",
       "C": "Week",
       "D": "Month",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1098,7 +1197,8 @@
       "B": "Sedih",
       "C": "Marah",
       "D": "Takut",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1109,7 +1209,8 @@
       "B": "Good night",
       "C": "Goodbye",
       "D": "Thank you",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1120,7 +1221,8 @@
       "B": "Good night",
       "C": "See you",
       "D": "You're welcome",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1131,7 +1233,8 @@
       "B": "Good morning",
       "C": "Goodbye",
       "D": "Sorry",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1142,7 +1245,8 @@
       "B": "Good night",
       "C": "I'm sorry",
       "D": "Thank you",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1153,7 +1257,8 @@
       "B": "Thank you",
       "C": "Goodbye",
       "D": "Welcome",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1164,7 +1269,8 @@
       "B": "Good morning",
       "C": "Welcome",
       "D": "Thanks",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1175,7 +1281,8 @@
       "B": "I am ...",
       "C": "You are ...",
       "D": "This is ...",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1186,7 +1293,8 @@
       "B": "Umur",
       "C": "Alamat",
       "D": "Hobi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1197,7 +1305,8 @@
       "B": "Nama",
       "C": "Umur",
       "D": "Pekerjaan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1208,7 +1317,8 @@
       "B": "Selamat pagi",
       "C": "Terima kasih",
       "D": "Maaf",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1219,7 +1329,8 @@
       "B": "She are a student",
       "C": "She am a student",
       "D": "She be a student",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1230,7 +1341,8 @@
       "B": "is",
       "C": "are",
       "D": "be",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1241,7 +1353,8 @@
       "B": "is",
       "C": "are",
       "D": "be",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1252,7 +1365,8 @@
       "B": "is",
       "C": "are",
       "D": "be",
-      "jawaban": "B"
+      "jawaban": "B",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1263,7 +1377,8 @@
       "B": "bookes",
       "C": "bookies",
       "D": "book",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1274,7 +1389,8 @@
       "B": "Simple Past",
       "C": "Simple Future",
       "D": "Present Perfect",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1285,7 +1401,8 @@
       "B": "goed",
       "C": "gone",
       "D": "going",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1296,7 +1413,8 @@
       "B": "Dia membeli bola",
       "C": "Dia melihat bola",
       "D": "Dia menjual bola",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1307,7 +1425,8 @@
       "B": "she",
       "C": "it",
       "D": "they",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Bahasa Inggris",
@@ -1318,7 +1437,8 @@
       "B": "he",
       "C": "we",
       "D": "it",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1329,7 +1449,8 @@
       "B": "Bank",
       "C": "Sekolah",
       "D": "Kantor",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1340,7 +1461,8 @@
       "B": "Konsumen",
       "C": "Pembeli",
       "D": "Penonton",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1351,7 +1473,8 @@
       "B": "Belanja online",
       "C": "Mesin otomatis",
       "D": "Pembayaran tanpa transaksi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1362,7 +1485,8 @@
       "B": "Pasar Tradisional",
       "C": "Pasar Lokal",
       "D": "Pasar Desa",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1373,7 +1497,8 @@
       "B": "Modal",
       "C": "Pajak",
       "D": "Tabungan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1384,7 +1509,8 @@
       "B": "Modal",
       "C": "Pajak",
       "D": "Laba",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1395,7 +1521,8 @@
       "B": "Produsen",
       "C": "Distributor",
       "D": "Penjual",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1406,7 +1533,8 @@
       "B": "Produksi",
       "C": "Distribusi",
       "D": "Ekspor",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1417,7 +1545,8 @@
       "B": "Konsumsi",
       "C": "Produksi",
       "D": "Tabungan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1428,7 +1557,8 @@
       "B": "Guru dan siswa",
       "C": "Dokter dan pasien",
       "D": "Petani dan polisi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1439,7 +1569,8 @@
       "B": "Dolar",
       "C": "Ringgit",
       "D": "Yen",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1450,7 +1581,8 @@
       "B": "Barang",
       "C": "Jasa",
       "D": "Pasar",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1461,7 +1593,8 @@
       "B": "Pasar",
       "C": "Sekolah",
       "D": "Terminal",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1472,7 +1605,8 @@
       "B": "Giral",
       "C": "Digital saja",
       "D": "Asing",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1483,7 +1617,8 @@
       "B": "Produksi",
       "C": "Transportasi",
       "D": "Komunikasi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1494,7 +1629,8 @@
       "B": "Produsen",
       "C": "Distributor",
       "D": "Pedagang",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1505,7 +1641,8 @@
       "B": "Konsumen",
       "C": "Pembeli",
       "D": "Penonton",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1516,7 +1653,8 @@
       "B": "Berbelanja",
       "C": "Berutang",
       "D": "Berdagang",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1527,7 +1665,8 @@
       "B": "Berjalan kaki",
       "C": "Membaca buku",
       "D": "Tidur",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1538,7 +1677,8 @@
       "B": "Bertambah",
       "C": "Terjual",
       "D": "Berubah menjadi barang",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1549,7 +1689,8 @@
       "B": "Konsumsi",
       "C": "Distribusi",
       "D": "Promosi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1560,7 +1701,8 @@
       "B": "Produksi",
       "C": "Distribusi",
       "D": "Investasi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1571,7 +1713,8 @@
       "B": "Produksi",
       "C": "Konsumsi",
       "D": "Tabungan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1582,7 +1725,8 @@
       "B": "Sepatu",
       "C": "Televisi",
       "D": "Mobil",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1593,7 +1737,8 @@
       "B": "Barang elektronik",
       "C": "Makanan",
       "D": "Pakaian",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Ekonomi",
@@ -1604,7 +1749,8 @@
       "B": "Konsumsi saja",
       "C": "Rekreasi",
       "D": "Pendidikan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1615,7 +1761,8 @@
       "B": "Guru",
       "C": "Petani",
       "D": "Dokter",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1626,7 +1773,8 @@
       "B": "Produksi",
       "C": "Distribusi",
       "D": "Ekspor",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1637,7 +1785,8 @@
       "B": "Konsumen",
       "C": "Pembeli",
       "D": "Penonton",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Ekonomi",
@@ -1648,7 +1797,8 @@
       "B": "Hiburan saja",
       "C": "Permainan",
       "D": "Perjalanan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1659,7 +1809,8 @@
       "B": "Warna",
       "C": "Bentuk",
       "D": "Suara",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1670,7 +1821,8 @@
       "B": "Tanah",
       "C": "Cahaya",
       "D": "Batu",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1681,7 +1833,8 @@
       "B": "Bernapas",
       "C": "Bergerak",
       "D": "Beradaptasi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1692,7 +1845,8 @@
       "B": "Perkembangbiakan",
       "C": "Adaptasi",
       "D": "Respirasi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1703,7 +1857,8 @@
       "B": "Respirasi",
       "C": "Pencernaan",
       "D": "Ekskresi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1714,7 +1869,8 @@
       "B": "Karnivora",
       "C": "Omnivora",
       "D": "Insektivora",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1725,7 +1881,8 @@
       "B": "Herbivora",
       "C": "Omnivora",
       "D": "Frugivora",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1736,7 +1893,8 @@
       "B": "Membuat batu",
       "C": "Menjadi tumbuhan",
       "D": "Tidak membutuhkan energi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1747,7 +1905,8 @@
       "B": "Berpindah tempat",
       "C": "Mendengar",
       "D": "Berbicara",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1758,7 +1917,8 @@
       "B": "Batu",
       "C": "Air",
       "D": "Meja",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1769,7 +1929,8 @@
       "B": "Jaringan",
       "C": "Organ",
       "D": "Sistem organ",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1780,7 +1941,8 @@
       "B": "Dinding sel",
       "C": "Vakuola",
       "D": "Membran sel",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1791,7 +1953,8 @@
       "B": "Inti sel",
       "C": "Ribosom",
       "D": "Kloroplas",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1802,7 +1965,8 @@
       "B": "Mitokondria",
       "C": "Ribosom",
       "D": "Inti sel",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1813,7 +1977,8 @@
       "B": "Kloroplas",
       "C": "Vakuola",
       "D": "Dinding sel",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1824,7 +1989,8 @@
       "B": "Membran sel",
       "C": "Inti sel",
       "D": "Sitoplasma",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1835,7 +2001,8 @@
       "B": "Dinding sel",
       "C": "Kromosom",
       "D": "Jaringan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1846,7 +2013,8 @@
       "B": "Menghasilkan cahaya",
       "C": "Mengatur gerak",
       "D": "Mencerna makanan di luar sel",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1857,7 +2025,8 @@
       "B": "Organ",
       "C": "Sistem organ",
       "D": "Organisme",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1868,7 +2037,8 @@
       "B": "Sel",
       "C": "Molekul",
       "D": "Populasi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1879,7 +2049,8 @@
       "B": "Populasi",
       "C": "Komunitas",
       "D": "Habitat",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1890,7 +2061,8 @@
       "B": "Konsumen",
       "C": "Pengurai",
       "D": "Predator",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1901,7 +2073,8 @@
       "B": "Tingkat kedua",
       "C": "Tingkat ketiga",
       "D": "Tingkat keempat",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1912,7 +2085,8 @@
       "B": "Produsen",
       "C": "Konsumen",
       "D": "Predator",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1923,7 +2097,8 @@
       "B": "Singa",
       "C": "Elang",
       "D": "Jamur",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Biologi",
@@ -1934,7 +2109,8 @@
       "B": "Komunitas",
       "C": "Ekosistem",
       "D": "Bioma",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1945,7 +2121,8 @@
       "B": "Individu",
       "C": "Organ",
       "D": "Habitat",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1956,7 +2133,8 @@
       "B": "Populasi",
       "C": "Komunitas",
       "D": "Rantai makanan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1967,7 +2145,8 @@
       "B": "Siklus air",
       "C": "Adaptasi",
       "D": "Fotosintesis",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Biologi",
@@ -1978,7 +2157,8 @@
       "B": "Rumput",
       "C": "Ikan",
       "D": "Burung",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -1989,7 +2169,8 @@
       "B": "5",
       "C": "17",
       "D": "6",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2000,7 +2181,8 @@
       "B": "6x",
       "C": "5",
       "D": "x",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2011,7 +2193,8 @@
       "B": "6",
       "C": "4",
       "D": "10",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2022,7 +2205,8 @@
       "B": "7a",
       "C": "10a",
       "D": "3",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2033,7 +2217,8 @@
       "B": "4",
       "C": "21",
       "D": "9",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2044,7 +2229,8 @@
       "B": "2x + 3",
       "C": "x + 6",
       "D": "2x + 9",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2055,7 +2241,8 @@
       "B": "2",
       "C": "9",
       "D": "1",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2066,7 +2253,8 @@
       "B": "4",
       "C": "x",
       "D": "13",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2077,7 +2265,8 @@
       "B": "3",
       "C": "12",
       "D": "18",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2088,7 +2277,8 @@
       "B": "x³",
       "C": "3",
       "D": "x",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2099,7 +2289,8 @@
       "B": "Persegi",
       "C": "Lingkaran",
       "D": "Trapesium",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2110,7 +2301,8 @@
       "B": "Persegi panjang",
       "C": "Segitiga",
       "D": "Layang-layang",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2121,7 +2313,8 @@
       "B": "2 × s",
       "C": "p + l",
       "D": "1/2 × a × t",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2132,7 +2325,8 @@
       "B": "10 cm²",
       "C": "20 cm²",
       "D": "15 cm²",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2143,7 +2337,8 @@
       "B": "s × s",
       "C": "2 × s",
       "D": "s + 2",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2154,7 +2349,8 @@
       "B": "Segitiga",
       "C": "Lingkaran",
       "D": "Layang-layang",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2165,7 +2361,8 @@
       "B": "Alas × tinggi",
       "C": "s × s",
       "D": "p × l × 2",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2176,7 +2373,8 @@
       "B": "Empat sisi",
       "C": "Tiga sisi",
       "D": "Dua sisi lurus",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2187,7 +2385,8 @@
       "B": "Sudut",
       "C": "Diameter",
       "D": "Luar saja",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2198,7 +2397,8 @@
       "B": "90°",
       "C": "270°",
       "D": "360°",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2209,7 +2409,8 @@
       "B": "Dua per satu",
       "C": "Satu dua",
       "D": "Setengah dua",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2220,7 +2421,8 @@
       "B": "1/4",
       "C": "2/3",
       "D": "3/4",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2231,7 +2433,8 @@
       "B": "1/2",
       "C": "1",
       "D": "1/4",
-      "jawaban": "C"
+      "jawaban": "C",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2242,7 +2445,8 @@
       "B": "1/4",
       "C": "0.5",
       "D": "3/4",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2253,7 +2457,8 @@
       "B": "1/4",
       "C": "1/2",
       "D": "2/8",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Matematika",
@@ -2264,7 +2469,8 @@
       "B": "1/5",
       "C": "2/5",
       "D": "3/5",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2275,7 +2481,8 @@
       "B": "1/2",
       "C": "1/5",
       "D": "0.25",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2286,7 +2493,8 @@
       "B": "4",
       "C": "1/4",
       "D": "2",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2297,7 +2505,8 @@
       "B": "2/6",
       "C": "4/3",
       "D": "1/2",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Matematika",
@@ -2308,7 +2517,8 @@
       "B": "0,3",
       "C": "0,5",
       "D": "0.6",
-      "jawaban": "D"
+      "jawaban": "D",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2319,7 +2529,8 @@
       "B": "Warna",
       "C": "Massa",
       "D": "Suhu",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2330,7 +2541,8 @@
       "B": "Sekon",
       "C": "Kilogram",
       "D": "Newton",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2341,7 +2553,8 @@
       "B": "Meter",
       "C": "Joule",
       "D": "Watt",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2352,7 +2565,8 @@
       "B": "Massa",
       "C": "Gaya",
       "D": "Suhu",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2363,7 +2577,8 @@
       "B": "2 m/s",
       "C": "10 m/s",
       "D": "20 m/s",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2374,7 +2589,8 @@
       "B": "Termometer",
       "C": "Dinamometer",
       "D": "Barometer",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2385,7 +2601,8 @@
       "B": "Satu",
       "C": "Dua",
       "D": "Tak terhingga",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2396,7 +2613,8 @@
       "B": "Lingkaran",
       "C": "Zig-zag saja",
       "D": "Tidak beraturan",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2407,7 +2625,8 @@
       "B": "Buku di meja",
       "C": "Lemari",
       "D": "Dinding",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2418,7 +2637,8 @@
       "B": "Kecil",
       "C": "Nol",
       "D": "Tetap",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2429,7 +2649,8 @@
       "B": "Hilang",
       "C": "Menjadi air",
       "D": "Diam selamanya",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2440,7 +2661,8 @@
       "B": "Joule",
       "C": "Watt",
       "D": "Meter",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2451,7 +2673,8 @@
       "B": "Gesek",
       "C": "Magnet",
       "D": "Pegas",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2462,7 +2685,8 @@
       "B": "Gravitasi",
       "C": "Magnet",
       "D": "Listrik",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2473,7 +2697,8 @@
       "B": "Kayu",
       "C": "Plastik",
       "D": "Kertas",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2484,7 +2709,8 @@
       "B": "Termometer",
       "C": "Barometer",
       "D": "Stopwatch",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2495,7 +2721,8 @@
       "B": "Warna benda",
       "C": "Massa benda",
       "D": "Jenis benda",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2506,7 +2733,8 @@
       "B": "Buah jatuh",
       "C": "Magnet menarik paku",
       "D": "Lampu menyala",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2517,7 +2745,8 @@
       "B": "Langit",
       "C": "Samping",
       "D": "Atas",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2528,7 +2757,8 @@
       "B": "Melayang",
       "C": "Menghilang",
       "D": "Terbang tanpa alat",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2539,7 +2769,8 @@
       "B": "Warna",
       "C": "Bentuk",
       "D": "Ukuran",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2550,7 +2781,8 @@
       "B": "Newton",
       "C": "Meter",
       "D": "Watt",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2561,7 +2793,8 @@
       "B": "Potensial",
       "C": "Kimia",
       "D": "Cahaya",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2572,7 +2805,8 @@
       "B": "Kinetik",
       "C": "Bunyi",
       "D": "Listrik",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2583,7 +2817,8 @@
       "B": "Bunyi",
       "C": "Gerak",
       "D": "Kimia",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 1
     },
     {
       "komplek": "Fisika",
@@ -2594,7 +2829,8 @@
       "B": "Cahaya",
       "C": "Bunyi",
       "D": "Gerak",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2605,7 +2841,8 @@
       "B": "Kimia",
       "C": "Potensial",
       "D": "Gravitasi",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2616,7 +2853,8 @@
       "B": "Kimia",
       "C": "Potensial",
       "D": "Cahaya",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2627,7 +2865,8 @@
       "B": "Dihilangkan",
       "C": "Diciptakan dari nol",
       "D": "Berhenti selamanya",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     },
     {
       "komplek": "Fisika",
@@ -2638,7 +2877,8 @@
       "B": "Batu bara",
       "C": "Minyak bumi",
       "D": "Gas alam",
-      "jawaban": "A"
+      "jawaban": "A",
+      "level": 2
     }
   ]
 }

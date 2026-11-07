@@ -7,7 +7,8 @@ public class KartuSoal : MonoBehaviour
 {
     [Header("Identitas Kartu")]
     public string namaPetak = "Seni Rupa";
-
+    [Header("Level Soal")]
+    public int levelSoal = 1;
     [Header("Pengelola Soal")]
     public SoalManager soalManager;
 
@@ -45,13 +46,30 @@ public class KartuSoal : MonoBehaviour
         soalManager.BukaSoal(
             namaPetak,
             textPertanyaan,
-            tombol
+            tombol,
+            levelSoal
         );
         if (jawabanLayout != null)
         {
             StartCoroutine(RapikanSetelahSoalMuncul());
         }
     }
+    public void TampilkanSoalWawasan(DataKartuWawasanEdupoly data)
+    {
+        if (soalManager == null || textPertanyaan == null ||
+            jawabanA == null || jawabanB == null ||
+            jawabanC == null || jawabanD == null)
+        {
+            Debug.LogError("Referensi KartuSoal untuk EDUCARD belum lengkap: " + gameObject.name);
+            return;
+        }
+
+        soalManager.BukaSoalWawasan(data, textPertanyaan,
+            new Button[] { jawabanA, jawabanB, jawabanC, jawabanD });
+        if (jawabanLayout != null)
+            StartCoroutine(RapikanSetelahSoalMuncul());
+    }
+
     private IEnumerator RapikanSetelahSoalMuncul()
     {
         yield return null;

@@ -1205,6 +1205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Energi
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 1818629562}
   jawabanA: {fileID: 2025328504}
@@ -2217,6 +2218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Ekosistem
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 786770181}
   jawabanA: {fileID: 677162098}
@@ -4688,6 +4690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Makhluk Hidup
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 1631634448}
   jawabanA: {fileID: 648840946}
@@ -4934,6 +4937,7 @@ RectTransform:
   - {fileID: 1576911525}
   - {fileID: 2054859682}
   - {fileID: 1780331350}
+  - {fileID: 880215018}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5369,6 +5373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Ruang Etika
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 1105371416}
   jawabanA: {fileID: 1259705292}
@@ -6650,6 +6655,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkGameManager
   ShowTopMostFoldoutHeaderGroup: 1
+  textHasilKartu: {fileID: 0}
+  pengelolaDekEdupoly: {fileID: 1232347324}
+  tombolKembaliMenu: {fileID: 0}
   playerIndexLokal: -1
   jumlahPemainOnline: 0
   giliranOnline:
@@ -6663,6 +6671,11 @@ MonoBehaviour:
       MaxSecondsBetweenUpdates: 0
     m_InternalValue: 15
   sedangProsesOnline:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
+  permainanSelesaiOnline:
     UpdateTraits:
       MinSecondsBetweenUpdates: 0
       MaxSecondsBetweenUpdates: 0
@@ -8591,6 +8604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Gaya
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 1240583343}
   jawabanA: {fileID: 1539228960}
@@ -9115,6 +9129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 520999607}
   - component: {fileID: 520999606}
+  - component: {fileID: 520999608}
   m_Layer: 0
   m_Name: PropertyDataManager
   m_TagString: Untagged
@@ -9135,6 +9150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PropertyDataManager
   daftarLahan: []
+  pengaliBiayaUpgrade: 0.5
 --- !u!4 &520999607
 Transform:
   m_ObjectHideFlags: 0
@@ -9150,6 +9166,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &520999608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520999605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e869a02d7191701409178c52eae6340e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PropertyBuildingVisual
+  dataManager: {fileID: 520999606}
+  wadahWaypoints: {fileID: 2139472799}
+  ukuranBangunan: 0.4
+  ukuranLandmark: 0.45
+  jarakAntarBangunan: 0.23
+  tinggiDariPetak: 0.05
+  jarakDariTepi: 0.28
 --- !u!1 &529801772
 GameObject:
   m_ObjectHideFlags: 0
@@ -12932,6 +12967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Puisi
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 1855669239}
   jawabanA: {fileID: 106348970}
@@ -14166,6 +14202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: sel
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 343218889}
   jawabanA: {fileID: 717645019}
@@ -15262,7 +15299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 791089018}
   m_Layer: 0
-  m_Name: WP_03
+  m_Name: WP_03 EDUCARD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16204,7 +16241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 817958460}
   m_Layer: 0
-  m_Name: EdupolyCard_B
+  m_Name: f
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17316,6 +17353,139 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &880215017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 880215018}
+  - component: {fileID: 880215021}
+  - component: {fileID: 880215020}
+  - component: {fileID: 880215019}
+  m_Layer: 5
+  m_Name: TombolKembaliMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &880215018
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880215017}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1714846726}
+  m_Father: {fileID: 305313621}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &880215019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880215017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 880215020}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 388439717}
+        m_TargetAssemblyTypeName: NetworkGameManager, Assembly-CSharp
+        m_MethodName: KembaliKeMenuSetelahMenang
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &880215020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880215017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &880215021
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880215017}
+  m_CullTransparentMesh: 1
 --- !u!1 &882923907
 GameObject:
   m_ObjectHideFlags: 0
@@ -17686,7 +17856,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb34a18e5ccbbb84e92998ef1f517f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
-  namaPetak: Pancasila
+  namaPetak: Taman Pancasila
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 852825143}
   jawabanA: {fileID: 851403492}
@@ -20022,6 +20193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Pasar
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 1922027159}
   jawabanA: {fileID: 1266852826}
@@ -22174,6 +22346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Musik
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 496227780}
   jawabanA: {fileID: 1389759750}
@@ -24138,6 +24311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Sentence Attention
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 794030703}
   jawabanA: {fileID: 1103529359}
@@ -25025,6 +25199,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1230548090}
   m_CullTransparentMesh: 1
+--- !u!1 &1232347323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1232347325}
+  - component: {fileID: 1232347324}
+  m_Layer: 0
+  m_Name: KartuEdupolyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1232347324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232347323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab92ce83304f95448d32f2d76eabb66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KartuEdupolyManager
+  databaseKartu: {fileID: 4900000, guid: f21b0d0541f82b84eadab47c28ba883b, type: 3}
+  waypointKartu: 030000000f000000150000001e000000i
+--- !u!4 &1232347325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232347323}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.285, y: 0.5, z: 1.47}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1236393708 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6970836772203578437, guid: 47ce8fecc1970144ba4153c460cffb4c, type: 3}
@@ -26740,6 +26960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Tari
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 911608397}
   jawabanA: {fileID: 1957539182}
@@ -28039,6 +28260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Word Gallery
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 608057560}
   jawabanA: {fileID: 433756203}
@@ -31312,6 +31534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: aljabar
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 1256846859}
   jawabanA: {fileID: 1131644503}
@@ -31358,10 +31581,17 @@ MonoBehaviour:
   - {fileID: 25690233}
   - {fileID: 1311849846}
   cardDisplayManager: {fileID: 1986025427}
+  kartuEdupolyManager: {fileID: 0}
+  kartuEffectManager: {fileID: 2005437237}
+  efekKartuEdupoly: {fileID: 2005437237}
+  teksHasilEducard: {fileID: 0}
+  durasiNotifikasiEducard: 4
   jumlahKembarBerturut: 0
   batasWaktuLempar: 15
   textTimer: {fileID: 1576911523}
   sliderTimer: {fileID: 0}
+  teksHasilBot: {fileID: 0}
+  tombolKembaliMenuBot: {fileID: 0}
 --- !u!4 &1617838665
 Transform:
   m_ObjectHideFlags: 0
@@ -32420,6 +32650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Talk Avenue
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 906912464}
   jawabanA: {fileID: 231751899}
@@ -32533,6 +32764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: pecahan
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 815260473}
   jawabanA: {fileID: 370429687}
@@ -32540,6 +32772,64 @@ MonoBehaviour:
   jawabanC: {fileID: 266304923}
   jawabanD: {fileID: 838759363}
   jawabanLayout: {fileID: 1272233230}
+--- !u!1 &1650500028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1650500030}
+  - component: {fileID: 1650500032}
+  - component: {fileID: 1650500031}
+  m_Layer: 0
+  m_Name: EducardPopupManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1650500030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650500028}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.285, y: 0.5, z: 1.47}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1650500031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650500028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f99cf6d50ef42c4b86eab6a9f54e20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EducardPopup
+  kartuManager: {fileID: 1232347324}
+--- !u!114 &1650500032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650500028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bba188e4293246d419d379da14a676e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EducardPopupUI
 --- !u!1 &1650969599
 GameObject:
   m_ObjectHideFlags: 0
@@ -34070,6 +34360,50 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1701168271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1701168273}
+  - component: {fileID: 1701168272}
+  m_Layer: 0
+  m_Name: MultiplayerDisconnectHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1701168272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701168271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b39e0e64bfcc140b38afb8f15388b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultiplayerDisconnectHandler
+--- !u!4 &1701168273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701168271}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.62654, y: -0.69683, z: 1.20694}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1710113437
 GameObject:
   m_ObjectHideFlags: 0
@@ -34252,6 +34586,143 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710736396}
+  m_CullTransparentMesh: 1
+--- !u!1 &1714846725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1714846726}
+  - component: {fileID: 1714846728}
+  - component: {fileID: 1714846727}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1714846726
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714846725}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 880215018}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: -140}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -39.99997, y: 4187.5}
+  m_SizeDelta: {x: 240, y: -4145}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &1714846727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714846725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: KEMBALI KE MENU
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656bu
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1714846728
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714846725}
   m_CullTransparentMesh: 1
 --- !u!1 &1721009548
 GameObject:
@@ -34648,6 +35119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: bangun datar
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 2140055149}
   jawabanA: {fileID: 1150649799}
@@ -36047,6 +36519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Uang
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 809766962}
   jawabanA: {fileID: 1613006116}
@@ -36467,6 +36940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Kegiatan Ekonomi
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 1678844294}
   jawabanA: {fileID: 778613342}
@@ -37015,7 +37489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1897043263}
   m_Layer: 0
-  m_Name: WP_15
+  m_Name: WP_15 EDUCARD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37400,6 +37874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Cerpen
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 10081826}
   jawabanA: {fileID: 374679858}
@@ -38155,6 +38630,56 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &2005437236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2005437238}
+  - component: {fileID: 2005437237}
+  m_Layer: 0
+  m_Name: KartuEdupolyEffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2005437237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005437236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80addfff890d37b4aac8adc3dbce091b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KartuEdupolyEffectManager
+  dekKartu: {fileID: 1232347324}
+  pengelolaUang: {fileID: 1777228673}
+  durasiKartuAksi: 3
+  batasWaktuWawasan: 30
+  jedaJawabanBot: 1.2
+  peluangBotBenar: 0.75
+--- !u!4 &2005437238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005437236}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.285, y: 0.5, z: 1.47}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2009008660
 GameObject:
   m_ObjectHideFlags: 0
@@ -38783,7 +39308,8 @@ MonoBehaviour:
   panelPopUpHasil: {fileID: 1780331349}
   teksHasilJawaban: {fileID: 533088416}
   cardDisplayManager: {fileID: 1986025427}
-  fileSoal: {fileID: 4900000, guid: e0cc829cd6b7e6b44bdd3c08e546072e, type: 3}
+  fileSoal: {fileID: 4900000, guid: cbc6e368662de0540bc5efd1ef816526, type: 3}
+  batasWaktuSoal: 30
 --- !u!1 &2033101550
 GameObject:
   m_ObjectHideFlags: 0
@@ -39230,6 +39756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Gerak
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 1503426382}
   jawabanA: {fileID: 652041706}
@@ -39449,7 +39976,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2055321932}
   m_Layer: 0
-  m_Name: WP_21
+  m_Name: boardroot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39855,6 +40382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Ejaan
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 183203796}
   jawabanA: {fileID: 1161109097}
@@ -41046,6 +41574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Jejak Konstitusi
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 595685879}
   jawabanA: {fileID: 1612392907}
@@ -41725,6 +42254,63 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1645218741}
   m_SourcePrefab: {fileID: 100100000, guid: 97221c3579072d243bd41072db822029, type: 3}
+--- !u!1001 &3264619127989713276
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 481901629062703490, guid: 58450ec9aa13b2c4ba99c62ce08a63de, type: 3}
+      propertyPath: m_Name
+      value: LandmarkEdupoly
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839949960786527417, guid: 58450ec9aa13b2c4ba99c62ce08a63de, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.07654
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839949960786527417, guid: 58450ec9aa13b2c4ba99c62ce08a63de, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.88961
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839949960786527417, guid: 58450ec9aa13b2c4ba99c62ce08a63de, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.54085
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839949960786527417, guid: 58450ec9aa13b2c4ba99c62ce08a63de, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839949960786527417, guid: 58450ec9aa13b2c4ba99c62ce08a63de, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839949960786527417, guid: 58450ec9aa13b2c4ba99c62ce08a63de, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839949960786527417, guid: 58450ec9aa13b2c4ba99c62ce08a63de, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839949960786527417, guid: 58450ec9aa13b2c4ba99c62ce08a63de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839949960786527417, guid: 58450ec9aa13b2c4ba99c62ce08a63de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839949960786527417, guid: 58450ec9aa13b2c4ba99c62ce08a63de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 58450ec9aa13b2c4ba99c62ce08a63de, type: 3}
 --- !u!1001 &3342834287254543813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41889,6 +42475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuSoal
   namaPetak: Seni Rupa
+  levelSoal: 1
   soalManager: {fileID: 2028170556}
   textPertanyaan: {fileID: 393336410}
   jawabanA: {fileID: 621737820}
@@ -41896,6 +42483,63 @@ MonoBehaviour:
   jawabanC: {fileID: 2051518367}
   jawabanD: {fileID: 2100531204}
   jawabanLayout: {fileID: 1395515782}
+--- !u!1001 &6934554128750722587
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3175770317755248312, guid: dc7b1b87c5c2d9245aa8f500caf54b65, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175770317755248312, guid: dc7b1b87c5c2d9245aa8f500caf54b65, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175770317755248312, guid: dc7b1b87c5c2d9245aa8f500caf54b65, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175770317755248312, guid: dc7b1b87c5c2d9245aa8f500caf54b65, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175770317755248312, guid: dc7b1b87c5c2d9245aa8f500caf54b65, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175770317755248312, guid: dc7b1b87c5c2d9245aa8f500caf54b65, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175770317755248312, guid: dc7b1b87c5c2d9245aa8f500caf54b65, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175770317755248312, guid: dc7b1b87c5c2d9245aa8f500caf54b65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175770317755248312, guid: dc7b1b87c5c2d9245aa8f500caf54b65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175770317755248312, guid: dc7b1b87c5c2d9245aa8f500caf54b65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364423648192026135, guid: dc7b1b87c5c2d9245aa8f500caf54b65, type: 3}
+      propertyPath: m_Name
+      value: RumahMonopoly
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dc7b1b87c5c2d9245aa8f500caf54b65, type: 3}
 --- !u!1001 &7273952062737315145
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42146,3 +42790,9 @@ SceneRoots:
   - {fileID: 520999607}
   - {fileID: 1986025428}
   - {fileID: 2028170555}
+  - {fileID: 6934554128750722587}
+  - {fileID: 3264619127989713276}
+  - {fileID: 1701168273}
+  - {fileID: 1232347325}
+  - {fileID: 2005437238}
+  - {fileID: 1650500030}

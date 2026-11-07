@@ -16,6 +16,15 @@ public class TurnManager : MonoBehaviour
     public PionMovement[] daftarPion;
     [Header("Kartu Soal Otomatis")]
     public CardDisplayManager cardDisplayManager;
+    [Header("Kartu EDUCARD")]
+public KartuEdupolyManager kartuEdupolyManager;
+public KartuEdupolyEffectManager kartuEffectManager;
+
+    [Header("EDUCARD - Single Player vs Bot")]
+    public KartuEdupolyEffectManager efekKartuEdupoly;
+    [Tooltip("TMP Text untuk notifikasi singkat EDUCARD. Boleh dikosongkan, efek tetap berjalan.")]
+    public TMP_Text teksHasilEducard;
+    public float durasiNotifikasiEducard = 4f;
 
     [Header("Aturan Dadu Kembar")]
     public int jumlahKembarBerturut = 0;
@@ -28,7 +37,12 @@ public class TurnManager : MonoBehaviour
     private float waktuTersisa;
     private bool timerAktif = false;
     private bool giliranSedangDiproses = false;
+    private bool permainanSelesaiBot = false;
+    private readonly bool[] pemainBangkrutBot = new bool[4];
 
+[Header("Hasil Akhir Lawan Bot")]
+public TMP_Text teksHasilBot;
+public GameObject tombolKembaliMenuBot;
     public bool ModeMultiplayer =>
         MainMenuManager.modeMultiplayer;
 
@@ -68,6 +82,8 @@ public class TurnManager : MonoBehaviour
         // Giliran manusia dimulai dengan 15 detik
         if (!ModeMultiplayer)
         {
+            if (!ModeMultiplayer && permainanSelesaiBot)
+    return;
             MulaiTimerManusia();
         }
     }
@@ -80,8 +96,8 @@ public class TurnManager : MonoBehaviour
 
     void Update()
     {
-        if (ModeMultiplayer)
-            return;
+        if (ModeMultiplayer || permainanSelesaiBot)
+    return;
         if (!timerAktif)
             return;
 
@@ -177,7 +193,7 @@ public class TurnManager : MonoBehaviour
 
     public bool BolehLemparManusia()
     {
-        if (ModeMultiplayer)
+        if (ModeMultiplayer || permainanSelesaiBot)
             return false;
 
         return giliranSekarang == 0 &&
@@ -299,22 +315,155 @@ public class TurnManager : MonoBehaviour
         yield return new WaitUntil(
             () => !pion.SedangBergerak
         );
+        
+// Proses EDUCARD untuk Player dan Bot.
+if (!ModeMultiplayer &&
+    kartuEdupolyManager != null &&
+    kartuEdupolyManager.ApakahPetakKartu(pion.posisiSekarang) &&
+    kartuEffectManager != null)
+{
+    kartuEffectManager.dekKartu = kartuEdupolyManager;
 
+    yield return StartCoroutine(
+        kartuEffectManager.ProsesKartu(giliranSekarang, pion)
+    );
+
+    if (kartuEffectManager.kehilanganGiliran)
+    {
+        GiliranBerikutnya();
+        yield break;
+    }
+}
+
+        // EDUCARD diproses hanya saat pemain/bot berhenti di petak kartu.
+        bool giliranTambahanDariKartu = false;
+        bool lewatiGiliranDariKartu = false;
+        if (!ModeMultiplayer && efekKartuEdupoly != null &&
+            efekKartuEdupoly.dekKartu != null &&
+            efekKartuEdupoly.dekKartu.DatabaseSiap &&
+            efekKartuEdupoly.dekKartu.ApakahPetakKartu(pion.posisiSekarang))
+        {
+            Debug.Log("EDUCARD: pion mendarat di waypoint " + pion.posisiSekarang);
+            yield return StartCoroutine(
+                efekKartuEdupoly.ProsesKartu(giliranSekarang, pion)
+            );
+
+            DataKartuAksiEdupoly kartuAktif =
+                efekKartuEdupoly.dekKartu.KartuAktif;
+            if (kartuAktif != null)
+            {
+                string pesan = "EDUCARD - " + kartuAktif.kategori + "\n" +
+                               kartuAktif.Kartu + "\n" + kartuAktif.Aksi;
+                TampilkanNotifikasiEducard(pesan);
+            }
+
+            giliranTambahanDariKartu = efekKartuEdupoly.mintaLemparUlang;
+            lewatiGiliranDariKartu = efekKartuEdupoly.kehilanganGiliran;
+        }
+        else if (!ModeMultiplayer && efekKartuEdupoly == null)
+        {
+            Debug.LogWarning("EDUCARD belum diproses: field Efek Kartu Edupoly di TurnManager belum diisi.");
+        }
+
+// Cek apakah lahan SUDAH dimiliki pemain
+// sebelum proses pembelian pada giliran ini.
+bool bolehUpgradeSaatMendarat = false;
+
+PropertyDataManager dataLahan =
+    FindAnyObjectByType<PropertyDataManager>();
+
+if (dataLahan != null && pion != null)
+{
+    DataLahan lahanAwal =
+        dataLahan.CariLahan(pion.posisiSekarang);
+
+    bolehUpgradeSaatMendarat =
+        lahanAwal != null &&
+        lahanAwal.pemilik == giliranSekarang &&
+        lahanAwal.tahapProperti == 1;
+}
         // Bayar pajak jika berhenti di petak pajak
         ProsesPajak(pion);
-        ProsesReward(pion);
+ProsesReward(pion);
+ProsesSewaBot(pion);
+ProsesPajak(pion);
 
+// Proses biaya dan hadiah satu kali setiap pendaratan.
+ProsesPajak(pion);
+ProsesReward(pion);
+ProsesSewaBot(pion);
+
+if (permainanSelesaiBot ||
+    pemainBangkrutBot[giliranSekarang])
+{
+    if (!permainanSelesaiBot)
+        GiliranBerikutnya();
+
+    yield break;
+}
+
+ProsesReward(pion);
+ProsesSewaBot(pion);
+
+if (permainanSelesaiBot ||
+    pemainBangkrutBot[giliranSekarang])
+{
+    if (!permainanSelesaiBot)
+        GiliranBerikutnya();
+
+    yield break;
+}
         // TAMBAHAN: Cek penawaran pembelian lahan
         yield return StartCoroutine(TungguPilihanPembelian(pion));
 
+        
         // Pembelian otomatis khusus bot
         if (!ModeMultiplayer && giliranSekarang != 0)
         {
-            yield return StartCoroutine(ProsesPembelianBot(pion));
+            yield return StartCoroutine(
+                ProsesPembelianBot(pion)
+            );
         }
+
+        // Upgrade landmark di lahan sendiri.
+if (!ModeMultiplayer && bolehUpgradeSaatMendarat)
+{
+    yield return StartCoroutine(
+        PropertyUpgradeFlow.Proses(
+            pion,
+            giliranSekarang,
+            ModeMultiplayer,
+            cardDisplayManager
+        )
+    );
+}
+
+        
+    // Pemeriksaan kemenangan terpusat:
+// kuasai satu sisi atau tinggal satu pemain.
+if (!ModeMultiplayer && CekPemenangBot())
+{
+    yield break;
+}
+
         yield return new WaitForSeconds(1f);
 
         giliranSedangDiproses = false;
+
+        if (lewatiGiliranDariKartu)
+        {
+            Debug.Log("EDUCARD: pemain kehilangan 1 giliran.");
+            GiliranBerikutnya();
+            yield break;
+        }
+
+        if (giliranTambahanDariKartu)
+        {
+            Debug.Log("EDUCARD: pemain mendapat kesempatan lempar dadu lagi.");
+            if (giliranSekarang == 0) MulaiTimerManusia();
+            else StartCoroutine(JalankanBot());
+            yield break;
+        }
 
         if (kembar)
         {
@@ -339,13 +488,69 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    
+    private Coroutine notifikasiEducardCoroutine;
+
+    private void TampilkanNotifikasiEducard(string pesan)
+    {
+        Debug.Log(pesan.Replace("\n", " | "));
+        if (teksHasilEducard == null)
+        {
+            Debug.LogWarning("UI notifikasi EDUCARD belum dihubungkan ke field Teks Hasil Educard di TurnManager.");
+            return;
+        }
+        if (notifikasiEducardCoroutine != null)
+            StopCoroutine(notifikasiEducardCoroutine);
+        notifikasiEducardCoroutine = StartCoroutine(
+            NotifikasiEducardCoroutine(pesan)
+        );
+    }
+
+    private IEnumerator NotifikasiEducardCoroutine(string pesan)
+    {
+        teksHasilEducard.gameObject.SetActive(true);
+        teksHasilEducard.text = pesan;
+        yield return new WaitForSeconds(durasiNotifikasiEducard);
+        if (teksHasilEducard != null)
+            teksHasilEducard.text = "";
+        notifikasiEducardCoroutine = null;
+    }
+
     public void GiliranBerikutnya()
     {
-        giliranSekarang++;
-
-        if (giliranSekarang >= jumlahPemain)
+        if (!ModeMultiplayer)
         {
-            giliranSekarang = 0;
+            // Tidak boleh berganti giliran setelah game selesai.
+            if (permainanSelesaiBot || CekPemenangBot())
+                return;
+
+            int pemainBerikutnya = -1;
+
+            // Cari pemain yang belum bangkrut.
+            for (int langkah = 1;
+                 langkah <= jumlahPemain;
+                 langkah++)
+            {
+                int kandidat =
+                    (giliranSekarang + langkah) % jumlahPemain;
+
+                if (!pemainBangkrutBot[kandidat])
+                {
+                    pemainBerikutnya = kandidat;
+                    break;
+                }
+            }
+
+            if (pemainBerikutnya < 0)
+                return;
+
+            giliranSekarang = pemainBerikutnya;
+        }
+        else
+        {
+            // Jalur lama tetap tersedia.
+            giliranSekarang =
+                (giliranSekarang + 1) % jumlahPemain;
         }
 
         jumlahKembarBerturut = 0;
@@ -363,6 +568,7 @@ public class TurnManager : MonoBehaviour
             StartCoroutine(JalankanBot());
         }
     }
+
 
     IEnumerator JalankanBot()
     {
@@ -427,23 +633,31 @@ public class TurnManager : MonoBehaviour
         // pergerakan dan giliran berikutnya.
     }
 
-    void TampilkanGiliran()
+  void TampilkanGiliran()
+{
+    if (ModeMultiplayer)
     {
-        if (giliranSekarang == 0)
-        {
-            Debug.Log(
-                "Giliran PLAYER 1 (Manusia)"
-            );
-        }
-        else
-        {
-            Debug.Log(
-                "Giliran PLAYER " +
-                (giliranSekarang + 1) +
-                " (BOT)"
-            );
-        }
+        Debug.Log(
+            "Giliran PLAYER " +
+            (giliranSekarang + 1) +
+            " (MULTIPLAYER)"
+        );
+        return;
     }
+
+    if (giliranSekarang == 0)
+    {
+        Debug.Log("Giliran PLAYER 1 (MANUSIA)");
+    }
+    else
+    {
+        Debug.Log(
+            "Giliran PLAYER " +
+            (giliranSekarang + 1) +
+            " (BOT)"
+        );
+    }
+}
 
     public void RapikanSemuaPion()
     {
@@ -646,6 +860,73 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Bot salah menjawab soal. Pembelian batal.");
         }
     }
+    
+    void ProsesSewaBot(PionMovement pion)
+    {
+        if (ModeMultiplayer || pion == null)
+            return;
+
+        PropertyDataManager data =
+            FindAnyObjectByType<PropertyDataManager>();
+
+        PlayerMoneyManager uang =
+            FindAnyObjectByType<PlayerMoneyManager>();
+
+        if (data == null || uang == null ||
+            uang.saldoPemain == null)
+            return;
+
+        DataLahan lahan =
+            data.CariLahan(pion.posisiSekarang);
+
+        if (lahan == null)
+            return;
+
+        int pembayar = giliranSekarang;
+        int pemilik = lahan.pemilik;
+
+        if (pemilik < 0 || pemilik == pembayar)
+            return;
+
+        if (pembayar < 0 ||
+            pembayar >= uang.saldoPemain.Length ||
+            pemilik >= uang.saldoPemain.Length)
+            return;
+
+        float persentase = 0f;
+
+        if (lahan.tahapProperti == 1)
+            persentase = 0.10f;
+        else if (lahan.tahapProperti == 2)
+            persentase = 0.20f;
+
+        int biayaSewa =
+            Mathf.RoundToInt(lahan.harga * persentase);
+
+        if (biayaSewa <= 0)
+            return;
+
+       if (!uang.KurangiSaldo(pembayar, biayaSewa))
+{
+    TandaiBangkrutBot(
+        pembayar,
+        "Tidak mampu membayar sewa Rp" +
+        biayaSewa.ToString("N0")
+    );
+
+    return;
+}
+
+        uang.TambahSaldo(pemilik, biayaSewa);
+
+        Debug.Log(
+            "Player " + (pembayar + 1) +
+            " membayar sewa Rp" +
+            biayaSewa.ToString("N0") +
+            " kepada Player " + (pemilik + 1)
+        );
+    }
+
     void ProsesPajak(PionMovement pion)
     {
         if (pion == null || ModeMultiplayer)
@@ -676,7 +957,10 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Player " + (giliranSekarang + 1) +
                       " membayar pajak Rp" + biayaPajak);
         else
-            Debug.Log("Saldo tidak cukup untuk membayar pajak!");
+    TandaiBangkrutBot(
+        giliranSekarang,
+        "Tidak mampu membayar pajak"
+    );
     }
     bool BayarDendaPenjara(int idPemain)
     {
@@ -709,14 +993,14 @@ public class TurnManager : MonoBehaviour
         bool berhasil = uang.KurangiSaldo(idPemain, denda);
 
         if (!berhasil)
-        {
-            Debug.Log(
-                "Player " + (idPemain + 1) +
-                " belum bisa keluar penjara. Saldo tidak cukup!"
-            );
+{
+    Debug.LogWarning(
+        "Player " + (idPemain + 1) +
+        " belum mampu membayar denda penjara. Giliran dilewati."
+    );
 
-            return false;
-        }
+    return false;
+}
 
         pion.sedangDipenjara = false;
 
@@ -758,4 +1042,148 @@ public class TurnManager : MonoBehaviour
             " mendapat REWARD Rp50.000!"
         );
     }
+    
+    private void TandaiBangkrutBot(int pemain, string alasan)
+    {
+        if (ModeMultiplayer || permainanSelesaiBot ||
+            pemain < 0 || pemain >= jumlahPemain ||
+            pemainBangkrutBot[pemain])
+            return;
+
+        pemainBangkrutBot[pemain] = true;
+
+        PropertyDataManager data =
+            FindAnyObjectByType<PropertyDataManager>();
+
+        if (data != null)
+        {
+            for (int waypoint = 0; waypoint < 36; waypoint++)
+            {
+                DataLahan lahan = data.CariLahan(waypoint);
+
+                if (lahan != null && lahan.pemilik == pemain)
+                {
+                    lahan.pemilik = -1;
+                    lahan.tahapProperti = 0;
+                }
+            }
+        }
+
+        PlayerMoneyManager uang =
+            FindAnyObjectByType<PlayerMoneyManager>();
+
+        if (uang != null &&
+            uang.saldoPemain != null &&
+            pemain < uang.saldoPemain.Length)
+        {
+            uang.saldoPemain[pemain] = 0;
+            uang.PerbaruiUIPemain();
+        }
+
+        Debug.LogWarning(
+            "PLAYER " + (pemain + 1) +
+            " BANGKRUT! " + alasan
+        );
+
+        CekPemenangBot();
+    }
+
+    private bool CekPemenangBot()
+    {
+        if (ModeMultiplayer)
+            return false;
+
+        if (permainanSelesaiBot)
+            return true;
+
+        PropertyDataManager data =
+            FindAnyObjectByType<PropertyDataManager>();
+
+        if (data != null)
+        {
+            int pemenang =
+                SideOwnershipWinChecker.CariPemenangSatuSisi(data);
+
+            if (pemenang >= 0 &&
+                pemenang < jumlahPemain &&
+                !pemainBangkrutBot[pemenang])
+            {
+                AkhiriPermainanBot(
+                    pemenang,
+                    "Menguasai satu sisi papan"
+                );
+                return true;
+            }
+        }
+
+        int jumlahAktif = 0;
+        int pemainTerakhir = -1;
+
+        for (int i = 0; i < jumlahPemain; i++)
+        {
+            if (!pemainBangkrutBot[i])
+            {
+                jumlahAktif++;
+                pemainTerakhir = i;
+            }
+        }
+
+        if (jumlahAktif == 1)
+        {
+            AkhiriPermainanBot(
+                pemainTerakhir,
+                "Semua lawan telah bangkrut"
+            );
+            return true;
+        }
+
+        if (pemainBangkrutBot[0])
+        {
+            AkhiriPermainanBot(-1, "Player 1 bangkrut");
+            return true;
+        }
+
+        return false;
+    }
+
+    private void AkhiriPermainanBot(int pemenang, string alasan)
+    {
+        if (permainanSelesaiBot)
+            return;
+
+        permainanSelesaiBot = true;
+        giliranSedangDiproses = false;
+        HentikanTimer();
+
+        string hasil =
+            pemenang == 0
+            ? "SELAMAT! KAMU MENANG!"
+            : "KAMU KALAH!";
+
+        string pesan =
+            "EDU-POLY SELESAI!\n" +
+            hasil + "\n" + alasan;
+
+        Debug.Log(pesan);
+
+        if (teksHasilBot != null)
+        {
+            teksHasilBot.gameObject.SetActive(true);
+            teksHasilBot.text = pesan;
+        }
+
+        if (tombolKembaliMenuBot != null)
+            tombolKembaliMenuBot.SetActive(true);
+    }
+
+    public void KembaliKeMenuBot()
+    {
+        if (ModeMultiplayer || !permainanSelesaiBot)
+            return;
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene(
+            "MainMenu"
+        );
+    }
+
 }

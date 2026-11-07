@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 public class MultiplayerManager : MonoBehaviour
 {
     public MainMenuManager mainMenuManager;
-    private ISession sesiAktif;
+    public static ISession sesiAktif;
     async void Start()
     {
         await SiapkanLayananOnline();

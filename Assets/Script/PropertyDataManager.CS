@@ -9,7 +9,14 @@ public class DataLahan
     public string namaLahan;
     public int harga;
     public Color warnaKomplek;
-    public int pemilik = -1; // -1 berarti belum dimiliki
+
+    // -1 = Belum ada pemilik
+    public int pemilik = -1;
+
+    // 0 = Kosong
+    // 1 = Tiga Bangunan
+    // 2 = Landmark
+    public int tahapProperti = 0;
 }
 
 public class PropertyDataManager : MonoBehaviour
@@ -17,7 +24,11 @@ public class PropertyDataManager : MonoBehaviour
     [Header("Data 24 Lahan Edupoly")]
     public DataLahan[] daftarLahan;
 
-    void Awake()
+    [Header("Biaya Upgrade Landmark")]
+    [Range(0.1f, 2f)]
+    public float pengaliBiayaUpgrade = 0.5f;
+
+    private void Awake()
     {
         daftarLahan = new DataLahan[]
         {
@@ -55,9 +66,18 @@ public class PropertyDataManager : MonoBehaviour
         };
     }
 
-    DataLahan Buat(int waypoint, string nama, int harga, string hex)
+    private DataLahan Buat(
+        int waypoint,
+        string nama,
+        int harga,
+        string hex)
     {
-        ColorUtility.TryParseHtmlString(hex, out Color warna);
+        Color warna = Color.white;
+
+        ColorUtility.TryParseHtmlString(
+            hex,
+            out warna
+        );
 
         return new DataLahan
         {
@@ -65,34 +85,188 @@ public class PropertyDataManager : MonoBehaviour
             namaLahan = nama,
             harga = harga,
             warnaKomplek = warna,
-            pemilik = -1
+            pemilik = -1,
+            tahapProperti = 0
         };
     }
 
     public DataLahan CariLahan(int waypoint)
     {
+        if (daftarLahan == null)
+            return null;
+
         foreach (DataLahan lahan in daftarLahan)
         {
-            if (lahan.waypoint == waypoint)
+            if (lahan != null &&
+                lahan.waypoint == waypoint)
+            {
                 return lahan;
+            }
         }
 
         return null;
     }
-    public bool BeliLahan(DataLahan lahan, int idPemain,
-                      PlayerMoneyManager uang)
-    {
-        if (lahan == null || uang == null || lahan.pemilik != -1)
-            return false;
 
-        if (!uang.KurangiSaldo(idPemain, lahan.harga))
+    // ====================================
+    // PEMBELIAN LAHAN - LEVEL 1
+    // ====================================
+    public bool BeliLahan(
+        DataLahan lahan,
+        int idPemain,
+        PlayerMoneyManager uang)
+    {
+        if (lahan == null ||
+            uang == null ||
+            idPemain < 0 ||
+            lahan.pemilik != -1)
+        {
             return false;
+        }
+
+        if (!uang.KurangiSaldo(
+            idPemain,
+            lahan.harga))
+        {
+            Debug.Log(
+                "Saldo tidak cukup membeli " +
+                lahan.namaLahan
+            );
+
+            return false;
+        }
 
         lahan.pemilik = idPemain;
+        lahan.tahapProperti = 1;
 
-        Debug.Log("Pemain " + (idPemain + 1) +
-                  " berhasil membeli " + lahan.namaLahan);
+        Debug.Log(
+            "Lahan dibeli: " +
+            lahan.namaLahan +
+            " | 3 bangunan aktif."
+        );
 
         return true;
+    }
+
+    // ====================================
+    // HITUNG BIAYA LANDMARK
+    // ====================================
+    public int HitungBiayaUpgrade(DataLahan lahan)
+    {
+        if (lahan == null)
+            return 0;
+
+        return Mathf.RoundToInt(
+            lahan.harga * pengaliBiayaUpgrade
+        );
+    }
+
+    // ====================================
+    // UPGRADE LANDMARK - LEVEL 2
+    // Panggil hanya setelah soal benar.
+    // ====================================
+    public bool UpgradeLandmark(
+        DataLahan lahan,
+        int idPemain,
+        PlayerMoneyManager uang)
+    {
+        if (lahan == null ||
+            uang == null ||
+            idPemain < 0)
+        {
+            return false;
+        }
+
+        // Pemain harus pemilik lahan.
+        if (lahan.pemilik != idPemain)
+        {
+            Debug.LogWarning(
+                "Upgrade gagal: bukan pemilik lahan."
+            );
+
+            return false;
+        }
+
+        // Hanya lahan tahap 1 yang bisa upgrade.
+        if (lahan.tahapProperti != 1)
+        {
+            Debug.LogWarning(
+                "Upgrade gagal: tahap properti tidak sesuai."
+            );
+
+            return false;
+        }
+
+        int biaya = HitungBiayaUpgrade(lahan);
+
+        // Pembayaran harus berhasil dulu.
+        if (!uang.KurangiSaldo(
+            idPemain,
+            biaya))
+        {
+            Debug.LogWarning(
+                "Saldo tidak cukup untuk upgrade " +
+                lahan.namaLahan
+            );
+
+            return false;
+        }
+
+        // Setelah pembayaran berhasil:
+        lahan.tahapProperti = 2;
+
+        Debug.Log(
+            "LANDMARK BERHASIL! " +
+            lahan.namaLahan +
+            " | Biaya Rp" +
+            biaya.ToString("N0")
+        );
+
+        return true;
+    }
+
+    // ====================================
+    // SINKRON PEMILIK DARI MULTIPLAYER
+    // ====================================
+    public void TerapkanPemilikDariJaringan(
+        int waypoint,
+        int idPemilik)
+    {
+        DataLahan lahan = CariLahan(waypoint);
+
+        if (lahan == null)
+            return;
+
+        lahan.pemilik = idPemilik;
+
+        if (idPemilik == -1)
+        {
+            lahan.tahapProperti = 0;
+        }
+        else if (lahan.tahapProperti == 0)
+        {
+            lahan.tahapProperti = 1;
+        }
+    }
+
+    // ====================================
+    // SINKRON TAHAP LANDMARK MULTIPLAYER
+    // Tidak melakukan pembayaran.
+    // ====================================
+    public void TerapkanTahapDariJaringan(
+        int waypoint,
+        int tahapBaru)
+    {
+        DataLahan lahan = CariLahan(waypoint);
+
+        if (lahan == null)
+            return;
+
+        if (lahan.pemilik == -1)
+            return;
+
+        if (tahapBaru < 1 || tahapBaru > 2)
+            return;
+
+        lahan.tahapProperti = tahapBaru;
     }
 }

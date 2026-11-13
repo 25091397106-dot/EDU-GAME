@@ -475,6 +475,41 @@ else
         return t;
     }
 
+// ==========================================
+// NOTIFIKASI UMUM EDUCARD
+// Untuk Multiplayer dan pengumuman kemenangan
+// ==========================================
+public void TampilkanNotifikasiSistem(
+    string judul,
+    string isi,
+    float durasi = 5f)
+{
+    BuatUIJikaBelumAda();
+
+    if (notifikasiCoroutine != null)
+        StopCoroutine(notifikasiCoroutine);
+
+    TampilkanPanel(
+        judul,
+        isi,
+        "",
+        false
+    );
+
+    notifikasiCoroutine = StartCoroutine(
+        TutupNotifikasiSistem(durasi)
+    );
+}
+
+private IEnumerator TutupNotifikasiSistem(float durasi)
+{
+    yield return new WaitForSeconds(
+        Mathf.Max(0.1f, durasi)
+    );
+
+    SembunyikanPanel();
+    notifikasiCoroutine = null;
+}
 private void TampilkanPanel(string judul, string isi, string sub, bool kuis)
 {
     judulText.text = judul;

@@ -302,19 +302,43 @@ public GameObject tombolKembaliMenuBot;
             yield break;
         }
 
-        // Gerakkan pion
-        Debug.Log(
-            "Player " +
-            (giliranSekarang + 1) +
-            " maju " + total + " petak."
-        );
+       // Gerakkan pion
+Debug.Log(
+    "Player " +
+    (giliranSekarang + 1) +
+    " maju " + total + " petak."
+);
 
-        pion.Bergerak(total);
+pion.Bergerak(total);
 
-       // Tunggu pion selesai berjalan
+// Tunggu pion selesai berjalan.
 yield return new WaitUntil(
     () => !pion.SedangBergerak
 );
+
+// ======================================
+// PEMERIKSAAN MASUK PENJARA WP 27 KE WP 9
+// ======================================
+
+if (pion.sedangDipenjara && pion.posisiSekarang == 9)
+{
+    Debug.Log(
+        "Player " + (giliranSekarang + 1) +
+        " masuk penjara dari WP 27."
+    );
+
+    // Reset hitungan dadu kembar.
+    jumlahKembarBerturut = 0;
+
+    // Hentikan proses giliran saat ini.
+    giliranSedangDiproses = false;
+
+    // Lanjutkan ke pemain berikutnya.
+    GiliranBerikutnya();
+
+    // Hentikan proses petak lainnya.
+    yield break;
+}
 
 // EDUCARD diproses hanya saat pemain/bot berhenti di petak kartu.
 bool giliranTambahanDariKartu = false;
@@ -1133,35 +1157,57 @@ if (!ModeMultiplayer && CekPemenangBot())
         return false;
     }
 
-    private void AkhiriPermainanBot(int pemenang, string alasan)
+private void AkhiriPermainanBot(int pemenang, string alasan)
+{
+    if (permainanSelesaiBot)
+        return;
+
+    permainanSelesaiBot = true;
+    giliranSedangDiproses = false;
+    HentikanTimer();
+
+    string hasil =
+        pemenang == 0
+        ? "SELAMAT! KAMU MENANG!"
+        : "KAMU KALAH!";
+
+    string pesan =
+        "EDU-POLY SELESAI!\n" +
+        hasil + "\n" + alasan;
+
+    Debug.Log(pesan);
+
+    // Gunakan panel EDUCARD yang sudah tersedia.
+    KartuEdupolyEffectManager effectManager =
+        efekKartuEdupoly != null
+        ? efekKartuEdupoly
+        : kartuEffectManager;
+
+    if (effectManager != null)
     {
-        if (permainanSelesaiBot)
-            return;
+        effectManager.TampilkanNotifikasiSistem(
+            "EDU-POLY SELESAI!",
+            pesan,
+            8f
+        );
+    }
+    else
+    {
+        Debug.LogWarning(
+            "Panel EDUCARD tidak ditemukan untuk menampilkan hasil permainan."
+        );
 
-        permainanSelesaiBot = true;
-        giliranSedangDiproses = false;
-        HentikanTimer();
-
-        string hasil =
-            pemenang == 0
-            ? "SELAMAT! KAMU MENANG!"
-            : "KAMU KALAH!";
-
-        string pesan =
-            "EDU-POLY SELESAI!\n" +
-            hasil + "\n" + alasan;
-
-        Debug.Log(pesan);
-
+        // Fallback jika panel EDUCARD belum tersedia.
         if (teksHasilBot != null)
         {
             teksHasilBot.gameObject.SetActive(true);
             teksHasilBot.text = pesan;
         }
-
-        if (tombolKembaliMenuBot != null)
-            tombolKembaliMenuBot.SetActive(true);
     }
+
+    if (tombolKembaliMenuBot != null)
+        tombolKembaliMenuBot.SetActive(true);
+}
 
     public void KembaliKeMenuBot()
     {

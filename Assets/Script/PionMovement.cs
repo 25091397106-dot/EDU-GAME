@@ -116,6 +116,34 @@ IEnumerator AnimasiBergerak(int jumlahLangkah)
                 BerikanBonusStart();
         }
 
+        // Jika tepat mendarat di WP 27, langsung masuk penjara WP 9.
+        if (arah > 0 && posisiSekarang == 27)
+        {
+            if (waypoints.Length <= 27 || waypoints.Length <= 9)
+            {
+                Debug.LogError(
+                    "Waypoint 27 atau waypoint 9 belum tersedia!"
+                );
+            }
+            else
+            {
+                posisiSekarang = 9;
+                sedangDipenjara = true;
+
+                transform.position =
+                    waypoints[9].position +
+                    Vector3.up * tinggiPion;
+
+                Debug.Log(
+                    gameObject.name +
+                    " mendarat di WP 27 dan langsung masuk PENJARA WP 9!"
+                );
+
+                // Hentikan sisa langkah dadu.
+                break;
+            }
+        }
+
         yield return new WaitForSeconds(0.1f);
     }
 
@@ -220,47 +248,74 @@ IEnumerator AnimasiBergerak(int jumlahLangkah)
     }
 
     // Masuk penjara setelah tiga kali dadu kembar
-    public void MasukPenjara()
+public void MasukPenjara()
+{
+    if (sedangBergerak)
     {
-        if (sedangBergerak)
-        {
-            Debug.LogWarning(
-                gameObject.name + " masih bergerak!"
-            );
-            return;
-        }
-
-        if (waypoints == null ||
-            waypoints.Length <= 9)
-        {
-            Debug.LogError(
-                "Waypoint penjara belum tersedia!"
-            );
-            return;
-        }
-
-        // WP_09_PENJARA
-        posisiSekarang = 9;
-        sedangDipenjara = true;
-
-        if (turnManager != null)
-        {
-            turnManager.RapikanSemuaPion();
-        }
-        else
-        {
-            UpdatePosisiDiam();
-        }
-
-        if (cameraFollow != null)
-        {
-            cameraFollow.BerhentiMengikuti();
-        }
-
-        Debug.Log(
-            gameObject.name + " masuk PENJARA!"
+        Debug.LogWarning(
+            gameObject.name + " masih bergerak!"
         );
+        return;
     }
+
+    // Pastikan WP 27 dan WP 9 tersedia.
+    if (waypoints == null ||
+        waypoints.Length <= 27)
+    {
+        Debug.LogError(
+            "Waypoint 27 atau waypoint 9 belum tersedia!"
+        );
+        return;
+    }
+
+    // ==================================
+    // LANGKAH 1: MASUK KE WP 27
+    // ==================================
+
+    posisiSekarang = 27;
+
+    transform.position =
+        waypoints[27].position +
+        Vector3.up * tinggiPion +
+        AmbilOffsetDinamis();
+
+    Debug.Log(
+        gameObject.name +
+        " diarahkan ke WP 27."
+    );
+
+    // ==================================
+    // LANGKAH 2: LANGSUNG KE WP 9
+    // ==================================
+
+    posisiSekarang = 9;
+    sedangDipenjara = true;
+
+    transform.position =
+        waypoints[9].position +
+        Vector3.up * tinggiPion +
+        AmbilOffsetDinamis();
+
+    // Rapikan posisi pion di penjara.
+    if (turnManager != null)
+    {
+        turnManager.RapikanSemuaPion();
+    }
+    else
+    {
+        UpdatePosisiDiam();
+    }
+
+    if (cameraFollow != null)
+    {
+        cameraFollow.BerhentiMengikuti();
+    }
+
+    Debug.Log(
+        gameObject.name +
+        " masuk PENJARA melalui WP 27 dan berakhir di WP 9!"
+    );
+}
 
     void BerikanBonusStart()
     {

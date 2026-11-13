@@ -818,34 +818,54 @@ private bool ApakahPemainTerputusOnline(int pemain)
         return (statusBangkrutOnline.Value & penanda) != 0;
     }
 
-    // Hanya Host yang boleh menyatakan bangkrut.
-    private void TandaiBangkrutOnline(int pemain)
-    {
-        if (!IsServer ||
-    permainanSelesaiOnline.Value ||
-    pemain < 0 ||
-    pemain >= jumlahPemainOnline)
+ // Hanya Host yang boleh menyatakan bangkrut.
+private void TandaiBangkrutOnline(int pemain)
 {
-    return;
-}
+    if (!IsServer ||
+        permainanSelesaiOnline.Value ||
+        pemain < 0 ||
+        pemain >= jumlahPemainOnline)
+    {
+        return;
+    }
 
-        if (ApakahPemainBangkrutOnline(pemain))
-            return;
+    if (ApakahPemainBangkrutOnline(pemain))
+        return;
 
-        int penanda = 1 << pemain;
+    int penanda = 1 << pemain;
 
-        statusBangkrutOnline.Value |= penanda;
+    statusBangkrutOnline.Value |= penanda;
 
-        // Aturan sementara: seluruh properti pemain bangkrut
-        // kembali ke bank (kosong, tahap 0) pada semua perangkat.
-        LepaskanAsetPemainBangkrutRpc(pemain);
+    // Atur saldo pemain bangkrut menjadi Rp0.
+    PlayerMoneyManager uang =
+        FindAnyObjectByType<PlayerMoneyManager>();
 
-        Debug.Log(
-            "MULTIPLAYER: Player " +
-            (pemain + 1) +
-            " dinyatakan BANGKRUT! Semua aset kembali ke bank."
+    if (uang != null &&
+        uang.saldoPemain != null &&
+        pemain < uang.saldoPemain.Length)
+    {
+        uang.saldoPemain[pemain] = 0;
+
+        // Sinkronkan saldo Rp0 ke seluruh perangkat.
+        SinkronkanSaldoOnlineRpc(pemain, 0);
+    }
+    else
+    {
+        Debug.LogWarning(
+            "MULTIPLAYER: Data saldo Player " +
+            (pemain + 1) + " tidak ditemukan."
         );
     }
+
+    // Kembalikan seluruh aset pemain ke bank.
+    LepaskanAsetPemainBangkrutRpc(pemain);
+
+    Debug.Log(
+        "MULTIPLAYER: Player " +
+        (pemain + 1) +
+        " DINYATAKAN BANGKRUT! Saldo menjadi Rp0 dan semua aset kembali ke bank."
+    );
+}
 
     // Dipanggil oleh Host setelah status bangkrut tercatat.
     // Untuk setiap lahan, pemilik dan tahap bangunan harus
@@ -1125,20 +1145,43 @@ private System.Action<bool> callbackSoalOnline;
                 yield break;
             }
 
-            // Bila posisi berubah seketika, tetap tunggu setidaknya
-            // satu frame sebelum menilai status gerak.
-            yield return null;
-            yield return new WaitUntil(() => !pion.SedangBergerak);
-            
-// EDUCARD: hanya Host mengambil kartu.
+           // Bila posisi berubah seketika, tetap tunggu setidaknya
+// satu frame sebelum menilai status gerak.
+yield return null;
+yield return new WaitUntil(() => !pion.SedangBergerak);
+
+if (pion.posisiSekarang == 9 && pion.sedangDipenjara)
+{
+    Debug.Log(
+        "MULTIPLAYER: Player " + (pemain + 1) +
+        " masuk penjara dari WP 27."
+    );
+
+    // Sinkronkan posisi dan status penjara ke semua perangkat.
+    SinkronkanPosisiPenjaraOnlineRpc(pemain);
+
+    jumlahKembarOnline = 0;
+
+    GiliranOnlineBerikutnya();
+
+    yield break;
+}
+
+// ==========================================
+// EDUCARD: HANYA HOST MENGAMBIL KARTU
+// ==========================================
+
 if (pengelolaDekEdupoly == null)
-    pengelolaDekEdupoly = FindAnyObjectByType<KartuEdupolyManager>();
+    pengelolaDekEdupoly =
+        FindAnyObjectByType<KartuEdupolyManager>();
 
 if (pengelolaDekEdupoly != null &&
     pengelolaDekEdupoly.DatabaseSiap &&
     pengelolaDekEdupoly.ApakahPetakKartu(pion.posisiSekarang))
 {
-    yield return StartCoroutine(ProsesEduCardOnline(pemain, pion));
+    yield return StartCoroutine(
+        ProsesEduCardOnline(pemain, pion)
+    );
 }
 
 // FREE PARKING - WP 18
@@ -1754,16 +1797,34 @@ private void TampilkanInfoEduCardRpc(
     string pesan,
     RpcParams rpcParams = default)
 {
-    if (textHasilKartu == null)
-        return;
-
     if (educardDisplayCoroutine != null)
+    {
         StopCoroutine(educardDisplayCoroutine);
+        educardDisplayCoroutine = null;
+    }
 
     sedangTampilEduCardLokal = true;
 
-    textHasilKartu.gameObject.SetActive(true);
-    textHasilKartu.text = pesan;
+    KartuEdupolyEffectManager effectManager =
+        FindAnyObjectByType<KartuEdupolyEffectManager>();
+
+    if (effectManager != null)
+    {
+        effectManager.TampilkanNotifikasiSistem(
+            "EDUCARD",
+            pesan,
+            5f
+        );
+    }
+    else
+    {
+        Debug.LogWarning(
+            "EDUCARD: KartuEdupolyEffectManager tidak ditemukan."
+        );
+
+        sedangTampilEduCardLokal = false;
+        return;
+    }
 
     educardDisplayCoroutine =
         StartCoroutine(TutupTampilanEduCardLokal());
@@ -1771,12 +1832,9 @@ private void TampilkanInfoEduCardRpc(
 
 private IEnumerator TutupTampilanEduCardLokal()
 {
-    yield return new WaitForSeconds(5f);
+    yield return new WaitForSecondsRealtime(5f);
 
     sedangTampilEduCardLokal = false;
-
-    if (textHasilKartu != null)
-        textHasilKartu.text = "";
 
     educardDisplayCoroutine = null;
 }
@@ -3447,49 +3505,55 @@ sisaWaktuHost = 0f;
         );
     }
 
-    // ==========================================
-    // PENGUMUMAN PEMENANG MULTIPLAYER
-    // ==========================================
-    [Rpc(SendTo.Everyone)]
-    private void UmumkanPemenangOnlineRpc(int pemainMenang)
+[Rpc(SendTo.Everyone)]
+private void UmumkanPemenangOnlineRpc(int pemainMenang)
+{
+    if (pemainMenang < 0 || pemainMenang >= 4)
+        return;
+
+    string judul = "EDU-POLY SELESAI!";
+    string pesan;
+
+    if (playerIndexLokal == pemainMenang)
     {
-        if (pemainMenang < 0 || pemainMenang >= 4)
-            return;
+        pesan = "SELAMAT! KAMU MENANG!\n" +
+                "Kamu berhasil menguasai satu sisi papan.";
+    }
+    else
+    {
+        pesan = "PLAYER " + (pemainMenang + 1) +
+                " MEMENANGKAN PERMAINAN!\n" +
+                "Satu sisi papan berhasil dikuasai.";
+    }
 
-        string pesan;
+    Debug.Log(
+        "MULTIPLAYER EDU-POLY: " + pesan
+    );
 
-        if (playerIndexLokal == pemainMenang)
-        {
-            pesan = "SELAMAT! KAMU MENANG!";
-        }
-        else
-        {
-            pesan = "PLAYER " + (pemainMenang + 1) +
-                    " MEMENANGKAN PERMAINAN!";
-        }
+    // Tampilkan pengumuman melalui panel EDUCARD.
+    KartuEdupolyEffectManager effectManager =
+        FindAnyObjectByType<KartuEdupolyEffectManager>();
 
-        
-        
-        Debug.Log(
-            "MULTIPLAYER EDU-POLY: " + pesan
+    if (effectManager != null)
+    {
+        effectManager.TampilkanNotifikasiSistem(
+            judul,
+            pesan,
+            8f
         );
+    }
+    else
+    {
+        Debug.LogWarning(
+            "KartuEdupolyEffectManager tidak ditemukan."
+        );
+    }
 
-        // Tampilkan pengumuman pemenang.
-        if (textHasilKartu != null)
-        {
-            textHasilKartu.gameObject.SetActive(true);
-
-            textHasilKartu.text =
-                "EDU-POLY SELESAI!\n" +
-                "PLAYER " + (pemainMenang + 1) +
-                " MENANG!";
-        }
-
-        // Munculkan tombol Kembali ke Menu.
-        if (tombolKembaliMenu != null)
-        {
-            tombolKembaliMenu.SetActive(true);
-        }
+    // Munculkan tombol Kembali ke Menu.
+    if (tombolKembaliMenu != null)
+    {
+        tombolKembaliMenu.SetActive(true);
+    }
     }
     
     // Dipanggil ketika pemain menekan tombol
@@ -3571,5 +3635,45 @@ sisaWaktuHost = 0f;
             (pemain + 1) + " = " + dipenjara
         );
     }
+    [Rpc(SendTo.Everyone)]
+private void SinkronkanPosisiPenjaraOnlineRpc(int pemain)
+{
+    TurnManager turnManager =
+        FindAnyObjectByType<TurnManager>();
 
+    if (turnManager == null ||
+        turnManager.daftarPion == null ||
+        pemain < 0 ||
+        pemain >= turnManager.daftarPion.Length)
+        return;
+
+    PionMovement pion =
+        turnManager.daftarPion[pemain];
+
+    if (pion == null)
+        return;
+
+    if (pion.waypoints == null ||
+        pion.waypoints.Length <= 9 ||
+        pion.SedangBergerak)
+    {
+        Debug.LogWarning(
+            "MULTIPLAYER: Posisi penjara gagal disinkronkan."
+        );
+        return;
+    }
+
+    // Paksa semua perangkat menempatkan pion di WP 9.
+    pion.posisiSekarang = 9;
+    pion.sedangDipenjara = true;
+
+    // Perbarui posisi visual pion.
+    pion.UpdatePosisiDiam();
+
+    Debug.Log(
+        "MULTIPLAYER: Posisi Player " +
+        (pemain + 1) +
+        " berhasil disinkronkan ke WP 9."
+    );
+}
 }

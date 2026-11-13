@@ -25228,8 +25228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ab92ce83304f95448d32f2d76eabb66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KartuEdupolyManager
-  databaseKartu: {fileID: 4900000, guid: f21b0d0541f82b84eadab47c28ba883b, type: 3}
-  waypointKartu: 030000000f000000150000001e000000i
+  databaseKartu: {fileID: 4900000, guid: d00d8493f4a9a3e448e249fa6e4085ac, type: 3}
+  waypointKartu: 030000000f000000180000001e000000i
 --- !u!4 &1232347325
 Transform:
   m_ObjectHideFlags: 0
@@ -31581,7 +31581,7 @@ MonoBehaviour:
   - {fileID: 25690233}
   - {fileID: 1311849846}
   cardDisplayManager: {fileID: 1986025427}
-  kartuEdupolyManager: {fileID: 0}
+  kartuEdupolyManager: {fileID: 1232347324}
   kartuEffectManager: {fileID: 2005437237}
   efekKartuEdupoly: {fileID: 2005437237}
   teksHasilEducard: {fileID: 0}
@@ -32812,7 +32812,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1650500028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f99cf6d50ef42c4b86eab6a9f54e20e, type: 3}
   m_Name: 
@@ -38488,7 +38488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1989307460}
   m_Layer: 0
-  m_Name: WP_24
+  m_Name: WP_24 EDUCARD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -311,33 +311,14 @@ public GameObject tombolKembaliMenuBot;
 
         pion.Bergerak(total);
 
-        // Tunggu pion selesai berjalan
-        yield return new WaitUntil(
-            () => !pion.SedangBergerak
-        );
-        
-// Proses EDUCARD untuk Player dan Bot.
-if (!ModeMultiplayer &&
-    kartuEdupolyManager != null &&
-    kartuEdupolyManager.ApakahPetakKartu(pion.posisiSekarang) &&
-    kartuEffectManager != null)
-{
-    kartuEffectManager.dekKartu = kartuEdupolyManager;
+       // Tunggu pion selesai berjalan
+yield return new WaitUntil(
+    () => !pion.SedangBergerak
+);
 
-    yield return StartCoroutine(
-        kartuEffectManager.ProsesKartu(giliranSekarang, pion)
-    );
-
-    if (kartuEffectManager.kehilanganGiliran)
-    {
-        GiliranBerikutnya();
-        yield break;
-    }
-}
-
-        // EDUCARD diproses hanya saat pemain/bot berhenti di petak kartu.
-        bool giliranTambahanDariKartu = false;
-        bool lewatiGiliranDariKartu = false;
+// EDUCARD diproses hanya saat pemain/bot berhenti di petak kartu.
+bool giliranTambahanDariKartu = false;
+bool lewatiGiliranDariKartu = false;
         if (!ModeMultiplayer && efekKartuEdupoly != null &&
             efekKartuEdupoly.dekKartu != null &&
             efekKartuEdupoly.dekKartu.DatabaseSiap &&
@@ -348,22 +329,28 @@ if (!ModeMultiplayer &&
                 efekKartuEdupoly.ProsesKartu(giliranSekarang, pion)
             );
 
-            DataKartuAksiEdupoly kartuAktif =
-                efekKartuEdupoly.dekKartu.KartuAktif;
-            if (kartuAktif != null)
-            {
-                string pesan = "EDUCARD - " + kartuAktif.kategori + "\n" +
-                               kartuAktif.Kartu + "\n" + kartuAktif.Aksi;
-                TampilkanNotifikasiEducard(pesan);
-            }
-
             giliranTambahanDariKartu = efekKartuEdupoly.mintaLemparUlang;
             lewatiGiliranDariKartu = efekKartuEdupoly.kehilanganGiliran;
         }
-        else if (!ModeMultiplayer && efekKartuEdupoly == null)
-        {
-            Debug.LogWarning("EDUCARD belum diproses: field Efek Kartu Edupoly di TurnManager belum diisi.");
-        }
+else if (!ModeMultiplayer && efekKartuEdupoly == null)
+{
+    Debug.LogWarning("EDUCARD belum diproses: field Efek Kartu Edupoly di TurnManager belum diisi.");
+}
+
+// FREE PARKING - WP 18
+// Tidak memberikan hadiah atau hukuman.
+if (!ModeMultiplayer && pion.posisiSekarang == 18)
+{
+    TampilkanNotifikasiEducard(
+        "FREE PARKING\nKamu sedang beristirahat.\nTidak ada biaya yang harus dibayar."
+    );
+
+    Debug.Log(
+        "FREE PARKING: Player " +
+        (giliranSekarang + 1) +
+        " berhenti di WP 18. Tidak ada perubahan saldo."
+    );
+}
 
 // Cek apakah lahan SUDAH dimiliki pemain
 // sebelum proses pembelian pada giliran ini.

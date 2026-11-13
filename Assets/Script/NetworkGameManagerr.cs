@@ -9,11 +9,18 @@ public class NetworkGameManager : NetworkBehaviour
     
     [Header("UI Kartu Giliran")]
     public TMPro.TextMeshProUGUI textHasilKartu;
-
     [Header("EDUCARD Multiplayer")]
-    public KartuEdupolyManager pengelolaDekEdupoly;
-    private bool educardMintaLemparUlang;
-    private bool educardKehilanganGiliran;
+public KartuEdupolyManager pengelolaDekEdupoly;
+
+private bool educardMintaLemparUlang;
+private bool educardKehilanganGiliran;
+private bool sedangTampilEduCardLokal = false;
+private Coroutine educardDisplayCoroutine;
+
+// Status kuis EDUCARD Multiplayer
+private bool educardKuisSelesaiOnline;
+private bool educardKuisBenarOnline;
+private ulong educardClientKuisAktifOnline = ulong.MaxValue;
     [Header("Tombol Setelah Menang")]
 public GameObject tombolKembaliMenu;
     [Header("Identitas Pemain")]
@@ -315,8 +322,9 @@ public NetworkVariable<bool> permainanSelesaiOnline =
         
         // Tampilkan kartu selama 8 detik sejak
         // data kartu pertama kali diterima.
-        if (!permainanSelesaiOnline.Value &&
-            kartuPlayer1.Value > 0)
+       if (!sedangTampilEduCardLokal &&
+    !permainanSelesaiOnline.Value &&
+    kartuPlayer1.Value > 0)
         {
             if (!hasilKartuSudahDimulai)
             {
@@ -1122,19 +1130,45 @@ private System.Action<bool> callbackSoalOnline;
             yield return null;
             yield return new WaitUntil(() => !pion.SedangBergerak);
             
-            // EDUCARD: hanya Host mengambil kartu agar dek tidak berbeda antar-client.
-            // Efek kartu dijalankan sekali di Host dan gerakannya dibroadcast ke semua client.
-            if (pengelolaDekEdupoly == null)
-                pengelolaDekEdupoly = FindAnyObjectByType<KartuEdupolyManager>();
+// EDUCARD: hanya Host mengambil kartu.
+if (pengelolaDekEdupoly == null)
+    pengelolaDekEdupoly = FindAnyObjectByType<KartuEdupolyManager>();
 
-            if (pengelolaDekEdupoly != null &&
-                pengelolaDekEdupoly.DatabaseSiap &&
-                pengelolaDekEdupoly.ApakahPetakKartu(pion.posisiSekarang))
-            {
-                yield return StartCoroutine(ProsesEduCardOnline(pemain, pion));
-            }
+if (pengelolaDekEdupoly != null &&
+    pengelolaDekEdupoly.DatabaseSiap &&
+    pengelolaDekEdupoly.ApakahPetakKartu(pion.posisiSekarang))
+{
+    yield return StartCoroutine(ProsesEduCardOnline(pemain, pion));
+}
 
-            // Sinkronkan saldo setelah pion bergerak.
+// FREE PARKING - WP 18
+// Tidak ada hadiah, denda, atau kehilangan giliran.
+if (pion.posisiSekarang == 18)
+{
+    ulong clientTujuan = pemain switch
+    {
+        0 => slot1.Value,
+        1 => slot2.Value,
+        2 => slot3.Value,
+        3 => slot4.Value,
+        _ => ulong.MaxValue
+    };
+
+    if (clientTujuan != ulong.MaxValue)
+    {
+        TampilkanInfoEduCardRpc(
+            "PARKIR BEBAS\nKamu sedang beristirahat.\nTidak ada biaya yang harus dibayar.",
+            RpcTarget.Single(clientTujuan, RpcTargetUse.Temp)
+        );
+    }
+
+    Debug.Log(
+        "FREE PARKING: Player " + (pemain + 1) +
+        " berhenti di WP 18. Tidak ada perubahan saldo."
+    );
+}
+
+// Sinkronkan saldo setelah pion bergerak.
             // Termasuk bonus START jika sudah diberikan
             // oleh sistem pergerakan pion di Host.
             PlayerMoneyManager uangSetelahGerak =
@@ -1440,97 +1474,312 @@ private System.Action<bool> callbackSoalOnline;
        
     }
    
-    private IEnumerator ProsesEduCardOnline(int pemain, PionMovement pion)
+private IEnumerator ProsesEduCardOnline(int pemain, PionMovement pion)
+{
+    if (!IsServer || pengelolaDekEdupoly == null)
+        yield break;
+
+    DataKartuAksiEdupoly kartu = pengelolaDekEdupoly.AmbilKartu();
+    if (kartu == null)
+        yield break;
+
+    ulong clientTujuan = pemain switch
     {
-        if (!IsServer || pengelolaDekEdupoly == null) yield break;
+        0 => slot1.Value,
+        1 => slot2.Value,
+        2 => slot3.Value,
+        3 => slot4.Value,
+        _ => ulong.MaxValue
+    };
 
-        DataKartuAksiEdupoly kartu = pengelolaDekEdupoly.AmbilKartu();
-        if (kartu == null) yield break;
+    if (clientTujuan == ulong.MaxValue)
+        yield break;
 
-        string info = "EDUCARD: " + kartu.Kartu + "\n" + kartu.Aksi;
-        TampilkanInfoEduCardRpc(info);
-        Debug.Log(info);
-
-        if (kartu.kategori == "Wawasan Umum")
+    // KUIS WAWASAN UMUM
+    if (kartu.kategori == "Wawasan Umum")
+    {
+        if (!pengelolaDekEdupoly.CobaAmbilSoalWawasanAktif(
+            out DataKartuWawasanEdupoly soal))
         {
-            // Belum mengaktifkan UI/validasi kuis kartu; jangan membocorkan jawaban ke pemain.
-            Debug.LogWarning("EDUCARD Wawasan Umum terambil. Integrasi kuis kartu masih perlu disambungkan ke UI soal multiplayer.");
+            Debug.LogWarning("EDUCARD: soal Wawasan Umum tidak tersedia.");
             yield break;
         }
 
-        string aksi = (kartu.Aksi ?? string.Empty).ToLowerInvariant();
-        PlayerMoneyManager uang = FindAnyObjectByType<PlayerMoneyManager>();
+        educardKuisSelesaiOnline = false;
+        educardKuisBenarOnline = false;
+        educardClientKuisAktifOnline = clientTujuan;
 
-        if (aksi.Contains("dapatkan rp") || aksi.Contains("bayar rp"))
-        {
-            string angka = System.Text.RegularExpressions.Regex.Replace(kartu.Aksi, @"[^0-9]", "");
-            int nominal;
-            if (int.TryParse(angka, out nominal) && nominal > 0 && uang != null)
-            {
-                if (aksi.Contains("dapatkan rp"))
-                    uang.TambahSaldo(pemain, nominal);
-                else if (!uang.KurangiSaldo(pemain, nominal))
-                    Debug.LogWarning("EDUCARD: saldo pemain tidak cukup untuk membayar kartu.");
+        TampilkanKuisEduCardRpc(
+            soal.No,
+            soal.Level,
+            soal.Pertanyaan,
+            soal.A,
+            soal.B,
+            soal.C,
+            soal.D,
+            soal.Jawaban,
+            RpcTarget.Single(clientTujuan, RpcTargetUse.Temp)
+        );
 
-                if (uang.saldoPemain != null && pemain < uang.saldoPemain.Length)
-                    SinkronkanSaldoOnlineRpc(pemain, uang.saldoPemain[pemain]);
-            }
-            yield break;
-        }
+        // Tunggu jawaban pemain atau sampai batas waktu kuis terlewati.
+        float batasTunggu = 40f;
 
-        if (aksi.Contains("lempar dadu sekali lagi"))
+        while (!educardKuisSelesaiOnline && batasTunggu > 0f)
         {
-            educardMintaLemparUlang = true;
-            yield break;
-        }
-
-        if (aksi.Contains("kehilangan 1 giliran"))
-        {
-            educardKehilanganGiliran = true;
-            yield break;
-        }
-
-        int langkah = 0;
-        System.Text.RegularExpressions.Match match =
-            System.Text.RegularExpressions.Regex.Match(aksi, @"(maju|mundur)\s+(\d+)");
-        if (match.Success)
-        {
-            int jumlah;
-            if (int.TryParse(match.Groups[2].Value, out jumlah))
-                langkah = match.Groups[1].Value == "mundur" ? -jumlah : jumlah;
-        }
-        else if (aksi.Contains("kembali ke petak sebelumnya"))
-        {
-            langkah = -1;
-        }
-
-        if (langkah != 0)
-        {
-            GerakkanEfekEduCardRpc(pemain, langkah);
-            float batas = 10f;
-            while (pion.SedangBergerak && batas > 0f)
-            {
-                batas -= Time.deltaTime;
-                yield return null;
-            }
-            // Tunggu satu frame agar posisi akhir tersinkron sebelum transaksi petak.
+            batasTunggu -= Time.deltaTime;
             yield return null;
         }
-        else
+
+        bool benar =
+            educardKuisSelesaiOnline &&
+            educardKuisBenarOnline;
+
+        PlayerMoneyManager uangKuis =
+            FindAnyObjectByType<PlayerMoneyManager>();
+
+        if (uangKuis != null)
         {
-            Debug.LogWarning("EDUCARD: efek kartu ini belum otomatis didukung: " + kartu.Aksi);
+            if (benar)
+            {
+                uangKuis.TambahSaldo(pemain, 200000);
+            }
+            else
+            {
+                uangKuis.KurangiSaldo(pemain, 100000);
+            }
+
+            if (uangKuis.saldoPemain != null &&
+                pemain < uangKuis.saldoPemain.Length)
+            {
+                SinkronkanSaldoOnlineRpc(
+                    pemain,
+                    uangKuis.saldoPemain[pemain]
+                );
+            }
         }
+
+        educardClientKuisAktifOnline = ulong.MaxValue;
+        yield break;
     }
 
-    [Rpc(SendTo.Everyone)]
-    private void TampilkanInfoEduCardRpc(string pesan)
+    // KARTU AKSI SELAIN WAWASAN UMUM
+    string info = "EDUCARD: " + kartu.Kartu + "\n" + kartu.Aksi;
+
+    TampilkanInfoEduCardRpc(
+        info,
+        RpcTarget.Single(clientTujuan, RpcTargetUse.Temp)
+    );
+
+    Debug.Log(info);
+
+    string aksi = (kartu.Aksi ?? string.Empty).ToLowerInvariant();
+    PlayerMoneyManager uang = FindAnyObjectByType<PlayerMoneyManager>();
+
+    if (aksi.Contains("dapatkan rp") || aksi.Contains("bayar rp"))
     {
-        if (textHasilKartu != null)
+        string angka =
+            System.Text.RegularExpressions.Regex.Replace(
+                kartu.Aksi,
+                @"[^0-9]",
+                ""
+            );
+
+        int nominal;
+
+        if (int.TryParse(angka, out nominal) &&
+            nominal > 0 &&
+            uang != null)
         {
-            textHasilKartu.gameObject.SetActive(true);
-            textHasilKartu.text = pesan;
+            if (aksi.Contains("dapatkan rp"))
+            {
+                uang.TambahSaldo(pemain, nominal);
+            }
+            else if (!uang.KurangiSaldo(pemain, nominal))
+            {
+                Debug.LogWarning(
+                    "EDUCARD: saldo pemain tidak cukup untuk membayar kartu."
+                );
+            }
+
+            if (uang.saldoPemain != null &&
+                pemain < uang.saldoPemain.Length)
+            {
+                SinkronkanSaldoOnlineRpc(
+                    pemain,
+                    uang.saldoPemain[pemain]
+                );
+            }
+        }
+
+        yield break;
+    }
+
+    if (aksi.Contains("lempar dadu sekali lagi"))
+    {
+        educardMintaLemparUlang = true;
+        yield break;
+    }
+
+    if (aksi.Contains("kehilangan 1 giliran"))
+    {
+        educardKehilanganGiliran = true;
+        yield break;
+    }
+
+    int langkah = 0;
+
+    System.Text.RegularExpressions.Match match =
+        System.Text.RegularExpressions.Regex.Match(
+            aksi,
+            @"(maju|mundur)\s+(\d+)"
+        );
+
+    if (match.Success)
+    {
+        int jumlah;
+
+        if (int.TryParse(match.Groups[2].Value, out jumlah))
+        {
+            langkah =
+                match.Groups[1].Value == "mundur"
+                ? -jumlah
+                : jumlah;
         }
     }
+    else if (aksi.Contains("kembali ke petak sebelumnya"))
+    {
+        langkah = -1;
+    }
+
+    if (langkah != 0)
+    {
+        GerakkanEfekEduCardRpc(pemain, langkah);
+
+        float batas = 10f;
+
+        while (pion.SedangBergerak && batas > 0f)
+        {
+            batas -= Time.deltaTime;
+            yield return null;
+        }
+
+        yield return null;
+    }
+    else
+    {
+        Debug.LogWarning(
+            "EDUCARD: efek kartu ini belum otomatis didukung: " + kartu.Aksi
+        );
+    }
+}
+[Rpc(SendTo.SpecifiedInParams)]
+private void TampilkanKuisEduCardRpc(
+    int nomorSoal,
+    string level,
+    string pertanyaan,
+    string pilihanA,
+    string pilihanB,
+    string pilihanC,
+    string pilihanD,
+    string kunciJawaban,
+    RpcParams rpcParams = default)
+{
+    KartuEdupolyEffectManager effectManager =
+        FindAnyObjectByType<KartuEdupolyEffectManager>();
+
+    if (effectManager == null)
+    {
+        Debug.LogError(
+            "EDUCARD MULTIPLAYER: KartuEdupolyEffectManager tidak ditemukan."
+        );
+        return;
+    }
+
+    DataKartuWawasanEdupoly soal =
+        new DataKartuWawasanEdupoly
+        {
+            No = nomorSoal,
+            Level = level,
+            Pertanyaan = pertanyaan,
+            A = pilihanA,
+            B = pilihanB,
+            C = pilihanC,
+            D = pilihanD,
+            Jawaban = kunciJawaban
+        };
+
+    StartCoroutine(
+        effectManager.JalankanKuisMultiplayer(
+            soal,
+            benar =>
+            {
+                KirimHasilKuisEduCardServerRpc(benar);
+            }
+        )
+    );
+}
+[Rpc(SendTo.Server)]
+private void KirimHasilKuisEduCardServerRpc(
+    bool benar,
+    RpcParams rpcParams = default)
+{
+    if (!IsServer)
+        return;
+
+    ulong pengirim = rpcParams.Receive.SenderClientId;
+
+    // Pastikan hasil berasal dari pemain yang sedang menjawab.
+    if (pengirim != educardClientKuisAktifOnline)
+    {
+        Debug.LogWarning(
+            "EDUCARD: Hasil kuis dari client yang tidak sesuai diabaikan."
+        );
+        return;
+    }
+
+    // Cegah hasil jawaban diproses lebih dari satu kali.
+    if (educardKuisSelesaiOnline)
+        return;
+
+    educardKuisBenarOnline = benar;
+    educardKuisSelesaiOnline = true;
+
+    Debug.Log(
+        "EDUCARD Multiplayer selesai. Hasil: " +
+        (benar ? "BENAR" : "SALAH / TIMEOUT")
+    );
+}
+[Rpc(SendTo.SpecifiedInParams)]
+private void TampilkanInfoEduCardRpc(
+    string pesan,
+    RpcParams rpcParams = default)
+{
+    if (textHasilKartu == null)
+        return;
+
+    if (educardDisplayCoroutine != null)
+        StopCoroutine(educardDisplayCoroutine);
+
+    sedangTampilEduCardLokal = true;
+
+    textHasilKartu.gameObject.SetActive(true);
+    textHasilKartu.text = pesan;
+
+    educardDisplayCoroutine =
+        StartCoroutine(TutupTampilanEduCardLokal());
+}
+
+private IEnumerator TutupTampilanEduCardLokal()
+{
+    yield return new WaitForSeconds(5f);
+
+    sedangTampilEduCardLokal = false;
+
+    if (textHasilKartu != null)
+        textHasilKartu.text = "";
+
+    educardDisplayCoroutine = null;
+}
 
     [Rpc(SendTo.Everyone)]
     private void GerakkanEfekEduCardRpc(int pemain, int langkah)

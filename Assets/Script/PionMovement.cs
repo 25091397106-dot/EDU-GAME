@@ -58,100 +58,84 @@ public class PionMovement : MonoBehaviour
         UpdatePosisiDiam();
     }
 
-    public void Bergerak(int jumlahLangkah)
+public void Bergerak(int jumlahLangkah)
+{
+    if (sedangBergerak || jumlahLangkah == 0)
+        return;
+
+    if (waypoints == null || waypoints.Length == 0)
+        return;
+
+    sedangBergerak = true;
+    StartCoroutine(AnimasiBergerak(jumlahLangkah));
+}
+
+IEnumerator AnimasiBergerak(int jumlahLangkah)
+{
+    if (cameraFollow != null)
+        cameraFollow.IkutiPion(transform);
+
+    int arah = jumlahLangkah > 0 ? 1 : -1;
+    int totalLangkah = Mathf.Abs(jumlahLangkah);
+
+    for (int i = 0; i < totalLangkah; i++)
     {
-        if (sedangBergerak || jumlahLangkah <= 0)
-            return;
+        int posisiBerikutnya =
+            (posisiSekarang + arah + waypoints.Length)
+            % waypoints.Length;
 
-        if (waypoints == null || waypoints.Length == 0)
-            return;
+        Vector3 tujuan =
+            waypoints[posisiBerikutnya].position +
+            Vector3.up * tinggiPion;
 
-        // Langsung tandai bergerak agar TurnManager
-        // tidak salah mengira gerakan sudah selesai.
-        sedangBergerak = true;
+        while (Vector3.Distance(transform.position, tujuan) > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                tujuan,
+                kecepatanGerak * Time.deltaTime
+            );
 
-        StartCoroutine(AnimasiBergerak(jumlahLangkah));
+            yield return null;
+        }
+
+        transform.position = tujuan;
+        posisiSekarang = posisiBerikutnya;
+
+        // Bonus START hanya ketika bergerak maju melewati START.
+        if (arah > 0 && posisiSekarang == 0)
+        {
+            putaranSelesai++;
+
+            Debug.Log(
+                gameObject.name +
+                " menyelesaikan " + putaranSelesai + " putaran!"
+            );
+
+            if (i < totalLangkah - 1)
+                BerikanBonusStart();
+        }
+
+        yield return new WaitForSeconds(0.1f);
     }
 
-    IEnumerator AnimasiBergerak(int jumlahLangkah)
-    {
-        // Kamera mengikuti pion yang berjalan
-        if (cameraFollow != null)
-        {
-            cameraFollow.IkutiPion(transform);
-        }
+    sedangBergerak = false;
 
-        for (int i = 0; i < jumlahLangkah; i++)
-        {
-            int posisiBerikutnya =
-                (posisiSekarang + 1) % waypoints.Length;
+    Debug.Log(
+        gameObject.name +
+        " berhenti di waypoint " +
+        posisiSekarang
+    );
 
-            Vector3 tujuan =
-                waypoints[posisiBerikutnya].position +
-                Vector3.up * tinggiPion;
+    if (turnManager != null)
+        turnManager.RapikanSemuaPion();
+    else
+        UpdatePosisiDiam();
 
-            while (Vector3.Distance(
-                transform.position, tujuan
-            ) > 0.01f)
-            {
-                transform.position = Vector3.MoveTowards(
-                    transform.position,
-                    tujuan,
-                    kecepatanGerak * Time.deltaTime
-                );
-
-                yield return null;
-            }
-
-            transform.position = tujuan;
-            posisiSekarang = posisiBerikutnya;
-
-            // TAMBAHAN: Mendeteksi pion mencapai START
-            if (posisiSekarang == 0)
-            {
-                putaranSelesai++;
-
-                Debug.Log(
-                    gameObject.name +
-                    " menyelesaikan " + putaranSelesai +
-                    " putaran!"
-                );
-
-                // Bonus hanya jika masih melanjutkan langkah
-                // melewati START, bukan berhenti tepat di START.
-                if (i < jumlahLangkah - 1)
-                {
-                    BerikanBonusStart();
-                }
-            }
-
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        sedangBergerak = false;
-
-        Debug.Log(
-            gameObject.name +
-            " berhenti di waypoint " +
-            posisiSekarang
-        );
-
-        // Rapikan semua pion setelah gerakan selesai
-        if (turnManager != null)
-        {
-            turnManager.RapikanSemuaPion();
-        }
-        else
-        {
-            UpdatePosisiDiam();
-        }
-
-        // Kembalikan kamera ke tampilan papan
-        if (cameraFollow != null)
-        {
-            cameraFollow.BerhentiMengikuti();
-        }
-    }
+    if (cameraFollow != null)
+        cameraFollow.BerhentiMengikuti();
+}
+    
 
     // Menghitung posisi saat beberapa pion
     // berada pada petak yang sama

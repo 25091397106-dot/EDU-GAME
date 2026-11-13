@@ -1,0 +1,69 @@
+
+{
+  "Dana Umum": [
+    {
+      "No": 1,
+      "Kartu": "KAMU MENDAPAT HADIAH!",
+      "Aksi": "Dapatkan Rp50.000."
+    },
+    {
+      "No": 2,
+      "Kartu": "KAMU MEMENANGKAN LOMBA SEKOLAH.",
+      "Aksi": "Dapatkan Rp100.000."
+    },
+    {
+      "No": 3,
+      "Kartu": "KAMU RAJIN BELAJAR HARI INI.",
+      "Aksi": "Maju 2 petak."
+    }
+  ],
+  "Kesempatan": [
+    {
+      "No": 4,
+      "Kartu": "KAMU MENEMUKAN JALAN PINTAS!",
+      "Aksi": "Maju 4 petak."
+    },
+    {
+      "No": 5,
+      "Kartu": "BONUS KEJUTAN!",
+      "Aksi": "Dapatkan Rp100.000."
+    },
+    {
+      "No": 6,
+      "Kartu": "JALANMU TERHAMBAT.",
+      "Aksi": "Mundur 2 petak."
+    }
+  ],
+  "Wawasan Umum": [
+    {
+      "No": 1,
+      "Level": "Mudah",
+      "Pertanyaan": "Negara apa yang terkenal dengan julukan Negeri Matahari Terbit?",
+      "A": "Korea Selatan",
+      "B": "Jepang",
+      "C": "Tiongkok",
+      "D": "Thailand",
+      "Jawaban": "B. Jepang"
+    },
+    {
+      "No": 21,
+      "Level": "Sedang",
+      "Pertanyaan": "Apa nama ibu kota Australia?",
+      "A": "Sydney",
+      "B": "Melbourne",
+      "C": "Canberra",
+      "D": "Perth",
+      "Jawaban": "C. Canberra"
+    },
+    {
+      "No": 41,
+      "Level": "Sulit",
+      "Pertanyaan": "Apa nama ibu kota Kanada?",
+      "A": "Toronto",
+      "B": "Vancouver",
+      "C": "Montreal",
+      "D": "Ottawa",
+      "Jawaban": "D. Ottawa"
+    }
+  ]
+}

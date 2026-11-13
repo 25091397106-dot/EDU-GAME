@@ -37,7 +37,7 @@ public class WrapperKartuWawasanEdupoly
 }
 
 /// <summary>
-/// Pengelola dek gabungan 100 kartu EDUCARD.
+/// Pengelola dek gabungan 9 kartu EDUCARD.
 /// Tidak membutuhkan panel, TMP Text, atau tombol UI kartu.
 /// </summary>
 public class KartuEdupolyManager : MonoBehaviour
@@ -47,7 +47,7 @@ public class KartuEdupolyManager : MonoBehaviour
     public TextAsset databaseKartu;
 
     [Header("Waypoint Petak EDUCARD")]
-    public int[] waypointKartu = { 3, 15, 21, 30 };
+    public int[] waypointKartu = { 3, 15, 24, 30 };
 
     private readonly List<DataKartuAksiEdupoly> semuaKartu = new List<DataKartuAksiEdupoly>();
     private readonly List<DataKartuAksiEdupoly> dekAcak = new List<DataKartuAksiEdupoly>();
@@ -128,16 +128,35 @@ public class KartuEdupolyManager : MonoBehaviour
             semuaKartu.Add(kartu);
         }
 
-        if (semuaKartu.Count != 100)
-        {
-            Debug.LogError("KartuEdupolyManager: Terbaca " + semuaKartu.Count + " kartu; seharusnya 100.");
-            semuaKartu.Clear();
-            return;
-        }
+        
+int jumlahDana = dana.items.Length;
+int jumlahKesempatan = kesempatan.items.Length;
+int jumlahWawasan = wawasan.items.Length;
+
+if (jumlahDana != 3 ||
+    jumlahKesempatan != 3 ||
+    jumlahWawasan != 3 ||
+    semuaKartu.Count != 9)
+{
+    Debug.LogError(
+        "EDUCARD harus berisi tepat 3 Dana Umum, " +
+        "3 Kesempatan, dan 3 Wawasan Umum. " +
+        "Jumlah terbaca: Dana=" + jumlahDana +
+        ", Kesempatan=" + jumlahKesempatan +
+        ", Wawasan=" + jumlahWawasan
+    );
+
+    semuaKartu.Clear();
+    indeksSoalWawasan.Clear();
+    dekAcak.Clear();
+    databaseSiap = false;
+    return;
+}
+
 
         databaseSiap = true;
         IsiUlangDanAcakDek();
-        Debug.Log("KartuEdupolyManager: 100 kartu berhasil dimuat. EDUCARD tidak memerlukan UI kartu.");
+        Debug.Log("KartuEdupolyManager: 9 kartu berhasil dimuat dalam satu dek gabungan.");
     }
 
     private string AmbilArrayJSON(string json, string namaKunci)

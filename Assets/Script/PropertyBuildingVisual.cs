@@ -123,20 +123,67 @@ public class PropertyBuildingVisual : MonoBehaviour
         Debug.Log("PropertyBuildingVisual: visual tahap " + lahan.tahapProperti + " dibuat di " + lahan.namaLahan + " (WP " + wp + "), menghadap tengah papan.");
     }
 
-    private Vector3 HitungArahKeTengah(Transform petak)
+private Vector3 HitungArahKeTengah(Transform petak)
+{
+    if (wadahWaypoints == null ||
+        wadahWaypoints.childCount == 0)
     {
-        Vector3 pusatLokal = wadahWaypoints.InverseTransformPoint(wadahWaypoints.position);
-        Vector3 posisiLokal = wadahWaypoints.InverseTransformPoint(petak.position);
-        Vector3 arahLokal = (pusatLokal - posisiLokal);
-        arahLokal.y = 0f;
-
-        if (arahLokal.sqrMagnitude < 0.0001f)
-            arahLokal = Vector3.forward;
-
-        Vector3 arahDunia = wadahWaypoints.TransformDirection(arahLokal.normalized);
-        arahDunia.y = 0f;
-        return arahDunia.sqrMagnitude < 0.0001f ? Vector3.forward : arahDunia.normalized;
+        return Vector3.forward;
     }
+
+    float minX = float.MaxValue;
+    float maxX = float.MinValue;
+    float minZ = float.MaxValue;
+    float maxZ = float.MinValue;
+
+    // Cari batas papan berdasarkan posisi waypoint lokal.
+    for (int i = 0; i < wadahWaypoints.childCount; i++)
+    {
+        Vector3 pos = wadahWaypoints.InverseTransformPoint(
+            wadahWaypoints.GetChild(i).position
+        );
+
+        minX = Mathf.Min(minX, pos.x);
+        maxX = Mathf.Max(maxX, pos.x);
+        minZ = Mathf.Min(minZ, pos.z);
+        maxZ = Mathf.Max(maxZ, pos.z);
+    }
+
+    Vector3 posisiPetak =
+        wadahWaypoints.InverseTransformPoint(petak.position);
+
+    // Jarak petak terhadap keempat sisi papan.
+    float jarakKiri = Mathf.Abs(posisiPetak.x - minX);
+    float jarakKanan = Mathf.Abs(maxX - posisiPetak.x);
+    float jarakBawah = Mathf.Abs(posisiPetak.z - minZ);
+    float jarakAtas = Mathf.Abs(maxZ - posisiPetak.z);
+
+    Vector3 arahLokal;
+
+    // Tentukan arah tegak lurus menuju bagian dalam papan.
+    float jarakTerdekat = Mathf.Min(
+        jarakKiri,
+        jarakKanan,
+        jarakBawah,
+        jarakAtas
+    );
+
+    if (jarakTerdekat == jarakKiri)
+        arahLokal = Vector3.right;
+    else if (jarakTerdekat == jarakKanan)
+        arahLokal = Vector3.left;
+    else if (jarakTerdekat == jarakBawah)
+        arahLokal = Vector3.forward;
+    else
+        arahLokal = Vector3.back;
+
+    Vector3 arahDunia =
+        wadahWaypoints.TransformDirection(arahLokal);
+
+    arahDunia.y = 0f;
+
+    return arahDunia.normalized;
+}
 
     private void BuatTigaBangunan(Transform parent, Color warna)
     {

@@ -34,7 +34,7 @@ public class EducardPopupUI : MonoBehaviour
         panel.transform.SetParent(canvasObj.transform, false);
 
         Image background = panel.AddComponent<Image>();
-        background.color = new Color(0.08f, 0.12f, 0.2f, 0.95f);
+        background.color = Color.clear;
 
         RectTransform rect = panel.GetComponent<RectTransform>();
         rect.anchorMin = new Vector2(0.15f, 0.3f);
@@ -48,7 +48,7 @@ public class EducardPopupUI : MonoBehaviour
         teksKartu = textObj.AddComponent<TextMeshProUGUI>();
         teksKartu.alignment = TextAlignmentOptions.Center;
         teksKartu.fontSize = 28;
-        teksKartu.color = Color.white;
+        teksKartu.color = Color.clear;
         teksKartu.textWrappingMode = TextWrappingModes.Normal;
 
         RectTransform textRect = teksKartu.rectTransform;

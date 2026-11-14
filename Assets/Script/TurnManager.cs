@@ -346,7 +346,7 @@ bool lewatiGiliranDariKartu = false;
         if (!ModeMultiplayer && efekKartuEdupoly != null &&
             efekKartuEdupoly.dekKartu != null &&
             efekKartuEdupoly.dekKartu.DatabaseSiap &&
-            efekKartuEdupoly.dekKartu.ApakahPetakKartu(pion.posisiSekarang))
+            efekKartuEdupoly.dekKartu.ApakahPetakKartu(pion.posisiSekarang) && pion.putaranSelesai >= 1 )
         {
             Debug.Log("EDUCARD: pion mendarat di waypoint " + pion.posisiSekarang);
             yield return StartCoroutine(
@@ -909,7 +909,7 @@ if (!ModeMultiplayer && CekPemenangBot())
         if (lahan.tahapProperti == 1)
             persentase = 0.10f;
         else if (lahan.tahapProperti == 2)
-            persentase = 0.20f;
+            persentase = 0.25f;
 
         int biayaSewa =
             Mathf.RoundToInt(lahan.harga * persentase);
@@ -940,7 +940,7 @@ if (!ModeMultiplayer && CekPemenangBot())
 
     void ProsesPajak(PionMovement pion)
     {
-        if (pion == null || ModeMultiplayer)
+        if (pion == null || ModeMultiplayer || pion.putaranSelesai < 1 )
             return;
 
         int biayaPajak = 0;
@@ -1030,7 +1030,7 @@ if (!ModeMultiplayer && CekPemenangBot())
     }
     void ProsesReward(PionMovement pion)
     {
-        if (pion == null || ModeMultiplayer)
+        if (pion == null || ModeMultiplayer || pion.putaranSelesai < 1 )
             return;
 
         // Reward hanya pada WP 11 dan WP 20

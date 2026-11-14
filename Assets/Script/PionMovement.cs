@@ -117,7 +117,10 @@ IEnumerator AnimasiBergerak(int jumlahLangkah)
         }
 
         // Jika tepat mendarat di WP 27, langsung masuk penjara WP 9.
-        if (arah > 0 && posisiSekarang == 27)
+        if (arah > 0 && 
+                i == totalLangkah - 1 &&
+                posisiSekarang == 27 &&
+                putaranSelesai >= 1)
         {
             if (waypoints.Length <= 27 || waypoints.Length <= 9)
             {

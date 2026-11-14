@@ -8,6 +8,9 @@ using UnityEngine.UI;
 /// <summary>Menampilkan kartu EDUCARD dan menjalankan efeknya untuk Single Player vs Bot.</summary>
 public class KartuEdupolyEffectManager : MonoBehaviour
 {
+    [Header("Tampilan Kartu Edupoly")]
+    public Sprite gambarDepanKartu;
+    public Sprite gambarBelakangKartu;
     [Header("Referensi")]
     public KartuEdupolyManager dekKartu;
     public PlayerMoneyManager pengelolaUang;
@@ -419,6 +422,34 @@ else
         return int.TryParse(m.Value.Replace(".", ""), out int hasil) ? hasil : 0;
     }
 
+    [ContextMenu("TEST TAMPILAN KARTU EDUPOLY")]
+    public void TestTampilanKartu()
+    {
+        BuatUIJikaBelumAda();
+
+        TampilkanPanel(
+            "WAWASAN UMUM",
+            "Apa nama planet terbesar di tata surya?",
+            "",
+            true
+        );
+
+        string[] jawaban =
+        {
+        "A. Bumi",
+        "B. Mars",
+        "C. Jupiter",
+        "D. Venus"
+    };
+
+        for (int i = 0; i < 4; i++)
+        {
+            TMP_Text teks = pilihan[i]
+                .GetComponentInChildren<TMP_Text>();
+
+            teks.text = jawaban[i];
+        }
+    }
     private void BuatUIJikaBelumAda()
     {
         if (panel != null) return;
@@ -431,23 +462,57 @@ else
         scaler.referenceResolution = new Vector2(1920, 1080);
         scaler.matchWidthOrHeight = 0.5f;
 
-        panel = BuatUI("PanelEDUCARD", canvasGO.transform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(900, 650), new Color(0.035f, 0.08f, 0.13f, 0.96f), true);
-        judulText = BuatTeks("Judul", panel.transform, new Vector2(0.05f, 0.86f), new Vector2(0.95f, 0.98f), 34, TextAlignmentOptions.Center);
-        isiText = BuatTeks("Isi", panel.transform, new Vector2(0.08f, 0.59f), new Vector2(0.92f, 0.84f), 28, TextAlignmentOptions.Center);
-        timerText = BuatTeks("Timer", panel.transform, new Vector2(0.1f, 0.51f), new Vector2(0.9f, 0.58f), 22, TextAlignmentOptions.Center);
-        hasilText = BuatTeks("Hasil", panel.transform, new Vector2(0.1f, 0.42f), new Vector2(0.9f, 0.5f), 28, TextAlignmentOptions.Center);
+        panel = BuatUI("PanelEDUCARD", canvasGO.transform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(520, 740), new Color(0.035f, 0.08f, 0.13f, 0.96f), true);
+        judulText = BuatTeks("Judul", panel.transform,
+            new Vector2(0.16f, 0.7f), new Vector2(0.84f, 0.715f),
+            20, TextAlignmentOptions.Center);
+        judulText.gameObject.SetActive(false);
+
+        isiText = BuatTeks("Isi", panel.transform,
+            new Vector2(0.16f, 0.4f), new Vector2(0.84f, 0.68f),
+            30, TextAlignmentOptions.Center);
+
+        timerText = BuatTeks("Timer", panel.transform,
+            new Vector2(0.16f, 0.48f), new Vector2(0.84f, 0.52f),
+            18, TextAlignmentOptions.Center);
+
+        hasilText = BuatTeks("Hasil", panel.transform,
+            new Vector2(0.16f, 0.43f), new Vector2(0.84f, 0.48f),
+            23, TextAlignmentOptions.Center);
         string[] nama = { "A", "B", "C", "D" };
+
+        Image gambarPanel = panel.GetComponent<Image>();
+
+        if (gambarPanel != null && gambarDepanKartu != null)
+        {
+            gambarPanel.sprite = gambarDepanKartu;
+            gambarPanel.type = Image.Type.Simple;
+            gambarPanel.color = Color.white;
+            gambarPanel.preserveAspect = true;
+        }
+
         for (int i = 0; i < 4; i++)
         {
             int row = i;
-            float yTop = 0.39f - row * 0.105f;
-            GameObject btnGO = BuatUI("Pilihan" + nama[i], panel.transform, new Vector2(0.08f, yTop - 0.085f), new Vector2(0.92f, yTop), new Vector2(0, 0), new Color(0.12f, 0.28f, 0.42f, 1), false);
+            float yTop = 0.44f - row * 0.075f;
+            GameObject btnGO = BuatUI("Pilihan" + nama[i], panel.transform, new Vector2(0.16f, yTop - 0.06f), new Vector2(0.84f, yTop), new Vector2(0, 0), new Color(0.12f, 0.28f, 0.42f, 1), false);
             Button btn = btnGO.AddComponent<Button>();
             btn.targetGraphic = btnGO.GetComponent<Image>();
             TMP_Text label = BuatTeks("Label", btnGO.transform, Vector2.zero, Vector2.one, 22, TextAlignmentOptions.Left);
-            label.margin = new Vector4(24, 8, 18, 8);
+            label.margin = new Vector4(12, 4, 10, 4);
             pilihan[i] = btn;
         }
+        Color warnaTeks = new Color(0.25f, 0.16f, 0.11f);
+
+        judulText.color = warnaTeks;
+        isiText.color = warnaTeks;
+        timerText.color = warnaTeks;
+        hasilText.color = warnaTeks;
+        judulText.color = new Color(0.30f, 0.16f, 0.08f);
+        judulText.fontStyle = FontStyles.Bold;
+
+        isiText.color = new Color(0.20f, 0.12f, 0.08f);
+        isiText.fontStyle = FontStyles.Bold;
         panel.SetActive(false);
     }
 
@@ -518,11 +583,9 @@ private void TampilkanPanel(string judul, string isi, string sub, bool kuis)
     // Panel kuis tetap tinggi agar empat pilihan jawaban muat.
     // Panel kartu aksi dibuat lebih pendek agar tidak banyak ruang kosong.
     RectTransform panelRect = panel.GetComponent<RectTransform>();
-    panelRect.sizeDelta = kuis
-        ? new Vector2(900, 650)
-        : new Vector2(900, 320);
+        panelRect.sizeDelta = new Vector2(600, 850);
 
-    timerText.gameObject.SetActive(kuis);
+        timerText.gameObject.SetActive(kuis);
     hasilText.gameObject.SetActive(false);
 
     foreach (Button b in pilihan)

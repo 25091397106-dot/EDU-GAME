@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 430edf011cb0b0445a66a53c62940b80
+guid: 9c4da7b14e7e61849b9793a3b8086a45
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1541216557547401645
-    second: Depan_0
+      213: -7627738760603320716
+    second: Kartu Edupoly Ornate Study Card_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -102,7 +102,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Depan_0
+      name: Kartu Edupoly Ornate Study Card_0
       rect:
         serializedVersion: 2
         x: 0
@@ -117,8 +117,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 35ecf65e4bf7c9ae0800000000000000
-      internalID: -1541216557547401645
+      spriteID: 47eb2ceb204d42690800000000000000
+      internalID: -7627738760603320716
       vertices: []
       indices: 
       edges: []
@@ -137,7 +137,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Depan_0: -1541216557547401645
+      Kartu Edupoly Ornate Study Card_0: -7627738760603320716
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

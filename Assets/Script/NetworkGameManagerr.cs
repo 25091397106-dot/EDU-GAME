@@ -1177,7 +1177,7 @@ if (pengelolaDekEdupoly == null)
 
 if (pengelolaDekEdupoly != null &&
     pengelolaDekEdupoly.DatabaseSiap &&
-    pengelolaDekEdupoly.ApakahPetakKartu(pion.posisiSekarang))
+    pengelolaDekEdupoly.ApakahPetakKartu(pion.posisiSekarang) && pion.putaranSelesai >= 1 )
 {
     yield return StartCoroutine(
         ProsesEduCardOnline(pemain, pion)
@@ -3098,7 +3098,7 @@ if (pemilik < 0 ||
         else if (lahan.tahapProperti == 2)
         {
             biayaSewa = Mathf.RoundToInt(
-                lahan.harga * 0.20f
+                lahan.harga * 0.25f
             );
         }
 
@@ -3169,6 +3169,8 @@ if (pemilik < 0 ||
 
 private void ProsesPajakOnline(int pemain, PionMovement pion)
 {
+    if (pion == null || pion.putaranSelesai < 1)
+        return;
     if (!IsServer || pion == null)
         return;
 
@@ -3234,6 +3236,8 @@ private void ProsesPajakOnline(int pemain, PionMovement pion)
 
     private void ProsesRewardOnline(int pemain, PionMovement pion)
     {
+        if (pion == null || pion.putaranSelesai < 1)
+            return;
         // Hanya Host yang boleh menambahkan saldo
         if (!IsServer || pion == null)
             return;

@@ -42,7 +42,26 @@ public class DiceTotal : MonoBehaviour
             turnManager.CobaLemparManusia();
         }
     }
+    public void TombolRoll()
+    {
+        if (MainMenuManager.modeMultiplayer)
+        {
+            NetworkGameManager networkGame =
+                FindAnyObjectByType<NetworkGameManager>();
 
+            if (networkGame != null)
+            {
+                networkGame.MintaLemparDadu();
+            }
+
+            return;
+        }
+
+        if (turnManager != null)
+        {
+            turnManager.CobaLemparManusia();
+        }
+    }
     public bool LemparDadu()
     {
         // Jangan jalankan lemparan lokal

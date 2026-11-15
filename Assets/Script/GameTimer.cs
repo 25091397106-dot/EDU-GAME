@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using TMPro;
 
@@ -5,6 +6,7 @@ public class TimerGame : MonoBehaviour
 {
     public float waktuPermainan = 20 * 60f;
     public TMP_Text teksTimer;
+    public GameOverManager gameOverManager;
 
     private bool permainanSelesai = false;
 
@@ -30,6 +32,11 @@ public class TimerGame : MonoBehaviour
     void AkhiriPermainan()
     {
         Debug.Log("Waktu habis! Permainan selesai.");
+
+        if (gameOverManager != null)
+        {
+            gameOverManager.TampilkanKalah();
+        }
 
         Time.timeScale = 0;
     }

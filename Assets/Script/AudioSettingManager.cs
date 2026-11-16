@@ -10,6 +10,7 @@ public class AudioSettingsManager : MonoBehaviour
 
     public TMP_Text persenMusik;
     public TMP_Text persenEfekSuara;
+    public AudioSource audioMusik;
 
     void Start()
     {
@@ -25,16 +26,17 @@ public class AudioSettingsManager : MonoBehaviour
         sliderMusik.onValueChanged.AddListener(UbahMusik);
         sliderEfekSuara.onValueChanged.AddListener(UbahEfekSuara);
     }
-
     public void UbahMusik(float volume)
     {
         PlayerPrefs.SetFloat("VolumeMusik", volume);
+
+        if (audioMusik != null)
+            audioMusik.volume = volume;
 
         if (persenMusik != null)
             persenMusik.text =
                 Mathf.RoundToInt(volume * 100) + "%";
     }
-
     public void UbahEfekSuara(float volume)
     {
         PlayerPrefs.SetFloat("VolumeEfek", volume);

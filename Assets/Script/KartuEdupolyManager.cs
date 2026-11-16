@@ -83,35 +83,31 @@ public class KartuEdupolyManager : MonoBehaviour
         }
 
         string json = databaseKartu.text;
-        string jsonDana = AmbilArrayJSON(json, "Dana Umum");
-        string jsonKesempatan = AmbilArrayJSON(json, "Kesempatan");
+        Debug.Log("CEK JSON: Dare=" +
+            json.Contains("\"Dare\"") +
+            ", Wawasan Umum=" +
+            json.Contains("\"Wawasan Umum\""));
+        string jsonDare = AmbilArrayJSON(json, "Dare");
         string jsonWawasan = AmbilArrayJSON(json, "Wawasan Umum");
 
-        if (string.IsNullOrEmpty(jsonDana) || string.IsNullOrEmpty(jsonKesempatan) || string.IsNullOrEmpty(jsonWawasan))
+        if (string.IsNullOrEmpty(jsonDare) || string.IsNullOrEmpty(jsonWawasan))
         {
-            Debug.LogError("KartuEdupolyManager: JSON harus memiliki Dana Umum, Kesempatan, dan Wawasan Umum.");
+            Debug.LogError("KartuEdupolyManager: JSON harus memiliki Dare dan Wawasan Umum.");
             return;
         }
 
-        WrapperKartuAksiEdupoly dana = JsonUtility.FromJson<WrapperKartuAksiEdupoly>("{\"items\":" + jsonDana + "}");
-        WrapperKartuAksiEdupoly kesempatan = JsonUtility.FromJson<WrapperKartuAksiEdupoly>("{\"items\":" + jsonKesempatan + "}");
+        WrapperKartuAksiEdupoly Dare = JsonUtility.FromJson<WrapperKartuAksiEdupoly>("{\"items\":" + jsonDare + "}");
         WrapperKartuWawasanEdupoly wawasan = JsonUtility.FromJson<WrapperKartuWawasanEdupoly>("{\"items\":" + jsonWawasan + "}");
 
-        if (dana?.items == null || kesempatan?.items == null || wawasan?.items == null)
+        if (Dare.items == null || wawasan?.items == null)
         {
             Debug.LogError("KartuEdupolyManager: Gagal membaca data JSON.");
             return;
         }
 
-        foreach (DataKartuAksiEdupoly data in dana.items)
+        foreach (DataKartuAksiEdupoly data in Dare.items)
         {
-            data.kategori = "Dana Umum";
-            semuaKartu.Add(data);
-        }
-
-        foreach (DataKartuAksiEdupoly data in kesempatan.items)
-        {
-            data.kategori = "Kesempatan";
+            data.kategori = "Dare";
             semuaKartu.Add(data);
         }
 
@@ -129,20 +125,16 @@ public class KartuEdupolyManager : MonoBehaviour
         }
 
         
-int jumlahDana = dana.items.Length;
-int jumlahKesempatan = kesempatan.items.Length;
+int jumlahDare = Dare.items.Length;
 int jumlahWawasan = wawasan.items.Length;
 
-if (jumlahDana != 3 ||
-    jumlahKesempatan != 3 ||
-    jumlahWawasan != 3 ||
-    semuaKartu.Count != 9)
+if (jumlahDare != 50 ||
+    jumlahWawasan != 50 ||
+    semuaKartu.Count != 100)
 {
     Debug.LogError(
-        "EDUCARD harus berisi tepat 3 Dana Umum, " +
-        "3 Kesempatan, dan 3 Wawasan Umum. " +
-        "Jumlah terbaca: Dana=" + jumlahDana +
-        ", Kesempatan=" + jumlahKesempatan +
+        "EDUCARD harus berisi 50 Dare dan 50 Wawasan Umum. " +
+        "Dare=" + jumlahDare +
         ", Wawasan=" + jumlahWawasan
     );
 
@@ -156,7 +148,7 @@ if (jumlahDana != 3 ||
 
         databaseSiap = true;
         IsiUlangDanAcakDek();
-        Debug.Log("KartuEdupolyManager: 9 kartu berhasil dimuat dalam satu dek gabungan.");
+        Debug.Log("KartuEdupolyManager: " + semuaKartu.Count + " kartu berhasil dimuat.");
     }
 
     private string AmbilArrayJSON(string json, string namaKunci)

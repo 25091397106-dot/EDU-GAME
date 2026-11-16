@@ -1,5 +1,5 @@
 {
-  "Dana Umum": [
+  "Dare": [
     {
       "No": 1,
       "Kartu": "KAMU MENDAPAT HADIAH!",
@@ -124,9 +124,7 @@
       "No": 25,
       "Kartu": "HADIAH KEJUTAN!",
       "Aksi": "Dapatkan Rp500.000."
-    }
-  ],
-  "Kesempatan": [
+    },
     {
       "No": 26,
       "Kartu": "KAMU SEDANG BERUNTUNG!",
@@ -220,7 +218,7 @@
     {
       "No": 44,
       "Kartu": "HUJAN MENGHAMBAT PERJALANANMU.",
-      "Aksi": "Bayar Rp10.000."
+      "Aksi": "Dapatkan Rp25.000."
     },
     {
       "No": 45,

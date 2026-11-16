@@ -393,26 +393,8 @@ if (dataLahan != null && pion != null)
         lahanAwal.pemilik == giliranSekarang &&
         lahanAwal.tahapProperti == 1;
 }
-        // Bayar pajak jika berhenti di petak pajak
-        ProsesPajak(pion);
-ProsesReward(pion);
-ProsesSewaBot(pion);
-ProsesPajak(pion);
-
-// Proses biaya dan hadiah satu kali setiap pendaratan.
-ProsesPajak(pion);
-ProsesReward(pion);
-ProsesSewaBot(pion);
-
-if (permainanSelesaiBot ||
-    pemainBangkrutBot[giliranSekarang])
-{
-    if (!permainanSelesaiBot)
-        GiliranBerikutnya();
-
-    yield break;
-}
-
+// Proses transaksi satu kali setiap pendaratan.
+ProsesPajak(pion); 
 ProsesReward(pion);
 ProsesSewaBot(pion);
 

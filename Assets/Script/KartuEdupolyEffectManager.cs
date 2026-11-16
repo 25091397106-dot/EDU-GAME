@@ -11,6 +11,32 @@ public class KartuEdupolyEffectManager : MonoBehaviour
     [Header("Tampilan Kartu Edupoly")]
     public Sprite gambarDepanKartu;
     public Sprite gambarBelakangKartu;
+    [Header("UI Kartu Edupoly 3D")]
+    public GameObject kartuEdupolyUI;
+    public KartuSoal kartuSoalEdupoly;
+    public CardFlip cardFlipEdupoly;
+    [Header("Popup Hasil Jawaban")]
+    public SoalManager soalManagerEdupoly;
+    private void TampilkanHasilEdupoly(bool benar)
+    {
+        if (soalManagerEdupoly == null)
+        {
+            Debug.LogError("SoalManager Edupoly belum dihubungkan!");
+            return;
+        }
+
+        if (soalManagerEdupoly.panelPopUpHasil == null ||
+            soalManagerEdupoly.teksHasilJawaban == null)
+        {
+            Debug.LogError("Popup hasil di SoalManager belum lengkap!");
+            return;
+        }
+
+        soalManagerEdupoly.teksHasilJawaban.text =
+            benar ? "JAWABAN BENAR!" : "JAWABAN SALAH!";
+
+        soalManagerEdupoly.panelPopUpHasil.SetActive(true);
+    }
     [Header("Referensi")]
     public KartuEdupolyManager dekKartu;
     public PlayerMoneyManager pengelolaUang;
@@ -22,7 +48,115 @@ public class KartuEdupolyEffectManager : MonoBehaviour
 
     public bool mintaLemparUlang { get; private set; }
     public bool kehilanganGiliran { get; private set; }
+    private void Start()
+    {
+        if (kartuEdupolyUI != null)
+        {
+            kartuEdupolyUI.SetActive(false);
+        }
+    }
+    private Vector3 posisiAsliEdupoly;
+    private Quaternion rotasiAsliEdupoly;
+    private Vector3 skalaAsliEdupoly;
 
+    private bool posisiEdupolyTersimpan;
+
+    private void TampilkanKartuEdupoly3D()
+    {
+        if (kartuEdupolyUI == null)
+        {
+            Debug.LogError("KartuEdupolyUI belum dihubungkan!");
+            return;
+        }
+
+        Camera kamera = Camera.main;
+
+        if (kamera == null)
+        {
+            Debug.LogError("Kamera utama tidak ditemukan!");
+            return;
+        }
+
+        Transform kartu = kartuEdupolyUI.transform;
+
+        if (!posisiEdupolyTersimpan)
+        {
+            posisiAsliEdupoly = kartu.position;
+            rotasiAsliEdupoly = kartu.rotation;
+            skalaAsliEdupoly = kartu.localScale;
+            posisiEdupolyTersimpan = true;
+        }
+
+        Transform cam = kamera.transform;
+
+        kartu.position =
+            cam.position +
+            cam.forward * 4f +
+            cam.right * -0.8f +
+            cam.up * -0.15f;
+
+        kartu.rotation =
+            Quaternion.LookRotation(-cam.forward, cam.up);
+
+        kartu.Rotate(0f, 180f, 0f, Space.Self);
+
+        kartu.localScale = new Vector3(2.8f, 2f, 2f);
+
+        kartuEdupolyUI.SetActive(true);
+    }
+
+    private void SembunyikanKartuEdupoly3D()
+    {
+        if (kartuEdupolyUI == null)
+            return;
+
+        kartuEdupolyUI.SetActive(false);
+
+        if (posisiEdupolyTersimpan)
+        {
+            Transform kartu = kartuEdupolyUI.transform;
+
+            kartu.position = posisiAsliEdupoly;
+            kartu.rotation = rotasiAsliEdupoly;
+            kartu.localScale = skalaAsliEdupoly;
+        }
+    }
+    private TMP_Text teksSoalEdupoly;
+    private Button[] tombolSoalEdupoly;
+
+    private void SiapkanUIKartuEdupoly()
+    {
+        if (kartuSoalEdupoly == null)
+        {
+            Debug.LogError("KartuSoal Edupoly belum terhubung!");
+            return;
+        }
+
+        teksSoalEdupoly = kartuSoalEdupoly.textPertanyaan;
+        Transform canvasSoal = kartuEdupolyUI.transform.Find("DEPAN/CanvasSoal");
+
+        if (canvasSoal != null)
+        {
+            canvasSoal.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("CanvasSoal Edupoly tidak ditemukan!");
+        }
+
+        tombolSoalEdupoly = new Button[]
+        {
+        kartuSoalEdupoly.jawabanA,
+        kartuSoalEdupoly.jawabanB,
+        kartuSoalEdupoly.jawabanC,
+        kartuSoalEdupoly.jawabanD
+        };
+        foreach (Button tombol in tombolSoalEdupoly)
+        {
+            if (tombol != null)
+                tombol.gameObject.SetActive(true);
+        }
+    }
     private Canvas uiCanvas;
     private GameObject panel;
     private TMP_Text judulText, isiText, timerText, hasilText;
@@ -61,9 +195,11 @@ public IEnumerator ProsesKartu(int idPemain, PionMovement pion)
         }
 
         if (pemainManusia)
-        {
-            BuatUIJikaBelumAda();
+        {   
+            SiapkanUIKartuEdupoly();
+            TampilkanKartuEdupoly3D();
             yield return TampilkanDanJalankanKuis(idPemain, soal);
+            SembunyikanKartuEdupoly3D();
         }
         else
         {
@@ -74,32 +210,33 @@ public IEnumerator ProsesKartu(int idPemain, PionMovement pion)
         yield break;
     }
 
-    // Kartu aksi hanya ditampilkan kepada pemain manusia.
-    if (pemainManusia)
-    {
-        BuatUIJikaBelumAda();
+        // Kartu aksi hanya ditampilkan kepada pemain manusia.
+        if (pemainManusia)
+        {
+            SiapkanUIKartuEdupoly();
+            TampilkanKartuEdupoly3D();
 
-        TampilkanPanel(
-            "EDUCARD - " + kartu.kategori,
-            kartu.Kartu,
-            kartu.Aksi,
-            false
-        );
+            teksSoalEdupoly.text = kartu.Kartu;
 
-        yield return new WaitForSeconds(durasiKartuAksi);
-        SembunyikanPanel();
-    }
+            foreach (Button tombol in tombolSoalEdupoly)
+            {
+                tombol.gameObject.SetActive(false);
+            }
 
-    yield return JalankanEfekAksi(
+            yield return new WaitForSeconds(durasiKartuAksi);
+
+            SembunyikanKartuEdupoly3D();
+        }
+
+        yield return JalankanEfekAksi(
         idPemain,
         pion,
         kartu.Aksi ?? ""
     );
 }
 
-    public IEnumerator JalankanKuisMultiplayer(
-    DataKartuWawasanEdupoly soal,
-    System.Action<bool> callbackHasil)
+public IEnumerator JalankanKuisMultiplayer(
+    DataKartuWawasanEdupoly soal, System.Action<bool> callbackHasil)
 {
     if (soal == null)
     {
@@ -192,10 +329,10 @@ public IEnumerator ProsesKartu(int idPemain, PionMovement pion)
 
     hasilText.gameObject.SetActive(true);
 
-    hasilText.text = jawabanBenar
-        ? "✓ JAWABAN BENAR!"
-        : "✕ JAWABAN SALAH / WAKTU HABIS";
-
+    Debug.Log(jawabanBenar
+        ? "EDUCARD: JAWABAN BENAR!"
+        : "EDUCARD: JAWABAN SALAH / WAKTU HABIS");
+   
     hasilText.color = jawabanBenar
         ? new Color(0.1f, 0.75f, 0.3f)
         : new Color(1f, 0.35f, 0.3f);
@@ -203,8 +340,6 @@ public IEnumerator ProsesKartu(int idPemain, PionMovement pion)
     callbackHasil?.Invoke(jawabanBenar);
 
     yield return new WaitForSeconds(2f);
-
-    SembunyikanPanel();
 }
     private IEnumerator TampilkanDanJalankanKuis(int idPemain, DataKartuWawasanEdupoly soal)
     {
@@ -226,7 +361,8 @@ public IEnumerator ProsesKartu(int idPemain, PionMovement pion)
             }
         }
 
-        TampilkanPanel("WAWASAN UMUM - " + soal.Level, soal.Pertanyaan, "Pilih satu jawaban yang benar.", true);
+        teksSoalEdupoly.text = soal.Pertanyaan;
+        pilihan = tombolSoalEdupoly;
         int[] urutan = { 0, 1, 2, 3 };
         for (int i = 3; i > 0; i--)
         {
@@ -252,7 +388,6 @@ public IEnumerator ProsesKartu(int idPemain, PionMovement pion)
         while (!sudahMemilih && sisaWaktu > 0f)
         {
             sisaWaktu -= Time.deltaTime;
-            timerText.text = "Waktu: " + Mathf.CeilToInt(Mathf.Max(0, sisaWaktu)) + " detik";
             if (bot)
             {
                 jedaBot += Time.deltaTime;
@@ -267,9 +402,7 @@ public IEnumerator ProsesKartu(int idPemain, PionMovement pion)
         }
         if (!sudahMemilih) { sudahMemilih = true; jawabanBenar = false; }
         foreach (Button b in pilihan) b.interactable = false;
-        hasilText.gameObject.SetActive(true);
-        hasilText.text = jawabanBenar ? "✓ JAWABAN BENAR!" : "✕ JAWABAN SALAH / WAKTU HABIS";
-        hasilText.color = jawabanBenar ? new Color(0.1f, 0.75f, 0.3f) : new Color(1f, 0.35f, 0.3f);
+        
         Debug.Log("EDUCARD Wawasan Umum selesai. Jawaban " + (jawabanBenar ? "BENAR" : "SALAH/TIMEOUT"));
         // Hadiah atau denda setelah menjawab Wawasan Umum.
 if (pengelolaUang != null)
@@ -289,8 +422,15 @@ else
 {
     Debug.LogWarning("EDUCARD: PlayerMoneyManager belum dihubungkan.");
 }
+        TampilkanHasilEdupoly(jawabanBenar);
+
         yield return new WaitForSeconds(2f);
-        SembunyikanPanel();
+
+        if (soalManagerEdupoly != null &&
+            soalManagerEdupoly.panelPopUpHasil != null)
+        {
+            soalManagerEdupoly.panelPopUpHasil.SetActive(false);
+        }
     }
 
 private IEnumerator ProsesKuisBot(

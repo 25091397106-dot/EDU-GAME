@@ -1,43 +1,35 @@
-
 using UnityEngine;
 using TMPro;
 
 public class TimerGame : MonoBehaviour
 {
-    public float waktuPermainan = 20 * 60f;
+    public float waktuPermainan = 0f;
     public TMP_Text teksTimer;
     public GameOverManager gameOverManager;
 
-    private bool permainanSelesai = false;
+    void Start()
+    {
+        waktuPermainan = 0f;
+        TampilkanWaktu();
+    }
 
     void Update()
     {
-        if (permainanSelesai) return;
-
-        waktuPermainan -= Time.deltaTime;
-
-        if (waktuPermainan <= 0)
-        {
-            waktuPermainan = 0;
-            permainanSelesai = true;
-            AkhiriPermainan();
-        }
-
-        int menit = Mathf.FloorToInt(waktuPermainan / 60);
-        int detik = Mathf.FloorToInt(waktuPermainan % 60);
-
-        teksTimer.text = string.Format("{0:00}:{1:00}", menit, detik);
+        waktuPermainan += Time.deltaTime;
+        TampilkanWaktu();
     }
 
-    void AkhiriPermainan()
+    void TampilkanWaktu()
     {
-        Debug.Log("Waktu habis! Permainan selesai.");
+        if (teksTimer == null) return;
 
-        if (gameOverManager != null)
-        {
-            gameOverManager.TampilkanKalah();
-        }
+        int jam = Mathf.FloorToInt(waktuPermainan / 3600);
+        int menit = Mathf.FloorToInt((waktuPermainan % 3600) / 60);
+        int detik = Mathf.FloorToInt(waktuPermainan % 60);
 
-        Time.timeScale = 0;
+        teksTimer.text = string.Format(
+            "{0:00}:{1:00}:{2:00}",
+            jam, menit, detik
+        );
     }
 }

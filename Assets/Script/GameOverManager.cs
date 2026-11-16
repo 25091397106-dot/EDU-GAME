@@ -1,9 +1,14 @@
 using UnityEngine;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
     public GameObject panelMenang;
     public GameObject panelKalah;
+    [Header("Final Ranking")]
+    public GameObject panelRanking;
+    public RankingManager rankingManager;
 
     void Start()
     {
@@ -13,6 +18,7 @@ public class GameOverManager : MonoBehaviour
         // Sembunyikan kedua panel saat permainan dimulai
         panelMenang.SetActive(false);
         panelKalah.SetActive(false);
+        panelRanking.SetActive(false);
     }
 
     public void TampilkanMenang()
@@ -21,6 +27,7 @@ public class GameOverManager : MonoBehaviour
         panelMenang.SetActive(true);
 
         Time.timeScale = 0f;
+        StartCoroutine(TampilkanRankingSetelahDelay());
     }
 
     public void TampilkanKalah()
@@ -29,6 +36,17 @@ public class GameOverManager : MonoBehaviour
         panelKalah.SetActive(true);
 
         Time.timeScale = 0f;
+        StartCoroutine(TampilkanRankingSetelahDelay());
+    }
+    private IEnumerator TampilkanRankingSetelahDelay()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+
+        panelMenang.SetActive(false);
+        panelKalah.SetActive(false);
+
+        rankingManager.TampilkanRanking();
+        panelRanking.SetActive(true);
     }
 
     [ContextMenu("Tes Menang")]
@@ -36,4 +54,15 @@ public class GameOverManager : MonoBehaviour
 
     [ContextMenu("Tes Kalah")]
     void TesKalah() { TampilkanKalah(); }
+    public void MainLagi()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void KembaliKeMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
+    }
 }

@@ -182,7 +182,7 @@ public class CardDisplayManager : MonoBehaviour
     {
         if (kartu3D == null)
             return;
-
+       
         kartu3D.SetActive(false);
 
         if (transformTersimpan)

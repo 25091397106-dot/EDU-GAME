@@ -8,7 +8,9 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offset = new Vector3(0, 7, -6);
     public float kecepatanKamera = 4f;
     public bool sedangMengikuti = false;
-
+    public Vector3 pusatPapan = Vector3.zero;
+    public float jarakKamera = 14f;
+    public float tinggiKamera = 12f;
     private Vector3 posisiAwal;
     private Quaternion rotasiAwal;
 
@@ -24,7 +26,13 @@ public class CameraFollow : MonoBehaviour
 
         if (sedangMengikuti && targetPion != null)
         {
-            posisiTujuan = targetPion.position + offset;
+            Vector3 arah = targetPion.position - pusatPapan;
+            arah.y = 0f;
+            arah.Normalize();
+
+            posisiTujuan = pusatPapan
+                + arah * jarakKamera
+                + Vector3.up * tinggiKamera;
         }
         else
         {
@@ -37,9 +45,19 @@ public class CameraFollow : MonoBehaviour
             Mathf.Clamp01(kecepatanKamera * Time.deltaTime)
         );
 
+        Quaternion rotasiTujuan = rotasiAwal;
+
+        if (sedangMengikuti && targetPion != null)
+        {
+            rotasiTujuan = Quaternion.LookRotation(
+                pusatPapan - transform.position,
+                Vector3.up
+            );
+        }
+
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
-            rotasiAwal,
+            rotasiTujuan,
             Mathf.Clamp01(kecepatanKamera * Time.deltaTime)
         );
     }

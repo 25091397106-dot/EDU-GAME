@@ -15,6 +15,7 @@ public class KartuEdupolyEffectManager : MonoBehaviour
     public GameObject kartuEdupolyUI;
     public KartuSoal kartuSoalEdupoly;
     public CardFlip cardFlipEdupoly;
+    public KartuEdupolyDisplay displayEdupoly;
     [Header("Popup Hasil Jawaban")]
     public SoalManager soalManagerEdupoly;
     private void TampilkanHasilEdupoly(bool benar)
@@ -60,66 +61,20 @@ public class KartuEdupolyEffectManager : MonoBehaviour
     private Vector3 skalaAsliEdupoly;
 
     private bool posisiEdupolyTersimpan;
-
     private void TampilkanKartuEdupoly3D()
     {
-        if (kartuEdupolyUI == null)
+        if (displayEdupoly == null)
         {
-            Debug.LogError("KartuEdupolyUI belum dihubungkan!");
+            Debug.LogError("KartuEdupolyDisplay belum dihubungkan!");
             return;
         }
 
-        Camera kamera = Camera.main;
-
-        if (kamera == null)
-        {
-            Debug.LogError("Kamera utama tidak ditemukan!");
-            return;
-        }
-
-        Transform kartu = kartuEdupolyUI.transform;
-
-        if (!posisiEdupolyTersimpan)
-        {
-            posisiAsliEdupoly = kartu.position;
-            rotasiAsliEdupoly = kartu.rotation;
-            skalaAsliEdupoly = kartu.localScale;
-            posisiEdupolyTersimpan = true;
-        }
-
-        Transform cam = kamera.transform;
-
-        kartu.position =
-            cam.position +
-            cam.forward * 4f +
-            cam.right * -0.8f +
-            cam.up * -0.15f;
-
-        kartu.rotation =
-            Quaternion.LookRotation(-cam.forward, cam.up);
-
-        kartu.Rotate(0f, 180f, 0f, Space.Self);
-
-        kartu.localScale = new Vector3(2.8f, 2f, 2f);
-
-        kartuEdupolyUI.SetActive(true);
+        displayEdupoly.Tampilkan();
     }
-
     private void SembunyikanKartuEdupoly3D()
     {
-        if (kartuEdupolyUI == null)
-            return;
-
-        kartuEdupolyUI.SetActive(false);
-
-        if (posisiEdupolyTersimpan)
-        {
-            Transform kartu = kartuEdupolyUI.transform;
-
-            kartu.position = posisiAsliEdupoly;
-            kartu.rotation = rotasiAsliEdupoly;
-            kartu.localScale = skalaAsliEdupoly;
-        }
+        if (displayEdupoly != null)
+            displayEdupoly.Sembunyikan();
     }
     private TMP_Text teksSoalEdupoly;
     private Button[] tombolSoalEdupoly;

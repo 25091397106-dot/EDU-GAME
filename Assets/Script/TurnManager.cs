@@ -891,7 +891,9 @@ if (!ModeMultiplayer && CekPemenangBot())
         if (lahan.tahapProperti == 1)
             persentase = 0.10f;
         else if (lahan.tahapProperti == 2)
-            persentase = 0.25f;
+            persentase = 0.20f;
+        else if (lahan.tahapProperti == 3)
+            persentase = 0.30f;
 
         int biayaSewa =
             Mathf.RoundToInt(lahan.harga * persentase);

@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using UnityEngine;
@@ -29,11 +28,11 @@ public static class PropertyUpgradeFlow
         DataLahan lahan =
             dataManager.CariLahan(pion.posisiSekarang);
 
-        // Hanya lahan milik sendiri
-        // yang mempunyai 3 bangunan.
+        // Hanya lahan milik sendiri yang belum mencapai kastil.
         if (lahan == null ||
             lahan.pemilik != idPemain ||
-            lahan.tahapProperti != 1)
+            lahan.tahapProperti < 1 ||
+            lahan.tahapProperti >= 3)
         {
             yield break;
         }
@@ -206,8 +205,12 @@ public static class PropertyUpgradeFlow
 
         // Sementara memakai panel pembelian,
         // dengan harga yang diganti biaya upgrade.
+        string namaUpgrade = lahan.tahapProperti == 1
+             ? "UPGRADE RUMAH BESAR - "
+             : "BELI LANDMARK - ";
+
         purchaseUI.TampilkanPembelian(
-            "UPGRADE " + lahan.namaLahan,
+            namaUpgrade + lahan.namaLahan,
             biaya,
             lahan.warnaKomplek
         );

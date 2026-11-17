@@ -3515,7 +3515,6 @@ private void UmumkanPemenangOnlineRpc(int pemainMenang)
     if (pemainMenang < 0 || pemainMenang >= 4)
         return;
 
-    string judul = "EDU-POLY SELESAI!";
     string pesan;
 
     if (playerIndexLokal == pemainMenang)
@@ -3534,35 +3533,24 @@ private void UmumkanPemenangOnlineRpc(int pemainMenang)
         "MULTIPLAYER EDU-POLY: " + pesan
     );
 
-    // Tampilkan pengumuman melalui panel EDUCARD.
-    KartuEdupolyEffectManager effectManager =
-        FindAnyObjectByType<KartuEdupolyEffectManager>();
+        GameOverManager gameOver = FindAnyObjectByType<GameOverManager>();
 
-    if (effectManager != null)
-    {
-        effectManager.TampilkanNotifikasiSistem(
-            judul,
-            pesan,
-            8f
-        );
-    }
-    else
-    {
-        Debug.LogWarning(
-            "KartuEdupolyEffectManager tidak ditemukan."
-        );
+        if (gameOver != null)
+        {
+            if (playerIndexLokal == pemainMenang)
+                gameOver.TampilkanMenang();
+            else
+                gameOver.TampilkanKalah();
+        }
+        else
+        {
+            Debug.LogError("GameOverManager multiplayer tidak ditemukan!");
+        }
     }
 
-    // Munculkan tombol Kembali ke Menu.
-    if (tombolKembaliMenu != null)
-    {
-        tombolKembaliMenu.SetActive(true);
-    }
-    }
-    
     // Dipanggil ketika pemain menekan tombol
     // Kembali ke Menu setelah pertandingan selesai.
-    
+
     private bool sedangKembaliKeMenu = false;
 
     public async void KembaliKeMenuSetelahMenang()

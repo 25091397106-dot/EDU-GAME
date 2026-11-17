@@ -26,7 +26,8 @@ public class GameOverManager : MonoBehaviour
         panelKalah.SetActive(false);
         panelMenang.SetActive(true);
 
-        Time.timeScale = 0f;
+        if (!MainMenuManager.modeMultiplayer)
+            Time.timeScale = 0f;
         StartCoroutine(TampilkanRankingSetelahDelay());
     }
 
@@ -35,7 +36,8 @@ public class GameOverManager : MonoBehaviour
         panelMenang.SetActive(false);
         panelKalah.SetActive(true);
 
-        Time.timeScale = 0f;
+        if (!MainMenuManager.modeMultiplayer)
+            Time.timeScale = 0f;
         StartCoroutine(TampilkanRankingSetelahDelay());
     }
     private IEnumerator TampilkanRankingSetelahDelay()

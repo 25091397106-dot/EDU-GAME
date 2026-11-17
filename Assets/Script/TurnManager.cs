@@ -1159,37 +1159,20 @@ private void AkhiriPermainanBot(int pemenang, string alasan)
 
     Debug.Log(pesan);
 
-    // Gunakan panel EDUCARD yang sudah tersedia.
-    KartuEdupolyEffectManager effectManager =
-        efekKartuEdupoly != null
-        ? efekKartuEdupoly
-        : kartuEffectManager;
+        GameOverManager gameOver = FindAnyObjectByType<GameOverManager>();
 
-    if (effectManager != null)
-    {
-        effectManager.TampilkanNotifikasiSistem(
-            "EDU-POLY SELESAI!",
-            pesan,
-            8f
-        );
-    }
-    else
-    {
-        Debug.LogWarning(
-            "Panel EDUCARD tidak ditemukan untuk menampilkan hasil permainan."
-        );
-
-        // Fallback jika panel EDUCARD belum tersedia.
-        if (teksHasilBot != null)
+        if (gameOver != null)
         {
-            teksHasilBot.gameObject.SetActive(true);
-            teksHasilBot.text = pesan;
+            if (pemenang == 0)
+                gameOver.TampilkanMenang();
+            else
+                gameOver.TampilkanKalah();
+        }
+        else
+        {
+            Debug.LogError("GameOverManager tidak ditemukan!");
         }
     }
-
-    if (tombolKembaliMenuBot != null)
-        tombolKembaliMenuBot.SetActive(true);
-}
 
     public void KembaliKeMenuBot()
     {

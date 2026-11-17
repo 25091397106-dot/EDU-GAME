@@ -222,16 +222,20 @@ public IEnumerator JalankanKuisMultiplayer(
         }
     }
 
-    BuatUIJikaBelumAda();
+    if (teksSoalEdupoly == null || tombolSoalEdupoly == null ||
+         tombolSoalEdupoly.Length < 4)
+        {
+            Debug.LogError("EDUCARD: UI kartu soal belum terhubung!");
+            callbackHasil?.Invoke(false);
+            yield break;
+        }
 
-    TampilkanPanel(
-        "WAWASAN UMUM - " + soal.Level,
-        soal.Pertanyaan,
-        "Pilih satu jawaban yang benar.",
-        true
-    );
+        teksSoalEdupoly.text = soal.Pertanyaan;
+        SiapkanUIKartuEdupoly();
+        TampilkanKartuEdupoly3D();
+        pilihan = tombolSoalEdupoly;
 
-    int[] urutan = { 0, 1, 2, 3 };
+        int[] urutan = { 0, 1, 2, 3 };
 
     for (int i = 3; i > 0; i--)
     {
@@ -295,7 +299,8 @@ public IEnumerator JalankanKuisMultiplayer(
     callbackHasil?.Invoke(jawabanBenar);
 
     yield return new WaitForSeconds(2f);
-}
+    SembunyikanKartuEdupoly3D();
+    }
     private IEnumerator TampilkanDanJalankanKuis(int idPemain, DataKartuWawasanEdupoly soal)
     {
         string key = AmbilHurufKunci(soal.Jawaban);

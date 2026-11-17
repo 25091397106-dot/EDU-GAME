@@ -64,7 +64,8 @@ public NetworkVariable<bool> permainanSelesaiOnline =
     // Ditetapkan Host hanya setelah event Netcode menyatakan
     // semua peserta selesai memuat scene permainan.
     private bool seluruhClientSiapScene = false;
-
+    private PlayerMoneyManager uangRiwayatOnline;
+    private Coroutine tungguManagerRiwayat;
    
     public override void OnNetworkSpawn()
     {
@@ -89,7 +90,8 @@ public NetworkVariable<bool> permainanSelesaiOnline =
             sisaWaktuHost = 15f;
 
             AturIdentitasPemain();
-
+            tungguManagerRiwayat =
+    StartCoroutine(TungguManagerRiwayat());
             if (NetworkManager.SceneManager != null)
             {
                 NetworkManager.SceneManager.OnSceneEvent +=
@@ -278,7 +280,81 @@ public NetworkVariable<bool> permainanSelesaiOnline =
                     SaatEventSceneOnline;
             }
         }
+        if (uangRiwayatOnline != null)
+{
+    uangRiwayatOnline.OnTransaksi -= CatatTransaksiOnline;
+    uangRiwayatOnline = null;
+}
+
+if (tungguManagerRiwayat != null)
+{
+    StopCoroutine(tungguManagerRiwayat);
+    tungguManagerRiwayat = null;
+}
     }
+    private IEnumerator TungguManagerRiwayat()
+{
+    while (uangRiwayatOnline == null)
+    {
+        uangRiwayatOnline =
+            FindAnyObjectByType<PlayerMoneyManager>();
+
+        yield return null;
+    }
+
+    while (uangRiwayatOnline.saldoPemain == null)
+    {
+        yield return null;
+    }
+
+    uangRiwayatOnline.OnTransaksi += CatatTransaksiOnline;
+
+    Debug.Log("Riwayat transaksi Multiplayer aktif.");
+}
+
+
+private void CatatTransaksiOnline(
+    int idPemain,
+    string jenis,
+    string keterangan,
+    int nominal,
+    bool pemasukan)
+{
+    if (!IsServer || !IsSpawned)
+        return;
+
+    RiwayatTransaksiOnlineRpc(
+        idPemain,
+        jenis,
+        keterangan,
+        nominal,
+        pemasukan
+    );
+}
+
+
+[Rpc(SendTo.Everyone)]
+private void RiwayatTransaksiOnlineRpc(
+    int idPemain,
+    string jenis,
+    string keterangan,
+    int nominal,
+    bool pemasukan)
+{
+    TransactionHistoryUI riwayat =
+        FindAnyObjectByType<TransactionHistoryUI>();
+
+    if (riwayat != null)
+    {
+        riwayat.TambahkanRiwayat(
+            idPemain,
+            jenis,
+            keterangan,
+            nominal,
+            pemasukan
+        );
+    }
+}
 
 
     private void PerbaruiIdentitasLokal()
@@ -1584,13 +1660,21 @@ private IEnumerator ProsesEduCardOnline(int pemain, PionMovement pion)
         if (uangKuis != null)
         {
             if (benar)
-            {
-                uangKuis.TambahSaldo(pemain, 200000);
-            }
-            else
-            {
-                uangKuis.KurangiSaldo(pemain, 100000);
-            }
+{
+    uangKuis.TambahSaldo(
+        pemain,
+        200000,
+        "Reward EDUCARD: Jawaban benar"
+    );
+}
+else
+{
+    uangKuis.KurangiSaldo(
+        pemain,
+        100000,
+        "Denda EDUCARD: Jawaban salah"
+    );
+}
 
             if (uangKuis.saldoPemain != null &&
                 pemain < uangKuis.saldoPemain.Length)
@@ -1635,15 +1719,23 @@ private IEnumerator ProsesEduCardOnline(int pemain, PionMovement pion)
             uang != null)
         {
             if (aksi.Contains("dapatkan rp"))
-            {
-                uang.TambahSaldo(pemain, nominal);
-            }
-            else if (!uang.KurangiSaldo(pemain, nominal))
-            {
-                Debug.LogWarning(
-                    "EDUCARD: saldo pemain tidak cukup untuk membayar kartu."
-                );
-            }
+{
+    uang.TambahSaldo(
+        pemain,
+        nominal,
+        "Menerima uang dari kartu EDUCARD"
+    );
+}
+else if (!uang.KurangiSaldo(
+    pemain,
+    nominal,
+    "Membayar uang dari kartu EDUCARD"
+))
+{
+    Debug.LogWarning(
+        "EDUCARD: saldo pemain tidak cukup untuk membayar kartu."
+    );
+}
 
             if (uang.saldoPemain != null &&
                 pemain < uang.saldoPemain.Length)
@@ -2836,11 +2928,20 @@ CekKemenanganSatuSisiOnline();
         pemilikLamaOnline = -1;
 
         if (benar && harga > 0 &&
-            !ApakahPemainBangkrutOnline(pemain) &&
-            uang.KurangiSaldo(pemain, harga))
-        {
-            // Uang dibayarkan kepada pemilik sebelumnya.
-            uang.TambahSaldo(pemilikLama, harga);
+    !ApakahPemainBangkrutOnline(pemain) &&
+    uang.KurangiSaldo(
+        pemain,
+        harga,
+        "Mengambil alih " + lahan.namaLahan
+    ))
+{
+    // Uang dibayarkan kepada pemilik sebelumnya.
+    uang.TambahSaldo(
+        pemilikLama,
+        harga,
+        "Menerima pembayaran pengambilalihan " +
+        lahan.namaLahan
+    );
 
             // Pertahankan tahap rumah/landmark.
             lahan.pemilik = pemain;
@@ -3137,19 +3238,21 @@ if (pemilik < 0 ||
 
         // Host memotong saldo penyewa.
         bool berhasil =
-            uang.KurangiSaldo(
-                pemain,
-                biayaSewa
-            );
+    uang.KurangiSaldo(
+        pemain,
+        biayaSewa,
+        "Membayar sewa " + lahan.namaLahan
+    );
 
         if (!berhasil)
             return;
 
         // Host memberikan uang kepada pemilik.
         uang.TambahSaldo(
-            pemilik,
-            biayaSewa
-        );
+    pemilik,
+    biayaSewa,
+    "Menerima sewa " + lahan.namaLahan
+);
 
         // Sinkronkan kedua saldo ke semua perangkat.
         SinkronkanSaldoOnlineRpc(
@@ -3215,7 +3318,11 @@ private void ProsesPajakOnline(int pemain, PionMovement pion)
         return;
 
     bool berhasil =
-        uang.KurangiSaldo(pemain, biayaPajak);
+    uang.KurangiSaldo(
+        pemain,
+        biayaPajak,
+        "Membayar pajak WP " + pion.posisiSekarang
+    );
 
     if (!berhasil)
     {
@@ -3278,7 +3385,11 @@ private void ProsesPajakOnline(int pemain, PionMovement pion)
             return;
 
         // Tambah uang hanya sekali melalui Host
-        uang.TambahSaldo(pemain, jumlahReward);
+uang.TambahSaldo(
+    pemain,
+    jumlahReward,
+    "Menerima reward WP " + pion.posisiSekarang
+);
 
         // Kirim saldo terbaru ke seluruh pemain
         SinkronkanSaldoOnlineRpc(
@@ -3339,15 +3450,19 @@ private bool BayarDendaPenjaraOnline(int pemain)
     const int denda = 100000;
 
     // Jika saldo tidak cukup, lewati giliran.
-    if (!uang.KurangiSaldo(pemain, denda))
-    {
-        Debug.LogWarning(
-            "MULTIPLAYER: Player " + (pemain + 1) +
-            " belum mampu membayar denda penjara. Giliran dilewati."
-        );
+if (!uang.KurangiSaldo(
+    pemain,
+    denda,
+    "Membayar denda penjara"
+))
+{
+    Debug.LogWarning(
+        "MULTIPLAYER: Player " + (pemain + 1) +
+        " belum mampu membayar denda penjara. Giliran dilewati."
+    );
 
-        return false;
-    }
+    return false;
+}
 
     // Bebaskan pemain.
     pion.sedangDipenjara = false;

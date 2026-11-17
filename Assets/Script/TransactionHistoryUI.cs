@@ -1,9 +1,9 @@
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System.Collections;
 
 public class TransactionHistoryUI : MonoBehaviour
 {
@@ -27,6 +27,9 @@ public class TransactionHistoryUI : MonoBehaviour
     private Vector2 posisiTertutup;
     private bool sedangTerbuka;
     private Coroutine animasi;
+    private Coroutine nonaktifkanCoroutine;
+
+    private PlayerMoneyManager uang;
 
     private readonly List<GameObject> daftarItem =
         new List<GameObject>();
@@ -52,34 +55,60 @@ public class TransactionHistoryUI : MonoBehaviour
         if (tombolTutup != null)
             tombolTutup.onClick.AddListener(TutupPanel);
 
-        PlayerMoneyManager uang =
-            FindAnyObjectByType<PlayerMoneyManager>();
+        // VS Bot mencatat transaksi secara langsung.
+        // Multiplayer menerima riwayat melalui RPC Host.
+        if (!MainMenuManager.modeMultiplayer)
+        {
+            uang = FindAnyObjectByType<PlayerMoneyManager>();
 
-        if (uang != null)
-            uang.OnTransaksi += TambahkanRiwayat;
+            if (uang != null)
+                uang.OnTransaksi += TambahkanRiwayat;
+        }
     }
 
     private void OnDestroy()
     {
-        PlayerMoneyManager uang =
-            FindAnyObjectByType<PlayerMoneyManager>();
-
         if (uang != null)
             uang.OnTransaksi -= TambahkanRiwayat;
+
+        if (tombolBuka != null)
+            tombolBuka.onClick.RemoveListener(BukaPanel);
+
+        if (tombolTutup != null)
+            tombolTutup.onClick.RemoveListener(TutupPanel);
     }
 
     public void BukaPanel()
     {
+        if (panelRiwayat == null)
+            return;
+
+        sedangTerbuka = true;
+
+        if (nonaktifkanCoroutine != null)
+        {
+            StopCoroutine(nonaktifkanCoroutine);
+            nonaktifkanCoroutine = null;
+        }
+
         panelRiwayat.gameObject.SetActive(true);
         JalankanAnimasi(posisiTerbuka);
-        sedangTerbuka = true;
     }
 
     public void TutupPanel()
     {
-        JalankanAnimasi(posisiTertutup);
+        if (panelRiwayat == null)
+            return;
+
         sedangTerbuka = false;
-        StartCoroutine(NonaktifkanSetelahAnimasi());
+
+        JalankanAnimasi(posisiTertutup);
+
+        if (nonaktifkanCoroutine != null)
+            StopCoroutine(nonaktifkanCoroutine);
+
+        nonaktifkanCoroutine =
+            StartCoroutine(NonaktifkanSetelahAnimasi());
     }
 
     private void JalankanAnimasi(Vector2 tujuan)
@@ -109,14 +138,17 @@ public class TransactionHistoryUI : MonoBehaviour
         }
 
         panelRiwayat.anchoredPosition = tujuan;
+        animasi = null;
     }
 
     private IEnumerator NonaktifkanSetelahAnimasi()
     {
         yield return new WaitForSecondsRealtime(durasiAnimasi);
 
-        if (!sedangTerbuka)
+        if (!sedangTerbuka && panelRiwayat != null)
             panelRiwayat.gameObject.SetActive(false);
+
+        nonaktifkanCoroutine = null;
     }
 
     public void TambahkanRiwayat(
@@ -151,6 +183,7 @@ public class TransactionHistoryUI : MonoBehaviour
         if (teks.Length > 3)
         {
             string tanda = pemasukan ? "+ " : "- ";
+
             teks[3].text =
                 tanda + "Rp" + nominal.ToString("N0");
         }

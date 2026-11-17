@@ -120,8 +120,19 @@ public class PropertyBuildingVisual : MonoBehaviour
             BuatRumahBesar(root.transform, warna);
         else
             BuatLandmark(root.transform, warna);
+
         root.AddComponent<AnimasiBangunan>();
+
+        CameraFollow kamera =
+            FindAnyObjectByType<CameraFollow>();
+
+        if (kamera != null && Application.isPlaying)
+        {
+            kamera.FokusBangunan(root.transform);
+        }
+
         visualAktif[wp] = root;
+
         Debug.Log("PropertyBuildingVisual: visual tahap " + lahan.tahapProperti + " dibuat di " + lahan.namaLahan + " (WP " + wp + "), menghadap tengah papan.");
     }
 

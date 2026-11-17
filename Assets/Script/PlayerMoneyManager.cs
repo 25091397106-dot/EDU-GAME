@@ -8,10 +8,13 @@ public class PlayerMoneyManager : MonoBehaviour
     public int saldoAwal = 1500000;
 
     public int[] saldoPemain;
+
+    public System.Action<int, string, string, int, bool> OnTransaksi;
+
     [Header("Tampilan Nama dan Saldo Pemain")]
     public TMP_Text[] textNamaPemain;
     public TMP_Text[] textSaldoPemain;
-
+    
     void Start()
     {
         // Mengambil jumlah pemain dari Main Menu
@@ -55,31 +58,50 @@ public class PlayerMoneyManager : MonoBehaviour
         TampilkanPanelMilikSendiri();
     }
 
-    public bool KurangiSaldo(int idPemain, int jumlah)
+   public bool KurangiSaldo(int idPemain, int jumlah,
+                         string keterangan = "Pengeluaran")
+{
+    if (!PemainValid(idPemain) || jumlah < 0)
+        return false;
+
+    if (saldoPemain[idPemain] < jumlah)
     {
-        if (!PemainValid(idPemain) || jumlah < 0)
-            return false;
-
-        if (saldoPemain[idPemain] < jumlah)
-        {
-            Debug.Log("Saldo Pemain " + (idPemain + 1) +
-                " tidak cukup!");
-            return false;
-        }
-
-        saldoPemain[idPemain] -= jumlah;
-        TampilkanSaldo(idPemain);
-        return true;
+        Debug.Log("Saldo Pemain " + (idPemain + 1) +
+            " tidak cukup!");
+        return false;
     }
 
-    public void TambahSaldo(int idPemain, int jumlah)
-    {
-        if (!PemainValid(idPemain) || jumlah < 0)
-            return;
+    saldoPemain[idPemain] -= jumlah;
+    TampilkanSaldo(idPemain);
 
-        saldoPemain[idPemain] += jumlah;
-        TampilkanSaldo(idPemain);
-    }
+    OnTransaksi?.Invoke(
+        idPemain,
+        "Pengeluaran",
+        keterangan,
+        jumlah,
+        false
+    );
+
+    return true;
+}
+
+    public void TambahSaldo(int idPemain, int jumlah,
+                        string keterangan = "Pemasukan")
+{
+    if (!PemainValid(idPemain) || jumlah < 0)
+        return;
+
+    saldoPemain[idPemain] += jumlah;
+    TampilkanSaldo(idPemain);
+
+    OnTransaksi?.Invoke(
+        idPemain,
+        "Pemasukan",
+        keterangan,
+        jumlah,
+        true
+    );
+}
 
     public bool TransferSaldo(int dariPemain, int kePemain, int jumlah)
     {

@@ -1124,7 +1124,7 @@ private System.Action<bool> callbackSoalOnline;
         // Host menunggu popup penjara selesai
         if (masukPenjara)
         {
-            yield return new WaitForSeconds(2.6f);
+            yield return new WaitForSeconds(6.8f);
         }
         // Kembar ketiga pada putaran pertama:
         // tidak masuk penjara dan langsung ganti pemain.
@@ -2679,15 +2679,26 @@ CekKemenanganSatuSisiOnline();
         {
             Debug.Log("Kembar ketiga putaran pertama, pion tidak bergerak.");
         }
+
         else if (masukPenjara)
         {
-            AnimasiPeringatanPenjara animasi =
+            AnimasiPeringatanPenjara peringatan =
                 FindAnyObjectByType<AnimasiPeringatanPenjara>();
 
-            if (animasi != null)
+            if (peringatan != null)
             {
                 yield return StartCoroutine(
-                    animasi.TampilkanPeringatan()
+                    peringatan.TampilkanPeringatan()
+                );
+            }
+
+            CameraFollow kamera =
+                FindAnyObjectByType<CameraFollow>();
+
+            if (kamera != null)
+            {
+                yield return StartCoroutine(
+                    kamera.FokusPenjara(pion.transform)
                 );
             }
 

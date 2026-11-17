@@ -1,5 +1,5 @@
-
 using UnityEngine;
+using System.Collections;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -76,6 +76,100 @@ public class CameraFollow : MonoBehaviour
     {
         sedangMengikuti = false;
         targetPion = null;
+    }
+
+
+    public IEnumerator FokusPenjara(Transform pion)
+    {
+        if (pion == null)
+            yield break;
+
+        if (prosesSinematik != null)
+            StopCoroutine(prosesSinematik);
+
+        sedangSinematik = true;
+        sedangMengikuti = false;
+        targetPion = null;
+
+        AnimasiSelPenjara animasiSel =
+            FindAnyObjectByType<AnimasiSelPenjara>();
+
+        Vector3 posisiMulai = transform.position;
+        Quaternion rotasiMulai = transform.rotation;
+
+        Vector3 posisiZoom =
+            pion.position + new Vector3(0f, 3f, -4f);
+
+        Quaternion rotasiZoom = Quaternion.LookRotation(
+            pion.position + Vector3.up - posisiZoom,
+            Vector3.up
+        );
+
+        float durasi = 0.8f;
+        float waktu = 0f;
+
+        // Kamera mendekati pion
+        while (waktu < durasi)
+        {
+            waktu += Time.deltaTime;
+
+            float t = Mathf.SmoothStep(
+                0f, 1f,
+                Mathf.Clamp01(waktu / durasi)
+            );
+
+            transform.position =
+                Vector3.Lerp(posisiMulai, posisiZoom, t);
+
+            transform.rotation =
+                Quaternion.Slerp(rotasiMulai, rotasiZoom, t);
+
+            yield return null;
+        }
+
+        transform.position = posisiZoom;
+        transform.rotation = rotasiZoom;
+
+        // Sel turun mengurung pion saat kamera sudah zoom
+        if (animasiSel != null)
+        {
+            yield return StartCoroutine(
+                animasiSel.TampilkanSel(pion)
+            );
+        }
+        else
+        {
+            yield return new WaitForSeconds(2f);
+        }
+
+        // Kamera kembali ke papan
+        posisiMulai = transform.position;
+        rotasiMulai = transform.rotation;
+        waktu = 0f;
+
+        while (waktu < durasi)
+        {
+            waktu += Time.deltaTime;
+
+            float t = Mathf.SmoothStep(
+                0f, 1f,
+                Mathf.Clamp01(waktu / durasi)
+            );
+
+            transform.position =
+                Vector3.Lerp(posisiMulai, posisiAwal, t);
+
+            transform.rotation =
+                Quaternion.Slerp(rotasiMulai, rotasiAwal, t);
+
+            yield return null;
+        }
+
+        transform.position = posisiAwal;
+        transform.rotation = rotasiAwal;
+
+        sedangSinematik = false;
+        prosesSinematik = null;
     }
 
     public void FokusBangunan(Transform bangunan)

@@ -293,25 +293,30 @@ public class TurnManager : MonoBehaviour
             AnimasiPeringatanPenjara animasi =
                 FindAnyObjectByType<AnimasiPeringatanPenjara>();
 
-            if (animasi != null && pion.putaranSelesai >= 1)
+
+
+            if (pion.putaranSelesai >= 1)
             {
-                yield return StartCoroutine(
-                    animasi.TampilkanPeringatan()
-                );
+                AnimasiPeringatanPenjara peringatan =
+                    FindAnyObjectByType<AnimasiPeringatanPenjara>();
+
+                if (peringatan != null)
+                {
+                    yield return StartCoroutine(
+                        peringatan.TampilkanPeringatan()
+                    );
+                }
+
+                CameraFollow kamera =
+                    FindAnyObjectByType<CameraFollow>();
+
+                if (kamera != null)
+                {
+                    yield return StartCoroutine(
+                        kamera.FokusPenjara(pion.transform)
+                    );
+                }
             }
-
-            if (pion.putaranSelesai < 1)
-            {
-                Debug.Log(
-                    "KEMBAR 3 KALI! PUTARAN PERTAMA, " +
-                    "TIDAK MASUK PENJARA."
-                );
-
-                GiliranBerikutnya();
-                yield break;
-            }
-
-            Debug.Log("KEMBAR 3 KALI! MASUK PENJARA!");
 
             pion.MasukPenjara();
 

@@ -88,6 +88,7 @@ public class PropertyPurchaseUI : MonoBehaviour
         if (panelPembelian != null)
             panelPembelian.SetActive(false);
     }
+
     [ContextMenu("Tes Panel Seni Rupa")]
     public void TesPanelSeniRupa()
     {

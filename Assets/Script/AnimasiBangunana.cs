@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimasiBangunan : MonoBehaviour
 {
-    public float durasi = 1.5f;
+    public float durasi = 3f;
     public float tinggiMuncul = 1.2f;
 
     private void Start()

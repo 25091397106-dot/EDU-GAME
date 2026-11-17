@@ -93,37 +93,40 @@ public class CameraFollow : MonoBehaviour
         );
     }
 
+
     private System.Collections.IEnumerator AnimasiFokusBangunan(
         Transform bangunan)
     {
         sedangSinematik = true;
 
+        // Simpan posisi kamera sebelum zoom.
         Vector3 posisiMulai = transform.position;
         Quaternion rotasiMulai = transform.rotation;
 
-        Vector3 arah = posisiMulai - bangunan.position;
-        arah.y = 0f;
-
-        if (arah.sqrMagnitude < 0.001f)
-            arah = Vector3.back;
-
-        arah.Normalize();
+        // Kamera berada di depan bangunan.
+        Vector3 arahDepan = bangunan.forward;
 
         Vector3 posisiZoom =
-            bangunan.position + arah * 2.5f + Vector3.up * 2f;
+            bangunan.position
+            + arahDepan * 2.5f
+            + Vector3.up * 1.2f;
 
         Quaternion rotasiZoom = Quaternion.LookRotation(
-            bangunan.position + Vector3.up * 0.4f - posisiZoom
+            bangunan.position + Vector3.up * 0.5f - posisiZoom,
+            Vector3.up
         );
 
         float waktu = 0f;
         float durasiZoom = 0.8f;
 
+        // Kamera mendekati bangunan.
         while (waktu < durasiZoom)
         {
             waktu += Time.deltaTime;
+
             float t = Mathf.SmoothStep(
-                0f, 1f, Mathf.Clamp01(waktu / durasiZoom)
+                0f, 1f,
+                Mathf.Clamp01(waktu / durasiZoom)
             );
 
             transform.position =
@@ -135,19 +138,22 @@ public class CameraFollow : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(1.8f);
+        // Kamera diam sebentar menampilkan bangunan.
+        yield return new WaitForSeconds(3);
 
         posisiMulai = transform.position;
         rotasiMulai = transform.rotation;
 
-        // Kembali ke posisi kamera sebelum zoom.
+        // Kembali ke tampilan papan.
         waktu = 0f;
 
         while (waktu < durasiZoom)
         {
             waktu += Time.deltaTime;
+
             float t = Mathf.SmoothStep(
-                0f, 1f, Mathf.Clamp01(waktu / durasiZoom)
+                0f, 1f,
+                Mathf.Clamp01(waktu / durasiZoom)
             );
 
             transform.position =
@@ -162,5 +168,4 @@ public class CameraFollow : MonoBehaviour
         sedangSinematik = false;
         prosesSinematik = null;
     }
-
 }

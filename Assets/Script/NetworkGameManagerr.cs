@@ -1404,10 +1404,11 @@ if (pion.posisiSekarang == 18)
                     }
 
                     // ============================
-                    // LEVEL 2: UPGRADE LANDMARK
+                    // UPGRADE RUMAH BESAR DAN LANDMARK
                     // ============================
                     else if (lahan.pemilik == pemain &&
-                             lahan.tahapProperti == 1)
+                        lahan.tahapProperti >= 1 &&
+                        lahan.tahapProperti < 3)
                     {
                         PlayerMoneyManager uang =
                             FindAnyObjectByType
@@ -2528,7 +2529,8 @@ CekKemenanganSatuSisiOnline();
 
         if (lahan == null ||
             lahan.pemilik != pemain ||
-            lahan.tahapProperti != 1)
+            lahan.tahapProperti < 1 ||
+            lahan.tahapProperti >= 3)
         {
             Debug.LogWarning(
                 "HOST: Lahan tidak memenuhi syarat upgrade."
@@ -2560,7 +2562,7 @@ CekKemenanganSatuSisiOnline();
         {
             SinkronkanLandmarkOnlineRpc(
                 waypoint,
-                2
+                lahan.tahapProperti
             );
 
             if (uang.saldoPemain != null &&
@@ -3087,18 +3089,26 @@ if (pemilik < 0 ||
 
         int biayaSewa = 0;
 
-        // Tahap 1: tiga bangunan.
+
+        // Tahap 1: Rumah mini
         if (lahan.tahapProperti == 1)
         {
             biayaSewa = Mathf.RoundToInt(
                 lahan.harga * 0.10f
             );
         }
-        // Tahap 2: landmark.
+        // Tahap 2: Rumah besar
         else if (lahan.tahapProperti == 2)
         {
             biayaSewa = Mathf.RoundToInt(
-                lahan.harga * 0.25f
+                lahan.harga * 0.20f
+            );
+        }
+        // Tahap 3: Landmark kastil
+        else if (lahan.tahapProperti == 3)
+        {
+            biayaSewa = Mathf.RoundToInt(
+                lahan.harga * 0.30f
             );
         }
 

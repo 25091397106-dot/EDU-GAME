@@ -1,4 +1,3 @@
-
 using System;
 using UnityEngine;
 
@@ -13,9 +12,10 @@ public class DataLahan
     // -1 = Belum ada pemilik
     public int pemilik = -1;
 
-    // 0 = Kosong
-    // 1 = Tiga Bangunan
-    // 2 = Landmark
+    // 0 = Belum dibeli
+    // 1 = Rumah mini 3D
+    // 2 = Rumah besar 3D
+    // 3 = Landmark kastil 3D
     public int tahapProperti = 0;
 }
 
@@ -164,61 +164,41 @@ public class PropertyDataManager : MonoBehaviour
     // UPGRADE LANDMARK - LEVEL 2
     // Panggil hanya setelah soal benar.
     // ====================================
+
     public bool UpgradeLandmark(
         DataLahan lahan,
         int idPemain,
         PlayerMoneyManager uang)
     {
-        if (lahan == null ||
-            uang == null ||
-            idPemain < 0)
-        {
+        if (lahan == null || uang == null || idPemain < 0)
             return false;
-        }
 
-        // Pemain harus pemilik lahan.
         if (lahan.pemilik != idPemain)
         {
-            Debug.LogWarning(
-                "Upgrade gagal: bukan pemilik lahan."
-            );
-
+            Debug.LogWarning("Upgrade gagal: bukan pemilik lahan.");
             return false;
         }
 
-        // Hanya lahan tahap 1 yang bisa upgrade.
-        if (lahan.tahapProperti != 1)
+        if (lahan.tahapProperti < 1 || lahan.tahapProperti >= 3)
         {
-            Debug.LogWarning(
-                "Upgrade gagal: tahap properti tidak sesuai."
-            );
-
+            Debug.LogWarning("Upgrade gagal: sudah tahap maksimum atau belum dibeli.");
             return false;
         }
 
         int biaya = HitungBiayaUpgrade(lahan);
 
-        // Pembayaran harus berhasil dulu.
-        if (!uang.KurangiSaldo(
-            idPemain,
-            biaya))
+        if (!uang.KurangiSaldo(idPemain, biaya))
         {
-            Debug.LogWarning(
-                "Saldo tidak cukup untuk upgrade " +
-                lahan.namaLahan
-            );
-
+            Debug.LogWarning("Saldo tidak cukup untuk upgrade " + lahan.namaLahan);
             return false;
         }
 
-        // Setelah pembayaran berhasil:
-        lahan.tahapProperti = 2;
+        lahan.tahapProperti++;
 
         Debug.Log(
-            "LANDMARK BERHASIL! " +
-            lahan.namaLahan +
-            " | Biaya Rp" +
-            biaya.ToString("N0")
+            "UPGRADE BERHASIL! " + lahan.namaLahan +
+            " | Tahap " + lahan.tahapProperti +
+            " | Biaya Rp" + biaya.ToString("N0")
         );
 
         return true;
@@ -264,7 +244,7 @@ public class PropertyDataManager : MonoBehaviour
         if (lahan.pemilik == -1)
             return;
 
-        if (tahapBaru < 1 || tahapBaru > 2)
+        if (tahapBaru < 1 || tahapBaru > 3)
             return;
 
         lahan.tahapProperti = tahapBaru;

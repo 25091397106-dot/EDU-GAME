@@ -925,7 +925,11 @@ if (!ModeMultiplayer && CekPemenangBot())
         if (biayaSewa <= 0)
             return;
 
-       if (!uang.KurangiSaldo(pembayar, biayaSewa))
+       if (!uang.KurangiSaldo(
+    pembayar,
+    biayaSewa,
+    "Membayar sewa " + lahan.namaLahan
+))
 {
     TandaiBangkrutBot(
         pembayar,
@@ -936,7 +940,11 @@ if (!ModeMultiplayer && CekPemenangBot())
     return;
 }
 
-        uang.TambahSaldo(pemilik, biayaSewa);
+        uang.TambahSaldo(
+    pemilik,
+    biayaSewa,
+    "Menerima sewa " + lahan.namaLahan
+);
 
         Debug.Log(
             "Player " + (pembayar + 1) +
@@ -968,9 +976,10 @@ if (!ModeMultiplayer && CekPemenangBot())
             return;
 
         bool berhasil = uang.KurangiSaldo(
-            giliranSekarang,
-            biayaPajak
-        );
+    giliranSekarang,
+    biayaPajak,
+    "Membayar pajak WP " + pion.posisiSekarang
+);
 
         if (berhasil)
             Debug.Log("Player " + (giliranSekarang + 1) +
@@ -1009,7 +1018,11 @@ if (!ModeMultiplayer && CekPemenangBot())
         const int denda = 100000;
 
         // Bayar denda hanya jika saldo mencukupi
-        bool berhasil = uang.KurangiSaldo(idPemain, denda);
+        bool berhasil = uang.KurangiSaldo(
+    idPemain,
+    denda,
+    "Membayar denda penjara"
+);
 
         if (!berhasil)
 {
@@ -1054,7 +1067,11 @@ if (!ModeMultiplayer && CekPemenangBot())
 
         int hadiah = 50000;
 
-        uang.TambahSaldo(giliranSekarang, hadiah);
+        uang.TambahSaldo(
+    giliranSekarang,
+    hadiah,
+    "Menerima reward WP " + pion.posisiSekarang
+);
 
         Debug.Log(
             "Player " + (giliranSekarang + 1) +

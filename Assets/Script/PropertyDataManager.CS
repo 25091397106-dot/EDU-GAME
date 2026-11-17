@@ -124,8 +124,9 @@ public class PropertyDataManager : MonoBehaviour
         }
 
         if (!uang.KurangiSaldo(
-            idPemain,
-            lahan.harga))
+    idPemain,
+    lahan.harga,
+    "Membeli lahan " + lahan.namaLahan))
         {
             Debug.Log(
                 "Saldo tidak cukup membeli " +
@@ -187,7 +188,11 @@ public class PropertyDataManager : MonoBehaviour
 
         int biaya = HitungBiayaUpgrade(lahan);
 
-        if (!uang.KurangiSaldo(idPemain, biaya))
+        if (!uang.KurangiSaldo(
+    idPemain,
+    biaya,
+    "Upgrade " + lahan.namaLahan +
+    " ke tahap " + (lahan.tahapProperti + 1)))
         {
             Debug.LogWarning("Saldo tidak cukup untuk upgrade " + lahan.namaLahan);
             return false;

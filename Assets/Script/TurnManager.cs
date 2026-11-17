@@ -17,8 +17,8 @@ public class TurnManager : MonoBehaviour
     [Header("Kartu Soal Otomatis")]
     public CardDisplayManager cardDisplayManager;
     [Header("Kartu EDUCARD")]
-public KartuEdupolyManager kartuEdupolyManager;
-public KartuEdupolyEffectManager kartuEffectManager;
+    public KartuEdupolyManager kartuEdupolyManager;
+    public KartuEdupolyEffectManager kartuEffectManager;
 
     [Header("EDUCARD - Single Player vs Bot")]
     public KartuEdupolyEffectManager efekKartuEdupoly;
@@ -40,9 +40,9 @@ public KartuEdupolyEffectManager kartuEffectManager;
     private bool permainanSelesaiBot = false;
     private readonly bool[] pemainBangkrutBot = new bool[4];
 
-[Header("Hasil Akhir Lawan Bot")]
-public TMP_Text teksHasilBot;
-public GameObject tombolKembaliMenuBot;
+    [Header("Hasil Akhir Lawan Bot")]
+    public TMP_Text teksHasilBot;
+    public GameObject tombolKembaliMenuBot;
     public bool ModeMultiplayer =>
         MainMenuManager.modeMultiplayer;
 
@@ -286,13 +286,32 @@ public GameObject tombolKembaliMenuBot;
         {
             jumlahKembarBerturut = 0;
         }
-
-        // Tiga kali kembar: langsung penjara
+        // Tiga kali dadu kembar
         if (jumlahKembarBerturut >= 3)
         {
-            Debug.Log(
-                "KEMBAR 3 KALI! MASUK PENJARA!"
-            );
+            jumlahKembarBerturut = 0;
+            AnimasiPeringatanPenjara animasi =
+                FindAnyObjectByType<AnimasiPeringatanPenjara>();
+
+            if (animasi != null && pion.putaranSelesai >= 1)
+            {
+                yield return StartCoroutine(
+                    animasi.TampilkanPeringatan()
+                );
+            }
+
+            if (pion.putaranSelesai < 1)
+            {
+                Debug.Log(
+                    "KEMBAR 3 KALI! PUTARAN PERTAMA, " +
+                    "TIDAK MASUK PENJARA."
+                );
+
+                GiliranBerikutnya();
+                yield break;
+            }
+
+            Debug.Log("KEMBAR 3 KALI! MASUK PENJARA!");
 
             pion.MasukPenjara();
 
@@ -302,8 +321,8 @@ public GameObject tombolKembaliMenuBot;
             yield break;
         }
 
-       // Gerakkan pion
-Debug.Log(
+        // Gerakkan pion
+        Debug.Log(
     "Player " +
     (giliranSekarang + 1) +
     " maju " + total + " petak."

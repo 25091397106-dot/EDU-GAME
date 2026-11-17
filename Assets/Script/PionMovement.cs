@@ -250,7 +250,7 @@ IEnumerator AnimasiBergerak(int jumlahLangkah)
             AmbilOffsetDinamis();
     }
 
-    // Masuk penjara setelah tiga kali dadu kembar
+// Masuk penjara setelah tiga kali dadu kembar
 public void MasukPenjara()
 {
     if (sedangBergerak)

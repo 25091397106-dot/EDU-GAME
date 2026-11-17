@@ -1168,7 +1168,11 @@ private System.Action<bool> callbackSoalOnline;
         else
             jumlahKembarOnline = 0;
 
-        bool masukPenjara = jumlahKembarOnline >= 3;
+        bool kembarKetiga = jumlahKembarOnline >= 3;
+
+        bool masukPenjara =
+            kembarKetiga &&
+            turnManager.daftarPion[pemain].putaranSelesai >= 1;
 
         Debug.Log(
             "PLAYER " + (pemain + 1) +
@@ -1185,14 +1189,32 @@ private System.Action<bool> callbackSoalOnline;
             pemain,
             angka1,
             angka2,
-            masukPenjara
+            masukPenjara,
+            kembarKetiga
         );
 
         // Tunggu animasi pengocokan selesai
         yield return new WaitForSeconds(
             dadu.diceMix.durasi + 0.2f
         );
+        // Host menunggu popup penjara selesai
+        if (masukPenjara)
+        {
+            yield return new WaitForSeconds(2.6f);
+        }
+        // Kembar ketiga pada putaran pertama:
+        // tidak masuk penjara dan langsung ganti pemain.
+        if (kembarKetiga && !masukPenjara)
+        {
+            Debug.Log(
+                "MULTIPLAYER: Kembar 3 kali pada putaran pertama. " +
+                "Langsung ganti pemain."
+            );
 
+            jumlahKembarOnline = 0;
+            GiliranOnlineBerikutnya();
+            yield break;
+        }
         if (!masukPenjara)
         {
             PionMovement pion = turnManager.daftarPion[pemain];
@@ -1221,10 +1243,10 @@ private System.Action<bool> callbackSoalOnline;
                 yield break;
             }
 
-           // Bila posisi berubah seketika, tetap tunggu setidaknya
+// Bila posisi berubah seketika, tetap tunggu setidaknya
 // satu frame sebelum menilai status gerak.
-yield return null;
-yield return new WaitUntil(() => !pion.SedangBergerak);
+        yield return null;
+        yield return new WaitUntil(() => !pion.SedangBergerak);
 
 if (pion.posisiSekarang == 9 && pion.sedangDipenjara)
 {
@@ -2686,7 +2708,8 @@ CekKemenanganSatuSisiOnline();
         int pemain,
         int angka1,
         int angka2,
-        bool masukPenjara
+        bool masukPenjara,
+        bool kembarKetiga
     )
     {
         StartCoroutine(
@@ -2694,7 +2717,8 @@ CekKemenanganSatuSisiOnline();
                 pemain,
                 angka1,
                 angka2,
-                masukPenjara
+                masukPenjara,
+                kembarKetiga
             )
         );
     }
@@ -2703,7 +2727,8 @@ CekKemenanganSatuSisiOnline();
         int pemain,
         int angka1,
         int angka2,
-        bool masukPenjara
+        bool masukPenjara,
+        bool kembarKetiga
     )
     {
         DiceTotal dadu =
@@ -2741,23 +2766,31 @@ CekKemenanganSatuSisiOnline();
         PionMovement pion =
             turnManager.daftarPion[pemain];
 
-        if (masukPenjara)
+
+        if (kembarKetiga && !masukPenjara)
         {
+            Debug.Log("Kembar ketiga putaran pertama, pion tidak bergerak.");
+        }
+        else if (masukPenjara)
+        {
+            AnimasiPeringatanPenjara animasi =
+                FindAnyObjectByType<AnimasiPeringatanPenjara>();
+
+            if (animasi != null)
+            {
+                yield return StartCoroutine(
+                    animasi.TampilkanPeringatan()
+                );
+            }
+
             pion.MasukPenjara();
         }
         else
         {
             pion.Bergerak(angka1 + angka2);
         }
+    }
 
-        Debug.Log(
-            "NETWORK PLAYER " + (pemain + 1) +
-            ": " + angka1 + " + " + angka2 +
-            " = " + (angka1 + angka2)
-        );
-
-    } 
-    
     // Menghitung harga pengambilalihan properti lawan.
     private int HitungHargaAmbilAlihOnline(DataLahan lahan)
     {

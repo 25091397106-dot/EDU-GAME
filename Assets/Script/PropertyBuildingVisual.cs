@@ -10,6 +10,8 @@ using UnityEngine;
 /// </summary>
 public class PropertyBuildingVisual : MonoBehaviour
 {
+    [Header("Material Rumah")]
+    public Material materialRumah;
     [Header("Referensi")]
     public PropertyDataManager dataManager;
     public Transform wadahWaypoints;
@@ -401,18 +403,26 @@ private Vector3 HitungArahKeTengah(Transform petak)
             new Vector3(0.025f * s, 0.22f * s, 0.025f * s), kayu);
     }
 
-    private void AturWarnaDanCollider(GameObject objek, Color warna)
-    {
-        Renderer rendererObjek = objek.GetComponent<Renderer>();
-        if (rendererObjek != null)
-            rendererObjek.material.color = warna;
 
-        Collider colliderObjek = objek.GetComponent<Collider>();
-        if (colliderObjek != null)
-            Destroy(colliderObjek);
+private void AturWarnaDanCollider(GameObject objek, Color warna)
+{
+    Renderer rendererObjek = objek.GetComponent<Renderer>();
+
+    if (rendererObjek != null && materialRumah != null)
+    {
+        Material materialBaru = new Material(materialRumah);
+        materialBaru.SetColor("_BaseColor", warna);
+        rendererObjek.sharedMaterial = materialBaru;
     }
 
-    private Color WarnaPemilik(int pemilik)
+    Collider colliderObjek = objek.GetComponent<Collider>();
+
+    if (colliderObjek != null)
+        Destroy(colliderObjek);
+}
+
+
+private Color WarnaPemilik(int pemilik)
     {
         switch (pemilik)
         {

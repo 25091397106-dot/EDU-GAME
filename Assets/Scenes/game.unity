@@ -15479,6 +15479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e869a02d7191701409178c52eae6340e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PropertyBuildingVisual
+  materialRumah: {fileID: 2100000, guid: 40c1b7a80c97611409bea774a3572118, type: 2}
   dataManager: {fileID: 520999606}
   wadahWaypoints: {fileID: 2139472799}
   ukuranBangunan: 0.65
